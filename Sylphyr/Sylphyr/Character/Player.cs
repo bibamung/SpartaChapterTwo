@@ -1,6 +1,6 @@
 using System.Text;
 
-namespace Sylphyr.KJE;
+namespace Sylphyr.Character;
 
 public class Player
 {

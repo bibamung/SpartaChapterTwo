@@ -28,7 +28,7 @@ namespace Sylphyr.Dungeon
             };
 
         }
-        public List<Monster> GetRandomMonsters()
+        public List<Monster> GetRandomMonsters(int stage)
         {
             int monsterCount = random.Next(1, 5); // 1~4개 등장
             List<Monster> selectedMonsters = new List<Monster>();

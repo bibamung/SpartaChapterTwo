@@ -9,6 +9,7 @@ namespace Sylphyr.Dungeon
 {
     public class DungeonScene
     {
+        DungeonManager dungeonManager = new DungeonManager();
         public int StageSelect()
         {
             int stage;
@@ -18,7 +19,7 @@ namespace Sylphyr.Dungeon
                 switch (stage)
                 {
                     case 1:
-
+                        dungeonManager.DungeonStart(stage);
                         break;
                     case 2:
                         break;

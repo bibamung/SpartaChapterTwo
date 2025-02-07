@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Sylphyr.KJE;
 
 
 namespace Sylphyr.Dungeon
@@ -19,7 +20,7 @@ namespace Sylphyr.Dungeon
         public void DungeonStart(int stage)
         { 
            
-            stageMonsters = monsterList.GetRandomMonsters();
+            stageMonsters = monsterList.GetRandomMonsters(stage);
             while (stageMonsters.Count > 0)
             {
                 Console.WriteLine($"{stage}Stage Battle!!");
@@ -31,7 +32,7 @@ namespace Sylphyr.Dungeon
                 {
                     if (selectMonster > 0 && selectMonster <= stageMonsters.Count)
                     {
-                        if (rand.Next(0, 100) < player.critical) 
+                        if (rand.Next(0, 100) < 10) 
                         {
                             stageMonsters[selectMonster].Hp-=1;
                         }

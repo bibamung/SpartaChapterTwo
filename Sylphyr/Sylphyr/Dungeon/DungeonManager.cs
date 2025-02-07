@@ -91,7 +91,6 @@ namespace Sylphyr.Dungeon
                 };
         }
 
-
         public List<Monster> GetMonstersForStage(int stage)
         {
             List<Monster> selectedMonsters = new List<Monster>();

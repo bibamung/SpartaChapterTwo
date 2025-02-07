@@ -178,9 +178,25 @@ namespace Sylphyr.Dungeon
             Console.ReadLine();
         }
 
-        public void DisplayEvasion(Monster monster, Player player)
+        public void DisplayEvasion(Monster monster)
         {
+            Random rand = new Random(DateTime.Now.Millisecond);
+            int text = rand.Next(0, 4);
+            switch (text)
+            {
+                case 1:
+                    Console.WriteLine($"{monster.MonsterName}의 공격이 빗나갔다.");
+                    break;
+                case 2:
+                    Console.WriteLine($"{monster.MonsterName}가 멍 때리고 있어 공격을 하지 않았다.");
+                    break;
+                case 3:
+                    Console.WriteLine($"{monster.MonsterName}가 자고 있다.");
+                    break;
+            }
 
+            Console.WriteLine("계속 진행하시려면 Enter키를 눌러주세요...");
+            Console.ReadLine();
         }
 
         // 체력 상태에 따라 색상 변경 (콘솔용)

@@ -225,6 +225,10 @@ namespace Sylphyr.Dungeon
                 Console.WriteLine($"{stage}Stage Battle!!");
                 scene.DisplayHealthBar(currentStageMonsters);
 
+                Console.WriteLine("\n1. 공격\n");
+
+                Console.Write("원하시는 행동을 선택해주세요.\n>> ");
+
                 int selectMonster;
                 bool isVaildNum = int.TryParse(Console.ReadLine(), out selectMonster);
                 bool isCritical = false;
@@ -318,6 +322,10 @@ namespace Sylphyr.Dungeon
                                 }
                             
                             }
+                            else
+                            {
+                                scene.DisplayEvasion(monster);
+                            }
 
                         }
 
@@ -330,4 +338,5 @@ namespace Sylphyr.Dungeon
         }
 
     }
+
 }

@@ -1,4 +1,6 @@
-﻿namespace Sylphyr
+﻿using System.Data;
+
+namespace Sylphyr
 {
     internal class Program
     {

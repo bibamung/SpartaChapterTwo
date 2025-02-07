@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Sylphyr
 {
-    class Player
+    public class Player
     {
         string name;
         string playerClass;
@@ -15,8 +15,9 @@ namespace Sylphyr
         int mp;
         float dex;
         float atk;
-
         float luk;
+        float def;
+        
         float critical;
         float critcalDamage;
     }

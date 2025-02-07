@@ -4,14 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Sylphyr.Dungeon
 {
     class DungeonManager : SingleTon<DungeonManager>
     {
+        Random rand = new Random();
         MonsterList monsterList=new MonsterList();
         List<Monster> stageMonsters = new List<Monster>();
         DungeonScene scene = new DungeonScene();
-        
+        public Player player { get; } = new Player();
+
+
         public void DungeonStart(int stage)
         { 
            
@@ -27,7 +31,10 @@ namespace Sylphyr.Dungeon
                 {
                     if (selectMonster > 0 && selectMonster <= stageMonsters.Count)
                     {
-
+                        if (rand.Next(0, 100) < player.critical) 
+                        {
+                            stageMonsters[selectMonster].Hp-=1;
+                        }
                     }
                     else
                     {
@@ -35,7 +42,8 @@ namespace Sylphyr.Dungeon
                     }
                 }
             }
-            
         }
+
+
     }
 }

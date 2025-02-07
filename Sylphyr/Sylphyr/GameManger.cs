@@ -11,6 +11,5 @@ namespace Sylphyr
     {
         public Player player { get; } = new Player("어둠의다크 한빈정령", CharacterClass.Thief);
 
-        
     }
 }

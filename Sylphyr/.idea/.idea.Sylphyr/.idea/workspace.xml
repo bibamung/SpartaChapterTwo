@@ -8,9 +8,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="31bad01f-6a79-4b3a-a781-2641141f45d1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Sylphyr/KJE/CharacterLevelData.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sylphyr/Utils/CsvToJson.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Sylphyr/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Sylphyr/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sylphyr/KJE/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/KJE/Player.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sylphyr/GameManger.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/GameManger.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sylphyr/Sylphyr.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/Sylphyr.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +36,7 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature/kje/Player&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,

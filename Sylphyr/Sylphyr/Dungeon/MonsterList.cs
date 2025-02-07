@@ -4,27 +4,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Sylphyr.Dungeon
 {
     public class MonsterList
     {
-        Random random = new Random();
+        Random random = new Random(DateTime.Now.Millisecond); //DateTime.Now.Millisecond
         public List<Monster> MonsterLists { get; set; }
 
         public MonsterList()
         {
+            //Monster(int monsterId, string monsterName, float MaxHp, float hp, float atk, float def, float luk, float critical, float dex, float criticalChance, float critcalDamage, int speed, int dropGold, float dropExp)
             //슬라임, 고블린, 홉고블린 오우거 오크 리자드 드래곤 스켈레톤 좀비
             MonsterLists = new List<Monster>()
             {
-                new Monster(1000,"슬라임",100,100,5,5,1,3,1.5f,1,50,50),
-                new Monster(1001,"고블린",150,150,15,10,5,5,1.5f,3,100,150),
-                new Monster(1002,"홉고블린",250,250,20,20,7,10,1.5f,10,200,300),
-                new Monster(1003,"오우거",1,1,1,1,1,1,1,1,1,1),
-                new Monster(1004,"오크",1,1,1,1,1,1,1,1,1,1),
-                new Monster(1005,"리자드",1,1,1,1,1,1,1,1,1,1),
-                new Monster(1006,"스켈레톤",1,1,1,1,1,1,1,1,1,1),
-                new Monster(1007,"좀비",1,1,1,1,1,1,1,1,1,1),
-                new Monster(1007,"좀비",1,1,1,1,1,1,1,1,1,1)
+                new Monster(1000,"슬라임",100,100,5,5,5,0.1f,5,5,5,5,5,5),
+                new Monster(1001,"고블린",100,100,5,5,5,0.1f,5,5,5,5,5,5),
+                new Monster(1002,"홉고블린",100,100,5,5,5,0.1f,5,5,5,5,5,5),
+                new Monster(1003,"오우거",100,100,5,5,5,0.1f,5,5,5,5,5,5),
+                new Monster(1004,"오크",100,100,5,5,5,0.1f,5,5,5,5,5,5),
+                new Monster(1005,"리자드",100,100,5,5,5,0.1f,5,5,5,5,5,5),
+                new Monster(1006,"스켈레톤",100,100,5,5,5,0.1f,5,5,5,5,5,5),
+                new Monster(1007,"좀비",100,100,5,5,5,0.1f,5,5,5,5,5,5),
+                new Monster(1008,"드래곤",100,100,5,5,5,0.1f,5,5,5,5,5,5)
             };
 
         }

@@ -20,6 +20,7 @@ namespace Sylphyr
 
         private static Dictionary<int, Item> ItemsDictionary = new Dictionary<int, Item>();
 
+        
 
         public Item(int id, string name, int stat, int stat2, string slot, int price, string desc, bool isequip)
         {

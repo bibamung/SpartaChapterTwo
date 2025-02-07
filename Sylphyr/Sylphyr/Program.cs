@@ -6,7 +6,7 @@ namespace Sylphyr
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            GameManger.Instance.player;
         }
     }
 }

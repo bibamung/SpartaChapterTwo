@@ -244,23 +244,23 @@ namespace Sylphyr.Dungeon
                                         Console.Clear();
                                         if (rand.NextSingle() < player.TotalStat.CriticalChance)        //크리티컬이 터졌을 경우
                                         {
+                                            isCritical = true;
                                             float finalDamage = 
-                                                (player.TotalStat.Atk) * 1.5f -
+                                                (player.TotalStat.Atk) * player.TotalStat.CriticalDamage -
                                                 (currentStageMonsters[selectMonster].Def /
                                                 (currentStageMonsters[selectMonster].Def + 50.0f)) * 100.0f;
 
-                                            isCritical = true;
                                             //todo : 공격 성공시 출력 내용 함수 호출
                                             scene.DisplayHit(player, monster, isCritical, finalDamage);
                                         }
                                         else
                                         {
+                                            isCritical = false;
                                             float finalDamage =
                                                 player.TotalStat.Atk -
                                                 (currentStageMonsters[selectMonster].Def /
                                                 (currentStageMonsters[selectMonster].Def + 50.0f)) * 100.0f;
 
-                                            isCritical = false;
                                             //todo : 크리티컬 공격시 출력 내용 함수 호출
                                             scene.DisplayHit(player, monster, isCritical, finalDamage);
                                         }
@@ -291,34 +291,43 @@ namespace Sylphyr.Dungeon
                                 Console.Clear();
                                 if (rand.NextSingle() < player.TotalStat.CriticalChance)        //크리티컬이 터졌을 경우
                                 {
+                                    isCritical = true;
                                     //TakeDamage(최종데미지)
-
+                                    float finalDamage =
+                                        monster.Atk * monster.CritcalDamage - 
+                                        (player.TotalStat.Def /
+                                        (player.TotalStat.Def + 50.0f)) * 100.0f;
+                                    player.TakeDamage(finalDamage);
                                     //todo : 플레이어 피격시 출력 내용 함수 호출
+                                    scene.DisplayHit(monster, player, isCritical, finalDamage);
+
                                 }
                                 else
                                 {
+                                    isCritical = false;
                                     //TakeDamage(최종데미지)
-
+                                    float finalDamage =
+                                        monster.Atk -
+                                        (player.TotalStat.Def /
+                                        (player.TotalStat.Def + 50.0f)) * 100.0f;
+                                    player.TakeDamage(finalDamage);
                                     //todo : 플레이어 크리티컬 피격시 출력 내용 함수 호출
+                                    scene.DisplayHit(monster, player, isCritical, finalDamage);
+
+
                                 }
+                            
                             }
 
                         }
 
-
-
                     }
-
 
                 }
 
-
             }
 
-
         }
-
-
 
     }
 }

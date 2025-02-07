@@ -105,6 +105,7 @@ namespace Sylphyr.Dungeon
         }
 
         //플레이어가 맞았을 때
+        //DisplayHit(때린사람, 맞은 대상, 크리티컬 여부, 최종데미지)
         public void DisplayHit(Monster monster, Player player, bool isCritical, float finalDamage)
         {
             if (isCritical) //크리티컬이 터졌습니다.

@@ -8,10 +8,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="31bad01f-6a79-4b3a-a781-2641141f45d1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Sylphyr/GameManger.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/GameManger.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sylphyr/KJE/CharacterStatDatas.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sylphyr/KJE/Player.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Sylphyr/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Sylphyr/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Sylphyr/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/Player.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sylphyr/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sylphyr/SingleTon.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/SingleTon.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,23 +25,26 @@
   &quot;associatedIndex&quot;: 7
 }</component>
   <component name="ProjectId" id="2sfDJbdMSuO7LZvKhzM3Zj1T4pI" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "dev",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/kje/Player&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="Sylphyr" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="" />
@@ -71,7 +74,7 @@
       <option name="presentableId" value="Default" />
       <updated>1738837668599</updated>
       <workItem from="1738837670412" duration="3273000" />
-      <workItem from="1738891124267" duration="119000" />
+      <workItem from="1738891124267" duration="4740000" />
     </task>
     <servers />
   </component>

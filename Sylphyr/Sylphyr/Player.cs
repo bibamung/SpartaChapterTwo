@@ -21,4 +21,6 @@ namespace Sylphyr
         float critical;
         float critcalDamage;
     }
+    
+    // 크리티컬을 어떻게 줄 것이냐?
 }

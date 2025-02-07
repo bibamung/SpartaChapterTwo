@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +9,6 @@ namespace Sylphyr
 {
     public class GameManger : SingleTon<GameManger>
     {
-        public Player player { get; } = new Player("성원",CharacterClass.Thief);
+        public Player player { get; } = new Player("어둠의다크 한빈정령", CharacterClass.Thief);
     }
 }

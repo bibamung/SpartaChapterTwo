@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace Sylphyr
 {
-    class GameManger : SingleTon<GameManger>
+    public class GameManger : SingleTon<GameManger>
     {
-        Player player = new Player();
-
-
+        public Player player { get; } = new Player();
     }
 }

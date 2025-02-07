@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Sylphyr
 {
-    class SingleTon <T> where T : class, new()
+    public class SingleTon <T> where T : class, new()
     {
         private static T instance;
         public static T Instance

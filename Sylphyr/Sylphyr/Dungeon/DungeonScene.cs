@@ -1,4 +1,4 @@
-﻿using Sylphyr.KJE;
+﻿using Sylphyr.Character;
 using System;
 using System.Collections.Generic;
 using System.Linq;

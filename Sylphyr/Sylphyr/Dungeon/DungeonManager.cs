@@ -197,135 +197,169 @@ namespace Sylphyr.Dungeon
         public void DungeonStart(int stage)
         {
 
-            currentStageMonsters = GetMonstersForStage(stage);
+            currentStageMonsters = GetMonstersForStage(stage);      //현재 스테이지에 랜덤한 몬스터 저장
 
-            List<string> OrderByAttackChar = new List<string>();
+            List<string> OrderByAttackChar = OrderByCharacterSpeed(currentStageMonsters, player);       //몬스터 + 플레이어의 Speed를 내림차순으로 나열
 
-            currentStageMonsters.Sort((m1, m2) => m1.Speed.CompareTo(m2));
+            while (stageMonsters.Count > 0)     //스테이지 몬스터가 없으면 끝
+            {
+                Console.Clear();
+                Console.WriteLine($"{stage}Stage Battle!!");
+                scene.DisplayPlayerHpBar(player);
+
+                Console.WriteLine($"\n====몬스터=====\n");
+                scene.DisplayHealthBar(currentStageMonsters);           //현재 스테이지 몬스터 정보 출력
+                Console.WriteLine("\n1. 공격\n");
+
+                Console.Write("원하시는 행동을 선택해주세요.\n>> ");
+
+                int selectMonster, behavior;
+                bool isVaildNum = int.TryParse(Console.ReadLine(), out behavior);
+
+
+                if (isVaildNum)          //만약 올바른 입력을 받았을 경우
+                {
+                    if (behavior == 1)
+                    {
+                        isVaildNum = int.TryParse(Console.ReadLine(), out selectMonster);
+                        if (isVaildNum)
+                        {
+                            if (selectMonster > 0 && selectMonster <= stageMonsters.Count)      //선택한 몬스터의 번호가 0보다 크고 스테이지 내 몬스터의 수보다 작을경우 실행
+                            {
+                                //전투실행
+                                BasicAttackBattle(stage, currentStageMonsters, player, selectMonster, OrderByAttackChar);
+                            }
+                            else
+                            {
+                                Console.WriteLine("올바른 번호를 선택해주세요.");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("잘못입력하셨습니다.");
+                        }
+                    }
+                    /*else if (behavior == 2) 
+                    {
+                        // 스킬 사용
+                    }*/
+                }
+                else
+                {
+                    Console.WriteLine("잘못입력하셨습니다.");
+                }
+
+            }
+
+        }
+
+
+        public List<string> OrderByCharacterSpeed(List<Monster> currentStageMonsters, Player player)
+        {
+            List<string> result = new List<string>();
+
+            currentStageMonsters.Sort(new Comparison<Monster>((n1, n2) => n2.Speed.CompareTo(n1)));
 
             foreach (var monsterSpeed in currentStageMonsters)
             {
 
                 if (player.TotalStat.Speed < monsterSpeed.Speed)
                 {
-                    OrderByAttackChar.Add(monsterSpeed.MonsterName);
+                    result.Add(monsterSpeed.MonsterName);
                 }
                 else
                 {
-                    OrderByAttackChar.Add(player.Name);
-                    OrderByAttackChar.Add(monsterSpeed.MonsterName);
+                    result.Add(player.Name);
+                    result.Add(monsterSpeed.MonsterName);
                 }
 
             }
 
-            while (stageMonsters.Count > 0)
+            return result;
+        }
+
+        public float Damage(float Atk, float Def, float criticalDamage, bool isCritical)
+        {
+            float finalDamage = 0.0f;
+            if (isCritical)
             {
-                Console.Clear();
-                Console.WriteLine($"{stage}Stage Battle!!");
-                scene.DisplayHealthBar(currentStageMonsters);
+                finalDamage = Atk * criticalDamage - (Def / (Def + 50.0f)) * 100.0f;
+            }
+            else
+            {
+                finalDamage = Atk * criticalDamage - (Def / (Def + 50.0f)) * 100.0f;
+            }
+            return finalDamage;
+        }
 
-                Console.WriteLine("\n1. 공격\n");
+        public void BasicAttackBattle(int stage, List<Monster> currentStageMonsters, Player player, int selectMonster, List<string> OrderByAttackChar)
+        {
+            bool isCritical = false;
 
-                Console.Write("원하시는 행동을 선택해주세요.\n>> ");
-
-                int selectMonster;
-                bool isVaildNum = int.TryParse(Console.ReadLine(), out selectMonster);
-                bool isCritical = false;
-                foreach (var monster in stageMonsters[stage])
+            foreach (var monster in stageMonsters[stage])       //스테이지에 등장하는 몬스터의 배열을 한바퀴 돌림
+            {
+                foreach (var character in OrderByAttackChar)        //스테이지에 등장한 몬스터 + 플레이어의 Speed를 토대로 순차적으로 공격하도록 만들어진 배열을 한바퀴 돌림
                 {
-                    foreach (var character in OrderByAttackChar)
+                    if (character == player.Name)                       //이번에 공격할 캐릭터가 플레이어일 경우
                     {
-                        if (character == player.Name)
+                        float evasionRate = 100.0f * (currentStageMonsters[selectMonster].Dex / currentStageMonsters[selectMonster].Dex + 50);      //회피율 계산
+                        if (rand.NextSingle() > evasionRate)    //회피하지 못했을 경우
                         {
-                            if (isVaildNum)
+                            Console.Clear();
+                            if (rand.NextSingle() < player.TotalStat.CriticalChance)        //크리티컬이 터졌을 경우
                             {
-                                if (selectMonster > 0 && selectMonster <= stageMonsters.Count)
-                                {
-                                    float evasionRate = 100.0f * (currentStageMonsters[selectMonster].Dex / currentStageMonsters[selectMonster].Dex + 50);
-                                    if (rand.NextSingle() > evasionRate)    //회피하지 못했을 경우
-                                    {
-                                        Console.Clear();
-                                        if (rand.NextSingle() < player.TotalStat.CriticalChance)        //크리티컬이 터졌을 경우
-                                        {
-                                            isCritical = true;
-                                            float finalDamage = 
-                                                (player.TotalStat.Atk) * player.TotalStat.CriticalDamage -
-                                                (currentStageMonsters[selectMonster].Def /
-                                                (currentStageMonsters[selectMonster].Def + 50.0f)) * 100.0f;
+                                isCritical = true;
+                                float finalDamage = Damage(player.TotalStat.Atk, currentStageMonsters[selectMonster].Def, 
+                                    player.TotalStat.CriticalDamage, isCritical);
 
-                                            //todo : 공격 성공시 출력 내용 함수 호출
-                                            scene.DisplayHit(player, monster, isCritical, finalDamage);
-                                        }
-                                        else
-                                        {
-                                            isCritical = false;
-                                            float finalDamage =
-                                                player.TotalStat.Atk -
-                                                (currentStageMonsters[selectMonster].Def /
-                                                (currentStageMonsters[selectMonster].Def + 50.0f)) * 100.0f;
-
-                                            //todo : 크리티컬 공격시 출력 내용 함수 호출
-                                            scene.DisplayHit(player, monster, isCritical, finalDamage);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        scene.DisplayEvasion(player);
-                                    }
-
-                                }
-                                else
-                                {
-                                    Console.WriteLine("잘못 입력하셨습니다.");
-                                }
+                                //todo : 공격 성공시 출력 내용 함수 호출
+                                scene.DisplayHit(player, monster, isCritical, finalDamage);
                             }
                             else
                             {
-                                Console.WriteLine("숫자를 입력하세요.");
+                                isCritical = false;
+                                float finalDamage = Damage(player.TotalStat.Atk, currentStageMonsters[selectMonster].Def,
+                                    player.TotalStat.CriticalDamage, isCritical);
+
+                                //todo : 크리티컬 공격시 출력 내용 함수 호출
+                                scene.DisplayHit(player, monster, isCritical, finalDamage);
+                            }
+                        }
+                        else
+                        {
+                            scene.DisplayEvasion(player);
+                        }
+
+
+                    }
+
+                    else
+                    {
+                        //todo : 플레이어 피격
+                        float evasionRate = 100.0f * (player.TotalStat.Dex / player.TotalStat.Dex + 50.0f);
+                        if (rand.NextSingle() > evasionRate)    //회피하지 못했을 경우
+                        {
+                            Console.Clear();
+                            if (rand.NextSingle() < player.TotalStat.CriticalChance)        //크리티컬이 터졌을 경우
+                            {
+                                isCritical = true;
+                                float finalDamage = Damage(monster.Atk, player.TotalStat.Def, monster.CriticalDamage,isCritical);
+                                player.TakeDamage(finalDamage);
+                                scene.DisplayHit(monster, player, isCritical, finalDamage);
+
+                            }
+                            else
+                            {
+                                isCritical = false;
+                                float finalDamage = Damage(monster.Atk, player.TotalStat.Def, monster.CriticalDamage, isCritical);
+                                player.TakeDamage(finalDamage);
+                                scene.DisplayHit(monster, player, isCritical, finalDamage);
                             }
 
                         }
                         else
                         {
-                            //todo : 플레이어 피격
-                            float evasionRate = 100.0f * (player.TotalStat.Dex / player.TotalStat.Dex + 50.0f);
-                            if (rand.NextSingle() > evasionRate)    //회피하지 못했을 경우
-                            {
-                                Console.Clear();
-                                if (rand.NextSingle() < player.TotalStat.CriticalChance)        //크리티컬이 터졌을 경우
-                                {
-                                    isCritical = true;
-                                    //TakeDamage(최종데미지)
-                                    float finalDamage =
-                                        monster.Atk * monster.CritcalDamage - 
-                                        (player.TotalStat.Def /
-                                        (player.TotalStat.Def + 50.0f)) * 100.0f;
-                                    player.TakeDamage(finalDamage);
-                                    //todo : 플레이어 피격시 출력 내용 함수 호출
-                                    scene.DisplayHit(monster, player, isCritical, finalDamage);
-
-                                }
-                                else
-                                {
-                                    isCritical = false;
-                                    //TakeDamage(최종데미지)
-                                    float finalDamage =
-                                        monster.Atk -
-                                        (player.TotalStat.Def /
-                                        (player.TotalStat.Def + 50.0f)) * 100.0f;
-                                    player.TakeDamage(finalDamage);
-                                    //todo : 플레이어 크리티컬 피격시 출력 내용 함수 호출
-                                    scene.DisplayHit(monster, player, isCritical, finalDamage);
-
-
-                                }
-                            
-                            }
-                            else
-                            {
-                                scene.DisplayEvasion(monster);
-                            }
-
+                            scene.DisplayEvasion(monster);
                         }
 
                     }
@@ -333,8 +367,22 @@ namespace Sylphyr.Dungeon
                 }
 
             }
-
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     }
 

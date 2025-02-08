@@ -19,7 +19,7 @@ namespace Sylphyr
         public float Dex { get; set; }
         
         public float CriticalChance { get; set; }
-        public float CritcalDamage { get; set; }
+        public float CriticalDamage { get; set; }
         public int Speed { get; set; }
 
         int DropGold { get; set; }
@@ -27,7 +27,7 @@ namespace Sylphyr
         
         public Monster(int monsterId, string monsterName, float MaxHp, float curHp, 
             float atk, float def, float luk, float critical, float dex, float criticalChance,
-            float critcalDamage, int speed, int dropGold, float dropExp)
+            float criticalDamage, int speed, int dropGold, float dropExp)
         {
             MonsterId = monsterId;
             MonsterName = monsterName;
@@ -36,7 +36,7 @@ namespace Sylphyr
             Def = def;
             Luk = luk;
             CriticalChance = criticalChance;
-            CritcalDamage = critcalDamage;
+            CriticalDamage = criticalDamage;
             Dex = dex;
             Speed = speed;
             DropGold = dropGold;

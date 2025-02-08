@@ -33,8 +33,6 @@ namespace Sylphyr.Dungeon
 
         public void DisplayPlayerHpBar(Player player)
         {
-
-            int count = 1;
             int barSize = 20; // 체력바 길이 (20칸)
             float healthPercentage = player.CurrentHp / player.TotalStat.MaxHp;
             int filledBars = (int)(barSize * healthPercentage);
@@ -44,7 +42,7 @@ namespace Sylphyr.Dungeon
             Console.ForegroundColor = GetHealthColor(healthPercentage);
 
             // 체력바 출력
-            Console.Write($"{count}. {player.Name} [");
+            Console.Write($"{player.Name} [");
             Console.Write(new string('■', filledBars)); // 채워진 부분
             Console.Write(new string('□', emptyBars));  // 빈 부분
             Console.Write($"] {player.CurrentHp}/{player.TotalStat.MaxHp}");
@@ -157,6 +155,7 @@ namespace Sylphyr.Dungeon
 
 
         //플레이어가 때린걸 몬스터가 회피했을때
+        //DisplayEvasion(때린 대상)
         public void DisplayEvasion(Player player)
         {
             Random rand = new Random(DateTime.Now.Millisecond);
@@ -197,40 +196,6 @@ namespace Sylphyr.Dungeon
 
             Console.WriteLine("계속 진행하시려면 Enter키를 눌러주세요...");
             Console.ReadLine();
-        }
-
-        // 체력 상태에 따라 색상 변경 (콘솔용)
-        private ConsoleColor GetHealthColor(float percentage)
-        {
-            if (percentage > 0.6f) return ConsoleColor.Green;  // 60% 이상 - 초록
-            if (percentage > 0.3f) return ConsoleColor.Yellow; // 30~60% - 노랑
-            return ConsoleColor.Red;                           // 30% 이하 - 빨강
-        }
-
-        public void DisplayHealthBar(List<Monster> monsters)
-        {
-            foreach (var monster in monsters)
-            {
-                int count = 1;
-                int barSize = 20; // 체력바 길이 (20칸)
-                float healthPercentage = (float)monster.Hp / monster.MaxHp;
-                int filledBars = (int)(barSize * healthPercentage);
-                int emptyBars = barSize - filledBars;
-
-                // 색상 적용 (콘솔 전용)
-                Console.ForegroundColor = GetHealthColor(healthPercentage);
-
-                // 체력바 출력
-                Console.Write($"{count}. {monster.MonsterName} [");
-                Console.Write(new string('■', filledBars)); // 채워진 부분
-                Console.Write(new string('-', emptyBars));  // 빈 부분
-                Console.Write($"] {monster.Hp}/{monster.MaxHp}");
-
-                // 색상 초기화
-                Console.ResetColor();
-                Console.WriteLine();
-                count++;
-            }
         }
 
         // 체력 상태에 따라 색상 변경 (콘솔용)

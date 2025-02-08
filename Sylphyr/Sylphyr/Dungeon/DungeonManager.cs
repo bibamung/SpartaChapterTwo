@@ -30,64 +30,64 @@ namespace Sylphyr.Dungeon
             for (int i = 1; i <= 10; i++)
                 stageMonsters[i] = new List<Monster>
                 {
-                    new Monster(1000,"슬라임",100,100,5,5,5,0.1f,5,5,5,5,5,5),
-                    new Monster(1001,"블루 슬라임",100,100,5,5,5,0.1f,5,5,5,5,5,5),
-                    new Monster(1002,"레드 슬라임",100,100,5,5,5,0.1f,5,5,5,5,5,5),
-                    new Monster(1003,"퍼플 슬라임",100,100,5,5,5,0.1f,5,5,5,5,5,5),
-                    new Monster(1004,"골드 슬라임",100,100,5,5,5,0.1f,5,5,5,5,5,5),
-                    new Monster(1005,"초코보",100,100,5,5,5,0.1f,5,5,5,5,5,5),
+                    new Monster(1000,"슬라임",100,100,5,5,5,0.1f,5,5,5,5,5),
+                    new Monster(1001,"블루 슬라임",100,100,5,5,5,0.1f,5,5,5,5,5),
+                    new Monster(1002,"레드 슬라임",100,100,5,5,5,0.1f,5,5,5,5,5),
+                    new Monster(1003,"퍼플 슬라임",100,100,5,5,5,0.1f,5,5,5,5,5),
+                    new Monster(1004,"골드 슬라임",100,100,5,5,5,0.1f,5,5,5,5,5),
+                    new Monster(1005,"초코보",100,100,5,5,5,0.1f,5,5,5,5,5),
                 };
 
             // 11~20 스테이지 (중반 초반)
             for (int i = 11; i <= 20; i++)
                 stageMonsters[i] = new List<Monster>
                 {
-                    new Monster(1003,"퍼플 슬라임",100,100,5,5,5,0.1f,5,5,5,5,5,5),
-                    new Monster(1004,"골드 슬라임",100,100,5,5,5,0.1f,5,5,5,5,5,5),
-                    new Monster(1005,"초코보",100,100,5,5,5,0.1f,5,5,5,5,5,5),
-                    new Monster(1006,"고블린",100,100,5,5,5,0.1f,5,5,5,5,5,5),
-                    new Monster(1007,"코볼트",100,100,5,5,5,0.1f,5,5,5,5,5,5),
-                    new Monster(1008,"홉고블린",100,100,5,5,5,0.1f,5,5,5,5,5,5),
-                    new Monster(1009,"오우거",100,100,5,5,5,0.1f,5,5,5,5,5,5)
+                    new Monster(1003,"퍼플 슬라임",100,100,5,5,5,0.1f,5,5,5,5,5),
+                    new Monster(1004,"골드 슬라임",100,100,5,5,5,0.1f,5,5,5,5,5),
+                    new Monster(1005,"초코보",100,100,5,5,5,0.1f,5,5,5,5,5),
+                    new Monster(1006,"고블린",100,100,5,5,5,0.1f,5,5,5,5,5),
+                    new Monster(1007,"코볼트",100,100,5,5,5,0.1f,5,5,5,5,5),
+                    new Monster(1008,"홉고블린",100,100,5,5,5,0.1f,5,5,5,5,5),
+                    new Monster(1009,"오우거",100,100,5,5,5,0.1f,5,5,5,5,5)
                 };
 
             // 21~30 스테이지 (중반 후반)
             for (int i = 21; i <= 30; i++)
                 stageMonsters[i] = new List<Monster>
                 {
-                    new Monster(1006,"고블린",100,100,5,5,5,0.1f,5,5,5,5,5,5),
-                    new Monster(1007,"코볼트",100,100,5,5,5,0.1f,5,5,5,5,5,5),
-                    new Monster(1008,"홉고블린",100,100,5,5,5,0.1f,5,5,5,5,5,5),
-                    new Monster(1009,"오우거",100,100,5,5,5,0.1f,5,5,5,5,5,5),
-                    new Monster(1010,"오크",100,100,5,5,5,0.1f,5,5,5,5,5,5),
-                    new Monster(1011,"리자드",100,100,5,5,5,0.1f,5,5,5,5,5,5),
-                    new Monster(1012,"좀비",100,100,5,5,5,0.1f,5,5,5,5,5,5)
+                    new Monster(1006,"고블린",100,100,5,5,5,0.1f,5,5,5,5,5),
+                    new Monster(1007,"코볼트",100,100,5,5,5,0.1f,5,5,5,5,5),
+                    new Monster(1008,"홉고블린",100,100,5,5,5,0.1f,5,5,5,5,5),
+                    new Monster(1009,"오우거",100,100,5,5,5,0.1f,5,5,5,5,5),
+                    new Monster(1010,"오크",100,100,5,5,5,0.1f,5,5,5,5,5),
+                    new Monster(1011,"리자드",100,100,5,5,5,0.1f,5,5,5,5,5),
+                    new Monster(1012,"좀비",100,100,5,5,5,0.1f,5,5,5,5,5)
                 };
 
             // 31~40 스테이지 (후반)
             for (int i = 31; i <= 40; i++)
                 stageMonsters[i] = new List<Monster>
                 {
-                    new Monster(1010,"오크",100,100,5,5,5,0.1f,5,5,5,5,5,5),
-                    new Monster(1011,"리자드",100,100,5,5,5,0.1f,5,5,5,5,5,5),
-                    new Monster(1012,"좀비",100,100,5,5,5,0.1f,5,5,5,5,5,5),
-                    new Monster(1013,"스켈레톤",100,100,5,5,5,0.1f,5,5,5,5,5,5),
-                    new Monster(1014,"임프",100,100,5,5,5,0.1f,5,5,5,5,5,5),
-                    new Monster(1015,"인큐버스",100,100,5,5,5,0.1f,5,5,5,5,5,5),
-                    new Monster(1016,"서큐버스",100,100,5,5,5,0.1f,5,5,5,5,5,5),
-                    new Monster(1017,"듀라한",100,100,5,5,5,0.1f,5,5,5,5,5,5)
+                    new Monster(1010,"오크",100,100,5,5,5,0.1f,5,5,5,5,5),
+                    new Monster(1011,"리자드",100,100,5,5,5,0.1f,5,5,5,5,5),
+                    new Monster(1012,"좀비",100,100,5,5,5,0.1f,5,5,5,5,5),
+                    new Monster(1013,"스켈레톤",100,100,5,5,5,0.1f,5,5,5,5,5),
+                    new Monster(1014,"임프",100,100,5,5,5,0.1f,5,5,5,5,5),
+                    new Monster(1015,"인큐버스",100,100,5,5,5,0.1f,5,5,5,5,5),
+                    new Monster(1016,"서큐버스",100,100,5,5,5,0.1f,5,5,5,5,5),
+                    new Monster(1017,"듀라한",100,100,5,5,5,0.1f,5,5,5,5,5)
                 };
 
             // 41~45 스테이지 (최후반)
             for (int i = 41; i <= 45; i++)
                 stageMonsters[i] = new List<Monster>
                 {
-                    new Monster(1013,"스켈레톤",100,100,5,5,5,0.1f,5,5,5,5,5,5),
-                    new Monster(1014,"임프",100,100,5,5,5,0.1f,5,5,5,5,5,5),
-                    new Monster(1015,"인큐버스",100,100,5,5,5,0.1f,5,5,5,5,5,5),
-                    new Monster(1016,"서큐버스",100,100,5,5,5,0.1f,5,5,5,5,5,5),
-                    new Monster(1017,"듀라한",100,100,5,5,5,0.1f,5,5,5,5,5,5),
-                    new Monster(1018,"리치",100,100,5,5,5,0.1f,5,5,5,5,5,5)
+                    new Monster(1013,"스켈레톤",100,100,5,5,5,0.1f,5,5,5,5,5),
+                    new Monster(1014,"임프",100,100,5,5,5,0.1f,5,5,5,5,5),
+                    new Monster(1015,"인큐버스",100,100,5,5,5,0.1f,5,5,5,5,5),
+                    new Monster(1016,"서큐버스",100,100,5,5,5,0.1f,5,5,5,5,5),
+                    new Monster(1017,"듀라한",100,100,5,5,5,0.1f,5,5,5,5,5),
+                    new Monster(1018,"리치",100,100,5,5,5,0.1f,5,5,5,5,5)
                 };
         }
 
@@ -132,61 +132,61 @@ namespace Sylphyr.Dungeon
                     case (int)BossStage.GoblinKing:
                         selectedMonsters = new List<Monster>
                         {
-                            new Monster(1019,"고블린킹",100,100,5,5,5,0.1f,5,5,5,5,5,5),
-                            new Monster(1006,"고블린",100,100,5,5,5,0.1f,5,5,5,5,5,5),
-                            new Monster(1006,"고블린",100,100,5,5,5,0.1f,5,5,5,5,5,5),
-                            new Monster(1006,"고블린",100,100,5,5,5,0.1f,5,5,5,5,5,5)
+                            new Monster(1019,"고블린킹",100,100,5,5,5,0.1f,5,5,5,5,5),
+                            new Monster(1006,"고블린",100,100,5,5,5,0.1f,5,5,5,5,5),
+                            new Monster(1006,"고블린",100,100,5,5,5,0.1f,5,5,5,5,5),
+                            new Monster(1006,"고블린",100,100,5,5,5,0.1f,5,5,5,5,5)
                         };
                         return selectedMonsters;
                     case (int)BossStage.LichKing:
                         selectedMonsters = new List<Monster>
                         {
-                            new Monster(1020,"리치킹",100,100,5,5,5,0.1f,5,5,5,5,5,5),
-                            new Monster(1018,"리치",100,100,5,5,5,0.1f,5,5,5,5,5,5),
-                            new Monster(1018,"리치",100,100,5,5,5,0.1f,5,5,5,5,5,5),
-                            new Monster(1018,"리치",100,100,5,5,5,0.1f,5,5,5,5,5,5)
+                            new Monster(1020,"리치킹",100,100,5,5,5,0.1f,5,5,5,5,5),
+                            new Monster(1018,"리치",100,100,5,5,5,0.1f,5,5,5,5,5),
+                            new Monster(1018,"리치",100,100,5,5,5,0.1f,5,5,5,5,5),
+                            new Monster(1018,"리치",100,100,5,5,5,0.1f,5,5,5,5,5)
                         };
                         return selectedMonsters;
                     case (int)BossStage.BlueDragon:
                         selectedMonsters = new List<Monster>
                         {
-                            new Monster(1022,"수룡",100,100,5,5,5,0.1f,5,5,5,5,5,5)
+                            new Monster(1022,"수룡",100,100,5,5,5,0.1f,5,5,5,5,5)
                         };
                         return selectedMonsters;
                     case (int)BossStage.RedDragon:
                         selectedMonsters = new List<Monster>
                         {
-                            new Monster(1023,"패룡",100,100,5,5,5,0.1f,5,5,5,5,5,5)
+                            new Monster(1023,"패룡",100,100,5,5,5,0.1f,5,5,5,5,5)
                         };
                         return selectedMonsters;
                     case (int)BossStage.Rtan:
                         selectedMonsters = new List<Monster>
                         {
-                            new Monster(1024, "르탄이", 100, 100, 5, 5, 5, 0.1f, 5, 5, 5, 5, 5, 5)
+                            new Monster(1024, "르탄이", 100, 100, 5, 5, 5, 0.1f, 5, 5, 5, 5, 5)
                         };
                         return selectedMonsters;
                     case (int)BossStage.SSHManager:
                         selectedMonsters = new List<Monster>
                         {
-                            new Monster(1025,"고위정령 송승환",100,100,5,5,5,0.1f,5,5,5,5,5,5)
+                            new Monster(1025,"고위정령 송승환",100,100,5,5,5,0.1f,5,5,5,5,5)
                         };
                         return selectedMonsters;
                     case (int)BossStage.YSBManager:
                         selectedMonsters = new List<Monster>
                         {
-                            new Monster(1026,"고위정령 윤수빈",100,100,5,5,5,0.1f,5,5,5,5,5,5),
+                            new Monster(1026,"고위정령 윤수빈",100,100,5,5,5,0.1f,5,5,5,5,5),
                         };
                         return selectedMonsters;
                     case (int)BossStage.HSHManager:
                         selectedMonsters = new List<Monster>
                         {
-                            new Monster(1027,"고위정령 홍성현",100,100,5,5,5,0.1f,5,5,5,5,5,5)
+                            new Monster(1027,"고위정령 홍성현",100,100,5,5,5,0.1f,5,5,5,5,5)
                         };
                         return selectedMonsters;
                     case (int)BossStage.HHSManager:
                         selectedMonsters = new List<Monster>
                         {
-                            new Monster(1028,"고위정령 한효승",100,100,5,5,5,0.1f,5,5,5,5,5,5)
+                            new Monster(1028,"고위정령 한효승",100,100,5,5,5,0.1f,5,5,5,5,5)
                         };
                         return selectedMonsters;
                 }

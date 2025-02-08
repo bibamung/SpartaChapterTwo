@@ -207,6 +207,45 @@ namespace Sylphyr.Dungeon
             return ConsoleColor.Red;                           // 30% 이하 - 빨강
         }
 
+        public void DisplayHealthBar(List<Monster> monsters)
+        {
+            foreach (var monster in monsters)
+            {
+                int count = 1;
+                int barSize = 20; // 체력바 길이 (20칸)
+                float healthPercentage = (float)monster.Hp / monster.MaxHp;
+                int filledBars = (int)(barSize * healthPercentage);
+                int emptyBars = barSize - filledBars;
+
+                // 색상 적용 (콘솔 전용)
+                Console.ForegroundColor = GetHealthColor(healthPercentage);
+
+                // 체력바 출력
+                Console.Write($"{count}. {monster.MonsterName} [");
+                Console.Write(new string('■', filledBars)); // 채워진 부분
+                Console.Write(new string('-', emptyBars));  // 빈 부분
+                Console.Write($"] {monster.Hp}/{monster.MaxHp}");
+
+                // 색상 초기화
+                Console.ResetColor();
+                Console.WriteLine();
+                count++;
+            }
+        }
+
+        // 체력 상태에 따라 색상 변경 (콘솔용)
+        private ConsoleColor GetHealthColor(float percentage)
+        {
+            if (percentage > 0.6f) return ConsoleColor.Green;  // 60% 이상 - 초록
+            if (percentage > 0.3f) return ConsoleColor.Yellow; // 30~60% - 노랑
+            return ConsoleColor.Red;                           // 30% 이하 - 빨강
+        }
+
+        public void selectMonster()
+        {
+
+        }
+
     }
 
 }

@@ -8,8 +8,9 @@ namespace Sylphyr
         {
             var player = GameManger.Instance.player;
             var inventory = new Inventory();
-            Item item = new Item(1000, "테스트 아이템", 5, 10, "상의", 500, "테스트 아이템입니다.", false);
+            Item item = new Item(1000, "테스트 아이템", 5, 10, "상의", 500, "테스트 아이템입니다.", false, false);
             item.addTestItems();  // 상점에 아이템 추가
+            inventory.invenitems.Add(item);
 
             while (true)
             {

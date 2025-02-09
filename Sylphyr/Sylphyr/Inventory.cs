@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -42,13 +43,16 @@ namespace Sylphyr
         {
             while (true)
             {
+                bool iseee = false;
+                string equippedText = null;
+
                 Console.Clear();
                 Console.WriteLine("인벤토리");
                 Console.WriteLine("보유한 아이템을 관리할 수 있습니다.");
                 Console.WriteLine();
 
-
-                Console.WriteLine("     " + AlignText("아이템명", 15) + " | " + "       " +
+                // 테이블 헤더 출력
+                Console.WriteLine("         " + AlignText("아이템명", 15) + " | " + "       " +
                                   AlignText("스탯", 10) + " " + " | " +
                                   AlignText("슬롯", 10) + " | " +
                                   AlignText("가격", 7) + " | " +
@@ -81,16 +85,32 @@ namespace Sylphyr
                     if (item.Stat == 0) statname = "크리데미지";
                     else if (item.Stat == 1) statname = "민첩";
                     else if (item.Stat == 2) statname = "행운";
-                    else if (item.Stat == 3) statname = "방어력";
+                    else statname = "방어력";
 
-                    string equippedText = item.isEquip ? "[E] " : "";
+                    if (item.isEquip)
+                    {
+                        equippedText = "E";
+                        iseee = true;
+                    }
 
-                    Console.WriteLine($"- {equippedText}" + AlignText(item.Name, 15) + " | " +
-                                          AlignText(statname, 10) + "   " +
-                                          AlignText("+" + item.Stat2, 5) + " | " +
-                                          AlignText(slotname, 10) + " | " +
-                                          AlignText(item.Price + "G", 7) + " | " +
-                                          item.Desc);
+                    if (item.isEquip && iseee)
+                    {
+                        Console.WriteLine($"- [{AlignText(equippedText, 1)}] " + AlignText(item.Name, 18) + " | " +
+                                              AlignText(statname, 10) + "   " +
+                                              AlignText("+" + item.Stat2, 5) + " | " +
+                                              AlignText(slotname, 10) + " | " +
+                                              AlignText(item.Price + "G", 7) + " | " +
+                                              item.Desc);
+                    }
+                    else
+                    {
+                        Console.WriteLine($"- " + AlignText(item.Name, 22) + " | " +
+                                              AlignText(statname, 10) + "   " +
+                                              AlignText("+" + item.Stat2, 5) + " | " +
+                                              AlignText(slotname, 10) + " | " +
+                                              AlignText(item.Price + "G", 7) + " | " +
+                                              item.Desc);
+                    }
 
                     //Console.WriteLine($"- {item.Name} | {statname} +{item.Stat2} | {slotname}  | 가격: {item.Price}G | 설명: {item.Desc}");
                 }
@@ -138,7 +158,7 @@ namespace Sylphyr
                 Console.WriteLine();
 
                 // 테이블 헤더 출력
-                Console.WriteLine("     " + AlignText("아이템명", 15) + " | " + "       " +
+                Console.WriteLine("         " + AlignText("아이템명", 15) + " | " + "       " +
                                   AlignText("스탯", 10) + " " + " | " +
                                   AlignText("슬롯", 10) + " | " +
                                   AlignText("가격", 7) + " | " +
@@ -153,7 +173,8 @@ namespace Sylphyr
 
 
                 bool inputfail = false;
-
+                bool iseee = false;
+                string equippedText = null;
                 int i = 1;  // 아이템 장착 해제 번호
 
                 foreach (var item in invenitems)
@@ -173,14 +194,32 @@ namespace Sylphyr
                     else if (item.Stat == 2) statname = "행운";
                     else statname = "방어력";
 
-                    string equippedText = item.isEquip ? "[E] " : "";
+                    if (item.isEquip)
+                    {
+                        equippedText = "E";
+                        iseee = true;
+                    }
+                    else iseee = false;
 
-                    Console.WriteLine($"- {i}. {equippedText}" + AlignText(item.Name, 15) + " | " +
-                                          AlignText(statname, 10) + "   " +
-                                          AlignText("+" + item.Stat2, 5) + " | " +
-                                          AlignText(slotname, 10) + " | " +
-                                          AlignText(item.Price + "G", 7) + " | " +
-                                          item.Desc);
+                    if (iseee)
+                    {
+                        Console.WriteLine($"- {i}. [{AlignText(equippedText, 1)}] " + AlignText(item.Name, 15) + " | " +
+                                              AlignText(statname, 10) + "   " +
+                                              AlignText("+" + item.Stat2, 5) + " | " +
+                                              AlignText(slotname, 10) + " | " +
+                                              AlignText(item.Price + "G", 7) + " | " +
+                                              item.Desc);
+                    }
+                    else
+                    {
+                        Console.WriteLine($"- {i}. " + AlignText(item.Name, 19) + " | " +
+                                              AlignText(statname, 10) + "   " +
+                                              AlignText("+" + item.Stat2, 5) + " | " +
+                                              AlignText(slotname, 10) + " | " +
+                                              AlignText(item.Price + "G", 7) + " | " +
+                                              item.Desc);
+                    }
+
 
                     // Console.WriteLine($"- {i}. {item.Name} | {statname} +{item.Stat2} | {slotname} | 가격: {item.Price}G | 설명: {item.Desc}");
                     i++;

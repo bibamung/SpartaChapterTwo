@@ -1,24 +1,29 @@
 using Guild;
 using System.Text;
+using Sylphyr.YJH;
 
 namespace Sylphyr.Character;
 
 public class Player
 {
-    public string Name { get; }
+    public StringBuilder statusSb { get; } = new StringBuilder();
     public CharacterClass Class { get; }
     public CharacterStat BaseStat { get; }
-    public CharacterStat EnhancedStat { get; set; }
-    public int Level { get; }
+    public CharacterStat EnhancedStat { get; }
+    public CharacterLevelData LevelData { get; }
+
+    public string Name { get; }
+    public int Level { get; private set; }
     public float CurrentHp { get; private set; }
     public float CurrentMp { get; private set; }
     public int Exp { get; private set; }
     public int Gold { get; private set; }
-    public  StringBuilder statusSb = new StringBuilder();
+
     // public Dictionary<int, Equipment> Equipped { get; }
-    
-    private CharacterStat totalStat;
-    public CharacterStat TotalStat 
+
+    private CharacterStat totalStat = new CharacterStat();
+
+    public CharacterStat TotalStat
     {
         get
         {
@@ -35,44 +40,38 @@ public class Player
         }
     }
 
-    // TODO: 초기 골드를 줄건지?
     public Player(string name, CharacterClass charClass)
     {
-        /*
-        Name = name;
-        // TODO
-        // Class = DataManager.Instance.CharacterStatDatas.GetCharacterStat(charClass);
-        Level = 1;
-        CurrentHp = BaseStat.MaxHp;
-        CurrentMp = BaseStat.MaxMp;
-        Exp = 0;
-        Gold = 0;
-        */
+        BaseStat = GetCharacterStat(charClass)!;
+        EnhancedStat = new CharacterStat();
+        if (BaseStat == null)
+        {
+            throw new NullReferenceException("BaseStat is null");
+        }
+
+        LevelData = new CharacterLevelData();
 
         Name = name;
         Class = charClass;
-
-        // ⭐ BaseStat을 반드시 초기화
-        BaseStat = new CharacterStat
-        {
-            MaxHp = 100,   // 초기 HP 값 (적절히 변경)
-            MaxMp = 50,    // 초기 MP 값 (적절히 변경)
-            Atk = 10,      // 초기 공격력
-            Def = 5,       // 초기 방어력
-            Luk = 3,       // 초기 럭
-            Dex = 4,       // 초기 민첩
-            Speed = 5,     // 초기 속도
-            CriticalChance = 0.05f,  // 치명타 확률 (5%)
-            CriticalDamage = 1.5f    // 치명타 배율 (1.5배)
-        };
-
-        EnhancedStat = new CharacterStat(); // ⭐ 필수 초기화
-
         Level = 1;
         CurrentHp = BaseStat.MaxHp;
         CurrentMp = BaseStat.MaxMp;
         Exp = 0;
-        Gold = 4000;
+        Gold = 2000;
+    }
+
+    private CharacterStat? GetCharacterStat(CharacterClass charClass)
+    {
+        List<CharacterStat> statDatas = DataManager.Instance.characterStats;
+        
+        return charClass switch
+        {
+            CharacterClass.Thief   => statDatas.SingleOrDefault(stat => stat.Id == 1002),
+            CharacterClass.Archer  => statDatas.SingleOrDefault(stat => stat.Id == 1003),
+            CharacterClass.Warrior => statDatas.SingleOrDefault(stat => stat.Id == 1001),
+            CharacterClass.Paladin => statDatas.SingleOrDefault(stat => stat.Id == 1004),
+            _                      => throw new ArgumentOutOfRangeException(nameof(charClass), charClass, null)
+        };
     }
 
     // 상태창 보기
@@ -86,7 +85,7 @@ public class Player
         statusSb.AppendLine();
         statusSb.AppendLine($"공격력: {BaseStat.Atk}");
         statusSb.AppendLine($"방어력: {BaseStat.Def}");
-        statusSb.AppendLine($"속도: {BaseStat.Speed}");   
+        statusSb.AppendLine($"속도: {BaseStat.Speed}");
         statusSb.AppendLine($"민첩: {BaseStat.Dex}");
         statusSb.AppendLine($"운: {BaseStat.Luk}");
         statusSb.AppendLine();
@@ -95,29 +94,32 @@ public class Player
         Console.Write(statusSb.ToString());
     }
 
-    // 골드 얻기
-    // TODO: 보상에 의한 추가 골드를 따로 표시해줄 것인가?
-    public void AddGold(int gold, bool isReward)
+    public void AddGold(int gold)
     {
         Gold += gold;
+    }
 
-        // 추가 보상 : 럭에 의한 추가 골드 획득
-        if (isReward)
+    // TODO: 얘기하기
+    public void AddRewardGold(int gold, out int totalGold)
+    {
+        totalGold = gold;
+
+        // 보상 1000G , Luk 3
+        // 추가보상 = 1000 * 0.06 = 60G
+        if (Class == CharacterClass.Thief)
         {
-            // 보상 1000G , Luk 3
-            // 추가보상 = 1000 * 0.06 = 60G
-            
-            // Luk에 의한 추가보상
             float addGoldRate = BaseStat.Luk * 2 / 100;
             float addGold = gold * addGoldRate;
-            Gold += (int)addGold;
+            totalGold = (int)(totalGold + addGold);
         }
+
+        Gold += totalGold;
     }
 
     public void RemoveGold(int gold)
     {
         Gold -= gold;
-        
+
         if (Gold < 0)
             Gold = 0;
     }
@@ -134,40 +136,43 @@ public class Player
         {
             finalDamage *= TotalStat.CriticalDamage;
         }
-        
+
         // 몬스터에게 데미지 주기
         if (finalDamage <= 0)
             finalDamage = 1;
-        
+
         // monster.TakeDamage(damage);
     }
-    
+
     public void TakeDamage(float damage)
     {
         Random rand = new Random();
         float evasionRate = 100f * (TotalStat.Dex / (TotalStat.Dex + 50f));
-        
+
         if (rand.NextDouble() < evasionRate)
         {
             // TODO: 회피 성공
             return;
         }
-        
+
         float finalDamage = damage - (TotalStat.Def / TotalStat.Def + 50f);
         if (finalDamage <= 0)
             finalDamage = 1;
-        
+
         CurrentHp -= finalDamage;
     }
 
     public void AddExp(int exp)
     {
         Exp += exp;
+        
         // 레벨업 체크
-        // if (Exp >= DataManager.Instance.CharacterLevelData.LevelUpExp)
-        // {
-        //     LevelUp();
-        // }
+        int levelUpExp = LevelData.GetExp(Level);
+        if (Exp >= levelUpExp)
+        {
+            Exp -= levelUpExp;
+            LevelUp();
+        }
     }
 
     public void LevelUp()
@@ -186,11 +191,12 @@ public class Player
             default:
                 throw new ArgumentOutOfRangeException(nameof(Class), Class, null);
         }
-        
+
         return;
-        
+
         // 스탯을 올리는 함수
-        void AddStat(float hp, int mp, float atk, float def, float luk, float dex, int speed, float criticalChance, float criticalDamage)
+        void AddStat(float hp, int mp, float atk, float def, float luk, float dex, int speed, float criticalChance,
+                     float criticalDamage)
         {
             EnhancedStat.MaxHp += hp;
             EnhancedStat.MaxMp += mp;
@@ -208,21 +214,15 @@ public class Player
     {
         // 타이틀로 돌아가기;
     }
-    
+
     // 아이템 사용하기?
     public void UseItem()
     {
         // TODO: 몬스터와 전투 도중 사용할 것인지? 아니면 마을에서 사용할 것인지? 아니면 한 층을 클리어했을 때 사용할 것인지?
     }
-    
-    // 장비 착용하기?
-    public void Equip()
-    {
-        
-    }
 
-    public void UnEquip()
-    {
-        
-    }
+    // 장비 착용하기?
+    public void Equip() { }
+
+    public void UnEquip() { }
 }

@@ -68,9 +68,9 @@ public class Player
         
         return charClass switch
         {
+            CharacterClass.Warrior => statDatas.SingleOrDefault(stat => stat.Id == 1001),
             CharacterClass.Thief   => statDatas.SingleOrDefault(stat => stat.Id == 1002),
             CharacterClass.Archer  => statDatas.SingleOrDefault(stat => stat.Id == 1003),
-            CharacterClass.Warrior => statDatas.SingleOrDefault(stat => stat.Id == 1001),
             CharacterClass.Paladin => statDatas.SingleOrDefault(stat => stat.Id == 1004),
             _                      => throw new ArgumentOutOfRangeException(nameof(charClass), charClass, null)
         };
@@ -224,11 +224,12 @@ public class Player
     {
         var skillDatas = DataManager.Instance.characterSkills;
         var skills = new CharacterSkillData[4];
+        int index = 0;
         for (int i = 0; i < skillDatas.Count; i++)
         {
             if (skillDatas[i].CharacterClass == Class)
             {
-                skills[i] = skillDatas[i];
+                skills[index++] = skillDatas[i];
             }
         }
 

@@ -9,20 +9,20 @@ namespace Sylphyr
 {
     public class Monster
     {
-        public int MonsterId { get; set; }
-        public string MonsterName { get; set; }
+        public int MonsterId;
+        public string MonsterName;
         public float CurrentHp {  get; set; }
-        public float MaxHp { get; set; }
-        public float Atk { get; set; }
-        public float Def { get; set; }
-        public float Dex { get; set; }
+        public float MaxHp;
+        public float Atk;
+        public float Def;
+        public float Dex;
         
-        public float CriticalChance { get; set; }
-        public float CriticalDamage { get; set; }
-        public int Speed { get; set; }
+        public float CriticalChance;
+        public float CriticalDamage;
+        public int Speed;
 
-        public int DropGold { get; set; }
-        public int DropExp { get; set; }
+        public int DropGold;
+        public int DropExp;
         
         public Monster(int monsterId, string monsterName, float MaxHp, float curHp, 
             float atk, float def, float critical, float dex, float criticalChance,

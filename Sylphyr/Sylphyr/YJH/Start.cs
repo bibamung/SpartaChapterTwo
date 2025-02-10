@@ -1,19 +1,16 @@
-using Microsoft.VisualBasic.CompilerServices;
-using Sylphyr.Utils;
+using Sylphyr.Scene;
 
 namespace Sylphyr.YJH;
 public class Start
 {
     static void Main(string[] args)
     {
-        DataManager dataManager = new DataManager();
-        dataManager.ConvertAllCsv(); 
-        
+        DataManager.Instance.ConvertAllCsv(); 
         Console.WriteLine("모든 작업이 완료되었습니다.");
-        
-        dataManager.DeserializeJson();
-        
-        //GameManger.Instance.player.LevelData.printExpTable();
+        DataManager.Instance.DeserializeJson();
+
+        TitleScene titleScene = new TitleScene();
+        titleScene.Run();
     }
 }
 

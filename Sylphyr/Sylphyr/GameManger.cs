@@ -4,12 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Sylphyr.Character;
+using Sylphyr.Scene;
 
 namespace Sylphyr
 {
     public class GameManager : SingleTon<GameManager>
     {
-        public Player player { get; } = new Player("어둠의다크 한빈정령", CharacterClass.Thief);
+        public MainScene Main { get; private set; }
+        public Player player { get; private set; }
+
+        public void Init()
+        {
+            Main = new MainScene();
+        }
         
+        public void SetPlayer(string name, CharacterClass characterClass)
+        {
+            player = new Player(name, characterClass);
+        }
     }
 }

@@ -9,14 +9,15 @@ namespace Sylphyr.YJH;
 
 public class DataManager:SingleTon<DataManager>
 {
-    private static readonly string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-    
+    private readonly string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
     
     public List<CharacterStat> characterStats;
+    public Dictionary<int, CharacterStat> characterStatDict;
     public List<Monster> monsters;
     public List<Item.ConsumeItem> consumeItems;
     public List<Item.EquipmentItem> equipmentItems;
     public List<Item.WeaponItem> weaponItems;
+    public List<CharacterSkillData> characterSkills;
     public List<Quest> quests;
   
     
@@ -43,6 +44,7 @@ public class DataManager:SingleTon<DataManager>
         string dataPathEquipmentItem = Path.Combine(dataPath, "Sylphyr.EquipmentItem.json");
         string dataPathWeaponItem = Path.Combine(dataPath, "Sylphyr.WeaponItem.json");
         string dataPathQuest = Path.Combine(dataPath, "Sylphyr.Quest.json");
+        string dataPathCharacterSkill = Path.Combine(dataPath, "Sylphyr.CharacterSkill.json");
         
         characterStats = JsonConvert.DeserializeObject<List<CharacterStat>>(File.ReadAllText(dataPathCharacter));
         monsters = JsonConvert.DeserializeObject<List<Monster>>(File.ReadAllText(dataPathMonster));
@@ -50,6 +52,7 @@ public class DataManager:SingleTon<DataManager>
         equipmentItems = JsonConvert.DeserializeObject<List<Item.EquipmentItem>>(File.ReadAllText(dataPathEquipmentItem));
         weaponItems = JsonConvert.DeserializeObject<List<Item.WeaponItem>>(File.ReadAllText(dataPathWeaponItem));
         quests = JsonConvert.DeserializeObject<List<Quest>>(File.ReadAllText(dataPathQuest));
+        characterSkills = JsonConvert.DeserializeObject<List<CharacterSkillData>>(File.ReadAllText(dataPathCharacterSkill));
     }
 }
 

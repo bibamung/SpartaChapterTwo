@@ -8,11 +8,11 @@ public class CharacterStatDatas
     {
         switch (characterClass)
         {
-            case CharacterClass.Thief:
-                return Dict[0];
-            case CharacterClass.Archer:
-                return Dict[1];
             case CharacterClass.Warrior:
+                return Dict[0];
+            case CharacterClass.Thief:
+                return Dict[1];
+            case CharacterClass.Archer:
                 return Dict[2];
             case CharacterClass.Paladin:
                 return Dict[3];
@@ -39,8 +39,8 @@ public class CharacterStat
 
 public enum CharacterClass
 {
+    Warrior,
     Thief,
     Archer,
-    Warrior,
-    Paladin
+    Paladin,
 }

@@ -5,12 +5,21 @@ namespace Sylphyr.Character;
 
 public class Player
 {
-    public StringBuilder statusSb { get; } = new StringBuilder();
+    public StringBuilder statusSb { get; } = new();
+    
+    // Player Stat
     public CharacterClass Class { get; }
     public CharacterStat BaseStat { get; }
     public CharacterStat EnhancedStat { get; }
+    
+    // Player Level
     public CharacterLevelData LevelData { get; }
+    
+    // Player Skill
+    public CharacterSkillData[] Skills { get; }
+    public List<CharacterSkillData> learnedSkills { get; } = new();
 
+    // Player Info
     public string Name { get; }
     public int Level { get; private set; }
     public float CurrentHp { get; private set; }
@@ -18,10 +27,7 @@ public class Player
     public int Exp { get; private set; }
     public int Gold { get; private set; }
 
-    // public Dictionary<int, Equipment> Equipped { get; }
-
     private CharacterStat totalStat = new CharacterStat();
-
     public CharacterStat TotalStat
     {
         get
@@ -41,17 +47,14 @@ public class Player
 
     public Player(string name, CharacterClass charClass)
     {
-        BaseStat = GetCharacterStat(charClass)!;
-        EnhancedStat = new CharacterStat();
-        if (BaseStat == null)
-        {
-            throw new NullReferenceException("BaseStat is null");
-        }
-
-        LevelData = new CharacterLevelData();
-
         Name = name;
         Class = charClass;
+        
+        BaseStat = GetCharacterStat(charClass)!;
+        EnhancedStat = new CharacterStat();
+        LevelData = new CharacterLevelData();
+        Skills = GetSkills();
+
         Level = 1;
         CurrentHp = BaseStat.MaxHp;
         CurrentMp = BaseStat.MaxMp;
@@ -73,7 +76,6 @@ public class Player
         };
     }
 
-    // 상태창 보기
     public void PrintStatus()
     {
         statusSb.Clear();
@@ -98,7 +100,6 @@ public class Player
         Gold += gold;
     }
 
-    // TODO: 얘기하기
     public void AddRewardGold(int gold, out int totalGold)
     {
         totalGold = gold;
@@ -174,8 +175,11 @@ public class Player
         }
     }
 
-    public void LevelUp()
+    // TODO: 머 올림?
+    private void LevelUp()
     {
+        Level++;
+        
         switch (Class)
         {
             case CharacterClass.Thief:
@@ -191,9 +195,16 @@ public class Player
                 throw new ArgumentOutOfRangeException(nameof(Class), Class, null);
         }
 
+        foreach (var skill in Skills)
+        {
+            if (skill.AcquisitionLevel == Level)
+            {
+                learnedSkills.Add(skill);
+            }
+        }
+
         return;
 
-        // 스탯을 올리는 함수
         void AddStat(float hp, int mp, float atk, float def, float luk, float dex, int speed, float criticalChance,
                      float criticalDamage)
         {
@@ -209,15 +220,41 @@ public class Player
         }
     }
 
+    public CharacterSkillData[] GetSkills()
+    {
+        var skillDatas = DataManager.Instance.characterSkills;
+        var skills = new CharacterSkillData[4];
+        for (int i = 0; i < skillDatas.Count; i++)
+        {
+            if (skillDatas[i].CharacterClass == Class)
+            {
+                skills[i] = skillDatas[i];
+            }
+        }
+
+        return skills;
+    }
+
     public void Dead()
     {
         // 타이틀로 돌아가기;
     }
 
-    // 아이템 사용하기?
-    public void UseItem()
+    public void UseItem(bool isHealth, float value)
     {
-        // TODO: 몬스터와 전투 도중 사용할 것인지? 아니면 마을에서 사용할 것인지? 아니면 한 층을 클리어했을 때 사용할 것인지?
+        if (isHealth) // hp
+        {
+            CurrentHp += value;
+            if (CurrentHp > TotalStat.MaxHp)
+                CurrentHp = TotalStat.MaxHp;
+            
+        }
+        else // mp
+        {
+            CurrentMp += value;
+            if (CurrentMp > TotalStat.MaxMp)
+                CurrentMp = TotalStat.MaxMp;
+        }
     }
 
     // 장비 착용하기?

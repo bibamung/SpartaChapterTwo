@@ -9,10 +9,8 @@
   <component name="ChangeListManager">
     <list default="true" id="31bad01f-6a79-4b3a-a781-2641141f45d1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Sylphyr/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Sylphyr/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sylphyr/Character/CharacterLevelData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/Character/CharacterLevelData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sylphyr/Character/CharacterSkillData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/Character/CharacterSkillData.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Sylphyr/Character/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/Character/Player.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sylphyr/Item.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/Item.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sylphyr/Monster.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/Monster.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Sylphyr/YJH/DataManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/YJH/DataManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Sylphyr/YJH/Start.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/YJH/Start.cs" afterDir="false" />
     </list>

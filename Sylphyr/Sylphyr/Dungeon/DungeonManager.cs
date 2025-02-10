@@ -20,6 +20,7 @@ namespace Sylphyr.Dungeon
     class DungeonManager : SingleTon<DungeonManager>
     {
         int TotalGold = 0, TotalExp = 0;
+        int GainGold = 0;
         Random rand = new Random(DateTime.Now.Millisecond);
         List<Monster> currentStageMonsters = new List<Monster>();
         DungeonScene scene = new DungeonScene();
@@ -264,7 +265,9 @@ namespace Sylphyr.Dungeon
 
             //보상 설정
             player.AddExp(TotalExp);
-            //player.AddGold(TotalGold, player.Class == CharacterClass.Thief ? true : false);
+            player.AddRewardGold(TotalGold, out GainGold);
+            
+            
         }
 
 

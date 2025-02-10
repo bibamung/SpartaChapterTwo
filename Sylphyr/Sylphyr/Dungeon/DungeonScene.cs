@@ -298,7 +298,20 @@ namespace Sylphyr.Dungeon
             }
         }
 
+        public void DisplayReward()
+        {
+            Console.Clear();
+            Console.WriteLine("**************************************************************");
+            for (int i = 0; i < 10; i++)
+            {
+                Console.WriteLine("*");
+                Console.SetCursorPosition(62, i);
+                Console.WriteLine("*");
+            }
+            Console.WriteLine("**************************************************************");
+            Console.SetCursorPosition(0,0);
 
+        }
 
         public void selectMonster()
         {

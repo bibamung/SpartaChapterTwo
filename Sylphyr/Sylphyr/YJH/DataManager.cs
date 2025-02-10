@@ -10,7 +10,9 @@ public class DataManager
 {
     private List<CharacterStat> characterStats;
     private List<Monster> monsters;
-    private List<>
+    private List<ConsumeItem> consumeItems;
+    private List<EquipmentItem> equipmentItems;
+        
   
     public void ConvertAllCsv()
     {
@@ -22,9 +24,9 @@ public class DataManager
     // Json파일을 여기서 리스트화.
     public void DeserializeJson()
     {
-        characterStats = JsonConvert.DeserializeObject<List<CharacterStat>>(File.ReadAllText("Data/JSON/Sylphir.Character.json"));
-        
+        characterStats = JsonConvert.DeserializeObject<List<CharacterStat>>(File.ReadAllText("Data/JSON/Sylphyr.Character.json"));
         monsters = JsonConvert.DeserializeObject<List<Monster>>(File.ReadAllText("Data/JSON/Sylphyr.Monster.json"));
+        consumeItems = JsonConvert.DeserializeObject<List<ConsumeItems>>(File.ReadAllText("Data/JSON/Sylphyr.ConsumeItems.json"));
         
         
         

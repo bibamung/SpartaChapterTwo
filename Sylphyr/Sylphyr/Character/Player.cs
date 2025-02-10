@@ -1,13 +1,13 @@
 using System.Text;
 
-namespace Sylphyr.KJE;
+namespace Sylphyr.Character;
 
 public class Player
 {
     public string Name { get; }
     public CharacterClass Class { get; }
     public CharacterStat BaseStat { get; }
-    public CharacterStat EnhancedStat { get; }
+    public CharacterStat EnhancedStat { get; set; }
     public int Level { get; }
     public float CurrentHp { get; private set; }
     public float CurrentMp { get; private set; }

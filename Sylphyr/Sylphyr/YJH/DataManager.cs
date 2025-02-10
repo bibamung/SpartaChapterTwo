@@ -2,7 +2,7 @@ using System;
 using Guild;
 using Newtonsoft.Json;
 using Sylphyr.Character;
-using TextRPG.Utils;
+using Sylphyr.Utils;
 
 
 namespace Sylphyr.YJH;

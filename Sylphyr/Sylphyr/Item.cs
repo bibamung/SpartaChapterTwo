@@ -385,7 +385,7 @@ namespace Sylphyr
                         if (!isEquip)
                         {
                             int getgold = (int)(selectedItem.Price * 0.8);
-                            player.AddGold(getgold, false);
+                            player.AddGold(getgold);
                             inventory.invenitems.Remove(selectedItem);
                         }
                         else isEquipMesege = true;

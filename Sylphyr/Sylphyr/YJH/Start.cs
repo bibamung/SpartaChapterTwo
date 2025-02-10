@@ -10,6 +10,8 @@ public class Start
         Console.WriteLine("모든 작업이 완료되었습니다.");
 
         dataManager.DeserializeJson();
+
+        GameManger.Instance.player.LevelData.printExpTable();
     }
 }
 

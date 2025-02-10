@@ -1,6 +1,6 @@
 using System;
 using Newtonsoft.Json;
-using Sylphyr.KJE;
+using Sylphyr.Character;
 using TextRPG.Utils;
 
 
@@ -10,8 +10,8 @@ public class DataManager
 {
     private List<CharacterStat> characterStats;
     private List<Monster> monsters;
-    private List<ConsumeItem> consumeItems;
-    private List<EquipmentItem> equipmentItems;
+    // private List<ConsumeItem> consumeItems;
+    // private List<EquipmentItem> equipmentItems;
         
   
     public void ConvertAllCsv()
@@ -26,7 +26,7 @@ public class DataManager
     {
         characterStats = JsonConvert.DeserializeObject<List<CharacterStat>>(File.ReadAllText("Data/JSON/Sylphyr.Character.json"));
         monsters = JsonConvert.DeserializeObject<List<Monster>>(File.ReadAllText("Data/JSON/Sylphyr.Monster.json"));
-        consumeItems = JsonConvert.DeserializeObject<List<ConsumeItems>>(File.ReadAllText("Data/JSON/Sylphyr.ConsumeItems.json"));
+        // consumeItems = JsonConvert.DeserializeObject<List<ConsumeItems>>(File.ReadAllText("Data/JSON/Sylphyr.ConsumeItems.json"));
         
         
         

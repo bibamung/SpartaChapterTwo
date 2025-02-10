@@ -48,24 +48,39 @@ namespace Sylphyr
             isEquip = isequip;
         }
 
-
-        // 테스트용 아이템 추가
-        public void addTestItems()  // 임시 작업
+        public class ConsumeItem(int id, string name, int stat, int Value, string slot, int price, string desc)
         {
-            ItemsDictionary = new Dictionary<int, Item>
-            {
-                { 1000, new Item(1000, "낡은 로브", 2, 10, "상의", 500, "줘도 안 입을 로브, 냄새도 나는 것 같다.", false , false) },
-                { 1001, new Item(1001, "강철 검", 1, 5, "무기", 1500, "강한 검이다.", false, false) },
-                { 1002, new Item(1002, "마법 지팡이", 3, 12, "하의", 2000, "마법을 증폭시키는 지팡이.", false, false) },
-                { 1003, new Item(1003, "가죽 방어구", 0, 10, "장신구", 800, "가죽으로 만든 방어구.", false, false) }
-            };
+            public int ID;
+            public string Name;
+            public int Stat;
+            public int Value;
+            public string Slot;
+            public int Price;
+            public string Desc;
         }
 
-
-
-
-
-
+        public class EquipmentItem(int id, string name, int stat, int Value, string slot, int price, string desc)
+        {
+            public int ID;
+            public string Name;
+            public int Stat;
+            public int Value;
+            public string Slot;
+            public int Price;
+            public string Desc;
+        }
+        
+        public class WeaponItem(int id, string name, int stat, int Value, string slot, int price, string desc)
+        {
+            public int ID;
+            public string Name;
+            public int Stat;
+            public int Value;
+            public string Slot;
+            public int Price;
+            public string Desc;
+        }
+        
 
         // 상점에서 아이템 리스트 출력
         public void shopScene(Player player, Inventory inventory, bool isfail = false)

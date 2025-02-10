@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
+using Sylphyr.YJH;
 
 namespace Guild
 {
@@ -8,7 +9,7 @@ namespace Guild
     {
         //길드창-퀘스트목록 퀘스트진행상태
         //퀘스트이름 내용 보상 1수락 2거절
-
+        public int ID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public int RewardExp { get; set; }
@@ -22,9 +23,10 @@ namespace Guild
         public int CurrentSellItems { get; set; }
         public bool IsCompleted => CurrentFloors >= RequiredFloors;
 
-        public Quest(string name, string description, int rewardExp, int rewardGold, int requiredFloors, int buyItems,
+        public Quest(int id, string name, string description, int rewardExp, int rewardGold, int requiredFloors, int buyItems,
                      int sellItems)
         {
+            ID = id;
             Name = name;
             Description = description;
             RewardExp = rewardExp;
@@ -98,18 +100,7 @@ namespace Guild
         {
             Player player = new Player();
             bool nextPage = true;
-            List<Quest> questList = new List<Quest>
-            {
-                new Quest("", "", 0, 0, 0, 0, 0),
-                new Quest("", "", 0, 0, 0, 0, 0),
-                new Quest("", "", 0, 0, 0, 0, 0),
-                new Quest("", "", 0, 0, 0, 0, 0),
-                new Quest("", "", 0, 0, 0, 0, 0),
-                new Quest("", "", 0, 0, 0, 0, 0),
-                new Quest("", "", 0, 0, 0, 0, 0),
-                new Quest("", "", 0, 0, 0, 0, 0),
-                new Quest("", "", 0, 0, 0, 0, 0),
-            };
+            List<Quest> questList = DataManager.Instance.quests;
 
             while (true)
             {

@@ -451,38 +451,42 @@ namespace Sylphyr.Dungeon
                     #endregion
                     else
                     {
-                        isVaildNum = int.TryParse(Console.ReadLine(), out selectMonster);
-                        if (isVaildNum)
+                        while (true)
                         {
-                            if (selectMonster > 0 && selectMonster <= stageMonsters.Count)      //선택한 몬스터의 번호가 0보다 크고 스테이지 내 몬스터의 수보다 작을경우 실행
+                            isVaildNum = int.TryParse(Console.ReadLine(), out selectMonster);
+                            if (isVaildNum)
                             {
-                                foreach (var monster in stageMonsters[stage])       //스테이지에 등장하는 몬스터의 배열을 한바퀴 돌림
+                                if (selectMonster > 0 && selectMonster <= stageMonsters.Count)      //선택한 몬스터의 번호가 0보다 크고 스테이지 내 몬스터의 수보다 작을경우 실행
                                 {
-                                    int count = 0;
-                                    if (OrderByAttackChar[count++] == player.Name)                       //이번에 공격할 캐릭터가 플레이어일 경우
+                                    foreach (var monster in stageMonsters[stage])       //스테이지에 등장하는 몬스터의 배열을 한바퀴 돌림
                                     {
-                                        scene.DefIgnoreSkillAttack(player, currentStageMonsters[selectMonster], useSkill);
-                                        if (currentStageMonsters[selectMonster].CurrentHp == 0)
+                                        int count = 0;
+                                        if (OrderByAttackChar[count++] == player.Name)                       //이번에 공격할 캐릭터가 플레이어일 경우
                                         {
-                                            TotalExp += currentStageMonsters[selectMonster].DropExp;
-                                            TotalGold += currentStageMonsters[selectMonster].DropGold;
-                                            currentStageMonsters.RemoveAt(selectMonster);
+                                            scene.DefIgnoreSkillAttack(player, currentStageMonsters[selectMonster], useSkill);
+                                            if (currentStageMonsters[selectMonster].CurrentHp == 0)
+                                            {
+                                                TotalExp += currentStageMonsters[selectMonster].DropExp;
+                                                TotalGold += currentStageMonsters[selectMonster].DropGold;
+                                                currentStageMonsters.RemoveAt(selectMonster);
+                                            }
+
                                         }
+
                                     }
 
                                 }
 
+
+                                else if (selectMonster > stageMonsters.Count)
+                                {
+                                    Console.WriteLine("올바른 번호를 선택해주세요.");
+                                }
                             }
-
-
-                            else if (selectMonster > stageMonsters.Count)
+                            else
                             {
-                                Console.WriteLine("올바른 번호를 선택해주세요.");
+                                Console.WriteLine("숫자를 입력해주세요.");
                             }
-                        }
-                        else
-                        {
-                            Console.WriteLine("숫자를 입력해주세요.");
                         }
 
 

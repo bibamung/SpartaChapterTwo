@@ -1,0 +1,54 @@
+[
+  {
+    "Id": "1001",
+    "Name": "전사",
+    "MaxHp": "150",
+    "MaxMp": "50",
+    "Atk": "15",
+    "Def": "15",
+    "Luk": "5",
+    "Dex": "5",
+    "Speed": "10",
+    "CriticalChance": "0.35",
+    "CriticalDamage": "10"
+  },
+  {
+    "Id": "1002",
+    "Name": "도적",
+    "MaxHp": "100",
+    "MaxMp": "100",
+    "Atk": "4",
+    "Def": "1",
+    "Luk": "20",
+    "Dex": "15",
+    "Speed": "10",
+    "CriticalChance": "0.35",
+    "CriticalDamage": "15"
+  },
+  {
+    "Id": "1003",
+    "Name": "궁수",
+    "MaxHp": "100",
+    "MaxMp": "100",
+    "Atk": "4",
+    "Def": "1",
+    "Luk": "15",
+    "Dex": "15",
+    "Speed": "15",
+    "CriticalChance": "0.35",
+    "CriticalDamage": "15"
+  },
+  {
+    "Id": "1004",
+    "Name": "팔라딘",
+    "MaxHp": "150",
+    "MaxMp": "50",
+    "Atk": "15",
+    "Def": "20",
+    "Luk": "1",
+    "Dex": "4",
+    "Speed": "10",
+    "CriticalChance": "0.45",
+    "CriticalDamage": "20"
+  }
+]

@@ -10,18 +10,18 @@ public class Player
     public CharacterStat BaseStat { get; }
     public CharacterStat EnhancedStat { get; }
     public CharacterLevelData LevelData { get; }
-    
+
     public string Name { get; }
     public int Level { get; private set; }
     public float CurrentHp { get; private set; }
     public float CurrentMp { get; private set; }
     public int Exp { get; private set; }
     public int Gold { get; private set; }
-    
-    
+
     // public Dictionary<int, Equipment> Equipped { get; }
 
     private CharacterStat totalStat = new CharacterStat();
+
     public CharacterStat TotalStat
     {
         get
@@ -47,8 +47,9 @@ public class Player
         {
             throw new NullReferenceException("BaseStat is null");
         }
+
         LevelData = new CharacterLevelData();
-        
+
         Name = name;
         Class = charClass;
         Level = 1;
@@ -60,13 +61,15 @@ public class Player
 
     private CharacterStat? GetCharacterStat(CharacterClass charClass)
     {
+        List<CharacterStat> statDatas = DataManager.Instance.characterStats;
+        
         return charClass switch
         {
-            CharacterClass.Thief => DataManager.Instance.characterStats.SingleOrDefault(stat => stat.Id == 1002),
-            CharacterClass.Archer => DataManager.Instance.characterStats.SingleOrDefault(stat => stat.Id == 1003),
-            CharacterClass.Warrior => DataManager.Instance.characterStats.SingleOrDefault(stat => stat.Id == 1001),
-            CharacterClass.Paladin => DataManager.Instance.characterStats.SingleOrDefault(stat => stat.Id == 1004),
-            _ => throw new ArgumentOutOfRangeException(nameof(charClass), charClass, null)
+            CharacterClass.Thief   => statDatas.SingleOrDefault(stat => stat.Id == 1002),
+            CharacterClass.Archer  => statDatas.SingleOrDefault(stat => stat.Id == 1003),
+            CharacterClass.Warrior => statDatas.SingleOrDefault(stat => stat.Id == 1001),
+            CharacterClass.Paladin => statDatas.SingleOrDefault(stat => stat.Id == 1004),
+            _                      => throw new ArgumentOutOfRangeException(nameof(charClass), charClass, null)
         };
     }
 
@@ -90,23 +93,26 @@ public class Player
         Console.Write(statusSb.ToString());
     }
 
-    // 골드 얻기
-    // TODO: 보상에 의한 추가 골드를 따로 표시해줄 것인가?
-    public void AddGold(int gold, bool isReward)
+    public void AddGold(int gold)
     {
         Gold += gold;
+    }
 
-        // 추가 보상 : 럭에 의한 추가 골드 획득
-        if (isReward)
+    // TODO: 얘기하기
+    public void AddRewardGold(int gold, out int totalGold)
+    {
+        totalGold = gold;
+
+        // 보상 1000G , Luk 3
+        // 추가보상 = 1000 * 0.06 = 60G
+        if (Class == CharacterClass.Thief)
         {
-            // 보상 1000G , Luk 3
-            // 추가보상 = 1000 * 0.06 = 60G
-
-            // Luk에 의한 추가보상
             float addGoldRate = BaseStat.Luk * 2 / 100;
             float addGold = gold * addGoldRate;
-            Gold += (int)addGold;
+            totalGold = (int)(totalGold + addGold);
         }
+
+        Gold += totalGold;
     }
 
     public void RemoveGold(int gold)
@@ -158,11 +164,14 @@ public class Player
     public void AddExp(int exp)
     {
         Exp += exp;
+        
         // 레벨업 체크
-        // if (Exp >= DataManager.Instance.CharacterLevelData.LevelUpExp)
-        // {
-        //     LevelUp();
-        // }
+        int levelUpExp = LevelData.GetExp(Level);
+        if (Exp >= levelUpExp)
+        {
+            Exp -= levelUpExp;
+            LevelUp();
+        }
     }
 
     public void LevelUp()

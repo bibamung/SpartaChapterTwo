@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using Sylphyr.Character;
+
 using static System.Formats.Asn1.AsnWriter;
 
 namespace Sylphyr.Dungeon

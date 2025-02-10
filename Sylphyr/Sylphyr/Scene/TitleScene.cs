@@ -56,8 +56,7 @@ public class TitleScene
         newGameSb.AppendLine("바람의 정령들이 사는 신비한 대지 실피아에 어서오세요!");
         newGameSb.AppendLine("이 곳은 빛과 바람이 조화를 이루는 마을 루미에라입니다.");
         newGameSb.AppendLine("당신은 이 마을에 등장한 어둠의 탑 다크헤이븐을 올라");
-        newGameSb.AppendLine("고난과 역경을 극복하여 구름 위의 정령 누비아에 도달해야 합니다.");
-        newGameSb.AppendLine("왜 올라야하는지는 나도 몰?루?");
+        newGameSb.AppendLine("고난과 역경을 극복하고 고위정령이 되어 구름 위의 세계 누비아에 도달해야 합니다.");
         newGameSb.AppendLine("당신의 이름을 가르쳐 주세요.");
         
         Console.Write(newGameSb.ToString());
@@ -67,14 +66,14 @@ public class TitleScene
         newGameSb.AppendLine();
         newGameSb.AppendLine($"당신의 이름은 {name}이군요.");
         newGameSb.AppendLine("당신의 직업을 선택해 주세요.");
-        newGameSb.AppendLine("1. 도적");
-        newGameSb.AppendLine("2. 궁수");
-        newGameSb.AppendLine("3. 전사");
+        newGameSb.AppendLine("1. 전사");
+        newGameSb.AppendLine("2. 도적");
+        newGameSb.AppendLine("3. 궁수");
         newGameSb.AppendLine("4. 팔라딘");
         Console.Write(newGameSb.ToString());
         int input = GetInput(1, 4);
         
-        GameManger.Instance.SetPlayer(name, (CharacterClass)input - 1);
+        GameManger.Instance.SetPlayer(name, (CharacterClass)input);
         GameManger.Instance.Init();
         var player = GameManger.Instance.player;
         

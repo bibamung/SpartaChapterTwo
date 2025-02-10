@@ -13,4 +13,3 @@ public class Start
         titleScene.Run();
     }
 }
-

@@ -6,10 +6,10 @@ using TextRPG.Utils;
 
 namespace Sylphyr.YJH;
 
-public class DataManager
+public class DataManager : SingleTon<DataManager>
 {
-    private List<CharacterStat> characterStats;
-    private List<Monster> monsters;
+    public List<CharacterStat> characterStats { get; private set; }
+    public List<Monster> monsters;
     // private List<ConsumeItem> consumeItems;
     // private List<EquipmentItem> equipmentItems;
         

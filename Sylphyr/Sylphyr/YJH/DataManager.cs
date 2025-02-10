@@ -12,6 +12,7 @@ public class DataManager:SingleTon<DataManager>
     private readonly string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
     
     public List<CharacterStat> characterStats;
+    public Dictionary<int, CharacterStat> characterStatDict;
     public List<Monster> monsters;
     public List<Item.ConsumeItem> consumeItems;
     public List<Item.EquipmentItem> equipmentItems;

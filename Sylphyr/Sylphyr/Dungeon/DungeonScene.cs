@@ -33,8 +33,6 @@ namespace Sylphyr.Dungeon
 
         public void DisplayPlayerHpBar(Player player)
         {
-
-            int count = 1;
             int barSize = 20; // 체력바 길이 (20칸)
             float healthPercentage = player.CurrentHp / player.TotalStat.MaxHp;
             int filledBars = (int)(barSize * healthPercentage);
@@ -44,7 +42,7 @@ namespace Sylphyr.Dungeon
             Console.ForegroundColor = GetHealthColor(healthPercentage);
 
             // 체력바 출력
-            Console.Write($"{count}. {player.Name} [");
+            Console.Write($"{player.Name} [");
             Console.Write(new string('■', filledBars)); // 채워진 부분
             Console.Write(new string('□', emptyBars));  // 빈 부분
             Console.Write($"] {player.CurrentHp}/{player.TotalStat.MaxHp}");
@@ -61,7 +59,7 @@ namespace Sylphyr.Dungeon
             {
                 int count = 1;
                 int barSize = 20; // 체력바 길이 (20칸)
-                float healthPercentage = monster.Hp / monster.MaxHp;
+                float healthPercentage = monster.CurrentHp / monster.MaxHp;
                 int filledBars = (int)(barSize * healthPercentage);
                 int emptyBars = barSize - filledBars;
 
@@ -72,7 +70,7 @@ namespace Sylphyr.Dungeon
                 Console.Write($"{count}. {monster.MonsterName} [");
                 Console.Write(new string('■', filledBars)); // 채워진 부분
                 Console.Write(new string('□', emptyBars));  // 빈 부분
-                Console.Write($"] {monster.Hp}/{monster.MaxHp}");
+                Console.Write($"] {monster.CurrentHp}/{monster.MaxHp}");
 
                 // 색상 초기화
                 Console.ResetColor();
@@ -85,7 +83,7 @@ namespace Sylphyr.Dungeon
         {
 
             int barSize = 20; // 체력바 길이 (20칸)
-            float healthPercentage = monster.Hp / monster.MaxHp;
+            float healthPercentage = monster.CurrentHp / monster.MaxHp;
             int filledBars = (int)(barSize * healthPercentage);
             int emptyBars = barSize - filledBars;
 
@@ -96,7 +94,7 @@ namespace Sylphyr.Dungeon
             Console.Write($"{monster.MonsterName} [");
             Console.Write(new string('■', filledBars)); // 채워진 부분
             Console.Write(new string('□', emptyBars));  // 빈 부분
-            Console.Write($"] {monster.Hp}/{monster.MaxHp}");
+            Console.Write($"] {monster.CurrentHp}/{monster.MaxHp}");
 
             // 색상 초기화
             Console.ResetColor();
@@ -137,7 +135,7 @@ namespace Sylphyr.Dungeon
                 Console.WriteLine($"{monster.MonsterName}를 공격했다.");
                 Console.WriteLine($"효과는 굉장했다.");
                 Console.WriteLine($"{monster.MonsterName}에게 {finalDamage}만큼 피해를 입혔다.");
-                monster.Hp -= finalDamage;
+                monster.CurrentHp -= finalDamage;
                 DisplayHealthBar(monster);
 
                 Console.WriteLine("계속 진행하시려면 Enter키를 눌러주세요...");
@@ -147,7 +145,7 @@ namespace Sylphyr.Dungeon
             {
                 Console.WriteLine($"{monster.MonsterName}를 공격했다.");
                 Console.WriteLine($"{monster.MonsterName}에게 {finalDamage}만큼 피해를 입혔다.");
-                monster.Hp -= finalDamage;
+                monster.CurrentHp -= finalDamage;
                 DisplayHealthBar(monster);
 
                 Console.WriteLine("계속 진행하시려면 Enter키를 눌러주세요...");
@@ -157,6 +155,7 @@ namespace Sylphyr.Dungeon
 
 
         //플레이어가 때린걸 몬스터가 회피했을때
+        //DisplayEvasion(때린 대상)
         public void DisplayEvasion(Player player)
         {
             Random rand = new Random(DateTime.Now.Millisecond);
@@ -205,6 +204,11 @@ namespace Sylphyr.Dungeon
             if (percentage > 0.6f) return ConsoleColor.Green;  // 60% 이상 - 초록
             if (percentage > 0.3f) return ConsoleColor.Yellow; // 30~60% - 노랑
             return ConsoleColor.Red;                           // 30% 이하 - 빨강
+        }
+
+        public void selectMonster()
+        {
+
         }
 
     }

@@ -1,13 +1,13 @@
 using System.Text;
 
-namespace Sylphyr.KJE;
+namespace Sylphyr.Character;
 
 public class Player
 {
     public string Name { get; }
     public CharacterClass Class { get; }
     public CharacterStat BaseStat { get; }
-    public CharacterStat EnhancedStat { get; }
+    public CharacterStat EnhancedStat { get; set; }
     public int Level { get; }
     public float CurrentHp { get; private set; }
     public float CurrentMp { get; private set; }
@@ -114,25 +114,22 @@ public class Player
         // monster.TakeDamage(damage);
     }
     
-    public void TakeDamage() // (Monster monster)
+    public void TakeDamage(float damage)
     {
-        // DEX에 의한 회피율 계산
         Random rand = new Random();
         float evasionRate = 100f * (TotalStat.Dex / (TotalStat.Dex + 50f));
         
         if (rand.NextDouble() < evasionRate)
         {
-            // 회피 성공
+            // TODO: 회피 성공
             return;
         }
         
-        // DEF에 의한 데미지 감소율 계산
-        // float damage = monster.Atk - (TotalStat.Def / TotalStat.Def + 50f);
-        float damage = 10;
-        if (damage <= 0)
-            damage = 1;
+        float finalDamage = damage - (TotalStat.Def / TotalStat.Def + 50f);
+        if (finalDamage <= 0)
+            finalDamage = 1;
         
-        CurrentHp -= damage;
+        CurrentHp -= finalDamage;
     }
 
     public void AddExp(int exp)

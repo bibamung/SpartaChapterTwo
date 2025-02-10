@@ -35,12 +35,12 @@ namespace Sylphyr
         }
 
 
-        public Item(int id, string name, int stat, int stat2, string slot, int price, string desc, bool purchase , bool isequip)
+        public Item(int id, string name, int stat, int Value, string slot, int price, string desc, bool purchase , bool isequip)
         {
             ID = id;
             Name = name;
             Stat = stat;
-            Stat2 = stat2;
+            Stat2 = Value;
             Slot = slot;
             Price = price;
             Desc = desc;

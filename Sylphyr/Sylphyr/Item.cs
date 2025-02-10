@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using Sylphyr.KJE;
+using Sylphyr.Character;
 
 namespace Sylphyr
 {

@@ -225,40 +225,4 @@ public class Player
     {
         
     }
-    public Quest ActiveQuest { get; set; } = null; // 현재 진행 중인 퀘스트
-
-    public void ShowStatus()
-    {
-        Console.WriteLine("\n===== [ 플레이어 상태 ] =====");
-        Console.WriteLine($"Gold: {Gold}");
-        Console.WriteLine($"Exp: {Exp}\n");
-    }
-
-    public void CompleteQuest()
-    {
-        if (!ActiveQuest.IsFloorsCompleted|| !ActiveQuest.IsBuyItemsCompleted|| !ActiveQuest.IsSellItemsCompleted)
-        {
-            Console.WriteLine("퀘스트 완료 조건을 충족하지 않았습니다.");
-            return;
-        }
-
-        Console.Clear();
-        Console.WriteLine($" {ActiveQuest.Name} 완료!");
-        Console.WriteLine($" {ActiveQuest.RewardGold} Gold & {ActiveQuest.RewardExp} Exp 획득!\n");
-
-        Gold += ActiveQuest.RewardGold;
-        Exp += ActiveQuest.RewardExp;
-        ActiveQuest = null;
-    }
-    public void ProgressQuest()
-    {
-        if (ActiveQuest == null)
-        {
-            Console.WriteLine("진행중인 퀘스트가 없습니다.");
-        }
-        else if (ActiveQuest.IsFloorsCompleted)
-        {
-            Console.WriteLine("완료할 퀘스트가 있습니다.");
-        }
-    }
 }

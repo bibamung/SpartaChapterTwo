@@ -3,7 +3,8 @@ using Guild;
 using Newtonsoft.Json;
 using Sylphyr.Character;
 using Sylphyr.Utils;
-
+using System.Collections.Generic;
+using System.IO;
 
 namespace Sylphyr.YJH;
 
@@ -32,6 +33,7 @@ public class DataManager:SingleTon<DataManager>
     // Json파일을 여기서 리스트화.
     public void DeserializeJson()
     {
+        //Json파일 위치지정
         DirectoryInfo projectDir = Directory.GetParent(baseDirectory); // net8.0
         projectDir = projectDir.Parent;                                     // Debug
         projectDir = projectDir.Parent;                                     // bin

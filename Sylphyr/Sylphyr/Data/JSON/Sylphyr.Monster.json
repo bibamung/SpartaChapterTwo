@@ -359,8 +359,8 @@
     "Dex": "22.3",
     "CriticalChance": "0.39",
     "CritcalDamage": "1.5",
-    "Speed": "",
-    "DropGold": "매니저님들 좋아하는 숫자",
+    "Speed": "-1",
+    "DropGold": "-1",
     "DropExp": "150000"
   },
   {
@@ -373,8 +373,8 @@
     "Dex": "23",
     "CriticalChance": "0.4",
     "CritcalDamage": "1.7",
-    "Speed": "",
-    "DropGold": "매니저님들 좋아하는 숫자",
+    "Speed": "-1",
+    "DropGold": "-1",
     "DropExp": "200000"
   },
   {
@@ -387,8 +387,8 @@
     "Dex": "23.7",
     "CriticalChance": "0.41",
     "CritcalDamage": "1.81",
-    "Speed": "",
-    "DropGold": "매니저님들 좋아하는 숫자",
+    "Speed": "-1",
+    "DropGold": "-1",
     "DropExp": "300000"
   },
   {
@@ -401,8 +401,8 @@
     "Dex": "24.4",
     "CriticalChance": "0.41",
     "CritcalDamage": "2.55",
-    "Speed": "",
-    "DropGold": "매니저님들 좋아하는 숫자",
+    "Speed": "-1",
+    "DropGold": "-1",
     "DropExp": "500000"
   }
 ]

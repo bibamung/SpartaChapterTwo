@@ -37,6 +37,7 @@ public class Player
     // TODO: 초기 골드를 줄건지?
     public Player(string name, CharacterClass charClass)
     {
+        /*
         Name = name;
         // TODO
         // Class = DataManager.Instance.CharacterStatDatas.GetCharacterStat(charClass);
@@ -45,6 +46,32 @@ public class Player
         CurrentMp = BaseStat.MaxMp;
         Exp = 0;
         Gold = 0;
+        */
+
+        Name = name;
+        Class = charClass;
+
+        // ⭐ BaseStat을 반드시 초기화
+        BaseStat = new CharacterStat
+        {
+            MaxHp = 100,   // 초기 HP 값 (적절히 변경)
+            MaxMp = 50,    // 초기 MP 값 (적절히 변경)
+            Atk = 10,      // 초기 공격력
+            Def = 5,       // 초기 방어력
+            Luk = 3,       // 초기 럭
+            Dex = 4,       // 초기 민첩
+            Speed = 5,     // 초기 속도
+            CriticalChance = 0.05f,  // 치명타 확률 (5%)
+            CriticalDamage = 1.5f    // 치명타 배율 (1.5배)
+        };
+
+        EnhancedStat = new CharacterStat(); // ⭐ 필수 초기화
+
+        Level = 1;
+        CurrentHp = BaseStat.MaxHp;
+        CurrentMp = BaseStat.MaxMp;
+        Exp = 0;
+        Gold = 4000;
     }
 
     // 상태창 보기

@@ -5,7 +5,7 @@ using CsvHelper.Configuration;
 using Newtonsoft.Json;
 
 namespace TextRPG.Utils;
-
+/*
 // CSV 파일을 Json 파일로 변환하는 유틸리티 클래스
 public static class CsvToJsonConverter
 {
@@ -56,4 +56,4 @@ public static class CsvToJsonConverter
         
         Console.WriteLine("모든 CSV 파일을 Json으로 변환 완료!");
     }
-}
+}*/

@@ -49,7 +49,7 @@ namespace Guild
         }
     }
 
-    public class Player
+    public class Player1
     {
         public int Gold { get; set; } = 1000;
         public int Exp { get; set; } = 0;
@@ -96,7 +96,7 @@ namespace Guild
     {
         static void GuildMain()
         {
-            Player player = new Player();
+            Player1 player = new Player1();
             bool nextPage = true;
             List<Quest> questList = new List<Quest>
             {

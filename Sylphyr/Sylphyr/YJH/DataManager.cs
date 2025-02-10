@@ -5,7 +5,7 @@ using TextRPG.Utils;
 
 
 namespace Sylphyr.YJH;
-
+/*
 public class DataManager
 {
     private List<CharacterStat> characterStats;
@@ -35,4 +35,4 @@ public class DataManager
         Console.WriteLine($"Name:{testStat.Name}");
     }
 }
-
+*/

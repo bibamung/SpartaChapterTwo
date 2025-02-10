@@ -71,7 +71,7 @@ public class Player
         CurrentHp = BaseStat.MaxHp;
         CurrentMp = BaseStat.MaxMp;
         Exp = 0;
-        Gold = 4000;
+        Gold = 400000;
     }
 
     // 상태창 보기

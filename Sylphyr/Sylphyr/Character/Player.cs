@@ -214,10 +214,21 @@ public class Player
         // 타이틀로 돌아가기;
     }
 
-    // 아이템 사용하기?
-    public void UseItem()
+    public void UseItem(bool isHealth, float value)
     {
-        // TODO: 몬스터와 전투 도중 사용할 것인지? 아니면 마을에서 사용할 것인지? 아니면 한 층을 클리어했을 때 사용할 것인지?
+        if (isHealth) // hp
+        {
+            CurrentHp += value;
+            if (CurrentHp > TotalStat.MaxHp)
+                CurrentHp = TotalStat.MaxHp;
+            
+        }
+        else // mp
+        {
+            CurrentMp += value;
+            if (CurrentMp > TotalStat.MaxMp)
+                CurrentMp = TotalStat.MaxMp;
+        }
     }
 
     // 장비 착용하기?

@@ -74,9 +74,9 @@ public class TitleScene
         Console.Write(newGameSb.ToString());
         int input = GetInput(1, 4);
         
-        GameManger.Instance.SetPlayer(name, (CharacterClass)input - 1);
-        GameManger.Instance.Init();
-        var player = GameManger.Instance.player;
+        GameManager.Instance.SetPlayer(name, (CharacterClass)input - 1);
+        GameManager.Instance.Init();
+        var player = GameManager.Instance.player;
         
         newGameSb.Clear();
         newGameSb.AppendLine();
@@ -85,7 +85,7 @@ public class TitleScene
         newGameSb.AppendLine("press any key to continue...");
         Console.Write(newGameSb.ToString());
         Console.ReadKey();
-        GameManger.Instance.Main.Run();
+        GameManager.Instance.Main.Run();
     }
 
     private void LoadGame()

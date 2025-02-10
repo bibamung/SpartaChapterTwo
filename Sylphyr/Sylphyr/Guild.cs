@@ -139,7 +139,7 @@ namespace Guild
             Console.WriteLine($"현재 최대 오른 층 {ActiveQuest.MaxFloors}");
         }
 
-        void GuildMain(Player player)
+        public void GuildMain(Player player)
         {
             List<Quest> questList = DataManager.Instance.quests;
 

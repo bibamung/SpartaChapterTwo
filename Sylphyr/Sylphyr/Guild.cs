@@ -48,7 +48,7 @@ public class Quest
 
 class Program
 {
-    static void Main()
+    static void Quest()
     {
         bool nextPage = true;
         List<Quest> questList = new List<Quest>

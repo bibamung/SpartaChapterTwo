@@ -235,6 +235,19 @@ public class Player
         return skills;
     }
 
+    public void UseMp(int useMp)
+    {
+        if (CurrentMp > useMp)
+        {
+            CurrentMp -= useMp;
+        }
+        else
+        {
+            Console.WriteLine("마나가 없습니다.");
+        }
+    }
+
+
     public void Dead()
     {
         // 타이틀로 돌아가기;

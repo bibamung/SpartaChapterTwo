@@ -14,25 +14,6 @@ namespace Sylphyr.Dungeon
 {
     public class DungeonScene
     {
-        DungeonManager dungeonManager = new DungeonManager();
-        public int StageSelect()
-        {
-            int stage;
-            bool isValidNum = int.TryParse(Console.ReadLine(), out stage);
-            if (isValidNum)
-            {
-                if (stage > 0 && stage < 50)
-                {
-                    dungeonManager.DungeonStart(stage);
-                }
-            }
-            else
-            {
-                Console.WriteLine("잘못 입력하셨습니다.");
-            }
-            return stage;
-        }
-
         public void DisplayPlayerHpBar(Player player)
         {
             int barSize = 20; // 체력바 길이 (20칸)
@@ -48,6 +29,15 @@ namespace Sylphyr.Dungeon
             Console.Write(new string('■', filledBars)); // 채워진 부분
             Console.Write(new string('□', emptyBars));  // 빈 부분
             Console.Write($"] {player.CurrentHp}/{player.TotalStat.MaxHp}");
+
+            filledBars = (int)(barSize * healthPercentage);
+            emptyBars = barSize - filledBars;
+            // 마나바 출력
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.Write($"{player.Name} [");
+            Console.Write(new string('■', filledBars)); // 채워진 부분
+            Console.Write(new string('□', emptyBars));  // 빈 부분
+            Console.Write($"] {player.CurrentMp}/{player.TotalStat.MaxHp}");
 
             // 색상 초기화
             Console.ResetColor();
@@ -160,7 +150,7 @@ namespace Sylphyr.Dungeon
         {
             if (isCritical) //크리티컬이 터졌습니다.
             {
-                Console.WriteLine($"{monster.MonsterName}를 공격했다."); //($"{monster.MonsterName}를 {player.Skill[useSkill]}으/로 공격했다.");
+                Console.WriteLine($"{monster.MonsterName}를 {player.Skills[useSkill-1].SkillName}으/로 공격했다.");
                 Console.WriteLine($"효과는 굉장했다.");
                 Console.WriteLine($"{monster.MonsterName}에게 {finalDamage}만큼 피해를 입혔다.");
                 monster.CurrentHp -= finalDamage;
@@ -171,7 +161,7 @@ namespace Sylphyr.Dungeon
             }
             else            //크리티컬이 안 터졌습니다.
             {
-                Console.WriteLine($"{monster.MonsterName}를 공격했다.");
+                Console.WriteLine($"{monster.MonsterName}를 {player.Skills[useSkill - 1].SkillName}으/로 공격했다.");
                 Console.WriteLine($"{monster.MonsterName}에게 {finalDamage}만큼 피해를 입혔다.");
                 monster.CurrentHp -= finalDamage;
                 DisplayHealthBar(monster);
@@ -236,7 +226,11 @@ namespace Sylphyr.Dungeon
         //플레이어 스킬 리스트 출력
         public void DisplayPlayerSkill(Player player)
         {
-
+            int count = 1;
+            for (int i = 0; i < player.Skills.Count(); i++)
+            {
+                Console.WriteLine($"{count++}. {player.Skills[i].SkillName} | 사용 마나: {player.Skills[i].UseMp} | 스킬 설명: {player.Skills[i].Desc}\n");
+            }
         }
         //기본 공격
         public void BasicAttack(Player player, Monster monster)
@@ -277,17 +271,17 @@ namespace Sylphyr.Dungeon
             {
                 if (rand.NextSingle() < player.TotalStat.CriticalChance)
                 {
-                    float finalDamage = player.TotalStat.Atk * player.TotalStat.CriticalDamage/**player.Skill[skillUse].Damage*/
+                    float finalDamage = player.TotalStat.Atk * player.TotalStat.CriticalDamage*player.Skills[useSkill -  1].Damage
                         - monsterDef;
 
-                    DisplayHit(player, monster, isCritical, finalDamage);
+                    DisplaySkillHit(player, monster, isCritical, finalDamage,useSkill);
                 }
                 else
                 {
-                    float finalDamage = player.TotalStat.Atk /**player.Skill[skillUse].Damage*/
+                    float finalDamage = player.TotalStat.Atk * player.TotalStat.CriticalDamage * player.Skills[useSkill - 1].Damage
                         - monsterDef;
 
-                    DisplayHit(player, monster, isCritical, finalDamage);
+                    DisplaySkillHit(player, monster, isCritical, finalDamage, useSkill);
                 }
             }
             else
@@ -305,13 +299,13 @@ namespace Sylphyr.Dungeon
             {
                 if (rand.NextSingle() < player.TotalStat.CriticalChance)
                 {
-                    float finalDamage = player.TotalStat.Atk * player.TotalStat.CriticalDamage/**player.Skill[skillUse].Damage*/;
+                    float finalDamage = player.TotalStat.Atk * player.TotalStat.CriticalDamage * player.TotalStat.CriticalDamage * player.Skills[useSkill - 1].Damage;
 
                     DisplayHit(player, monster, isCritical, finalDamage);
                 }
                 else
                 {
-                    float finalDamage = player.TotalStat.Atk /**player.Skill[skillUse].Damage*/;
+                    float finalDamage = player.TotalStat.Atk * player.TotalStat.CriticalDamage * player.Skills[useSkill - 1].Damage;
 
                     DisplayHit(player, monster, isCritical, finalDamage);
                 }
@@ -386,10 +380,7 @@ namespace Sylphyr.Dungeon
 
         }
 
-        public void selectMonster()
-        {
 
-        }
         
     }
 

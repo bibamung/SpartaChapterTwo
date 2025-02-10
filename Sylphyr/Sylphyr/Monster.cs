@@ -21,12 +21,12 @@ namespace Sylphyr
         public float CriticalDamage { get; set; }
         public int Speed { get; set; }
 
-        int DropGold { get; set; }
-        float DropExp { get; set; }
+        public int DropGold { get; set; }
+        public int DropExp { get; set; }
         
         public Monster(int monsterId, string monsterName, float MaxHp, float curHp, 
             float atk, float def, float critical, float dex, float criticalChance,
-            float criticalDamage, int speed, int dropGold, float dropExp)
+            float criticalDamage, int speed, int dropGold, int dropExp)
         {
             MonsterId = monsterId;
             MonsterName = monsterName;

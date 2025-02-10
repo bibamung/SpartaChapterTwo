@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Sylphyr.Character;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace Sylphyr.Dungeon
 {
@@ -55,6 +57,7 @@ namespace Sylphyr.Dungeon
 
         public void DisplayHealthBar(List<Monster> stageMonsters)
         {
+            Console.WriteLine($"\n====몬스터=====\n");
             foreach (Monster monster in stageMonsters)
             {
                 int count = 1;
@@ -205,6 +208,97 @@ namespace Sylphyr.Dungeon
             if (percentage > 0.3f) return ConsoleColor.Yellow; // 30~60% - 노랑
             return ConsoleColor.Red;                           // 30% 이하 - 빨강
         }
+
+        //플레이어 스킬 리스트 출력
+        public void DisplayPlayerSkill(Player player)
+        {
+
+        }
+
+        public void BasicAttack(Player player, Monster monster)
+        {
+            Random rand = new Random(DateTime.Now.Millisecond);
+            bool isCritical = false;
+            float evasionRate = 100.0f * (monster.Dex / (monster.Dex + 50.0f));
+            float monsterDef = (monster.Def / (monster.Def + 50.0f)) * 100.0f;
+            if (rand.NextSingle() > evasionRate)
+            {
+                if (rand.NextSingle() < player.TotalStat.CriticalChance)
+                {
+                    float finalDamage = player.TotalStat.Atk * player.TotalStat.CriticalDamage - monsterDef;
+
+                    DisplayHit(player, monster, isCritical, finalDamage);
+                }
+                else
+                {
+                    float finalDamage = player.TotalStat.Atk - monsterDef;
+
+                    DisplayHit(player, monster, isCritical, finalDamage);
+                }
+            }
+            else
+            {
+                DisplayEvasion(player);
+            }
+        }
+
+        public void WideAreaSkillAttack(Player player, Monster monster, int skillUse)
+        {
+            bool isCritical = false;
+            Random rand = new Random(DateTime.Now.Millisecond);
+            float evasionRate = 100.0f * (monster.Dex / monster.Dex + 50.0f);
+            float monsterDef = (monster.Def / (monster.Def + 50.0f)) * 100.0f;
+            if (rand.NextSingle() > evasionRate)
+            {
+                if (rand.NextSingle() < player.TotalStat.CriticalChance)
+                {
+                    float finalDamage = player.TotalStat.Atk * player.TotalStat.CriticalDamage/**player.Skill[skillUse].Damage*/
+                        - monsterDef;
+
+                    DisplayHit(player, monster, isCritical, finalDamage);
+                }
+                else
+                {
+                    float finalDamage = player.TotalStat.Atk /**player.Skill[skillUse].Damage*/
+                        - monsterDef;
+
+                    DisplayHit(player, monster, isCritical, finalDamage);
+                }
+            }
+        }
+
+        public void MonsterAttack(Monster monster, Player player)
+        {
+            bool isCritical = false;
+            Random rand = new Random(DateTime.Now.Millisecond);
+            float evasionRate = 100.0f * (player.TotalStat.Dex / (player.TotalStat.Dex + 50.0f));
+            float playerDef = (player.TotalStat.Def / (player.TotalStat.Def + 50.0f));
+            if (rand.NextSingle() > evasionRate)    //회피하지 못했을 경우
+            {
+                Console.Clear();
+                if (rand.NextSingle() < player.TotalStat.CriticalChance)        //크리티컬이 터졌을 경우
+                {
+                    isCritical = true;
+                    float finalDamage = monster.Atk * monster.CriticalDamage - playerDef;
+                    player.TakeDamage(finalDamage);
+                    DisplayHit(monster, player, isCritical, finalDamage);
+
+                }
+                else
+                {
+                    isCritical = false;
+                    float finalDamage = monster.Atk - playerDef;
+                    player.TakeDamage(finalDamage);
+                    DisplayHit(monster, player, isCritical, finalDamage);
+                }
+            }
+            else
+            {
+                DisplayEvasion(monster);
+            }
+        }
+
+
 
         public void selectMonster()
         {

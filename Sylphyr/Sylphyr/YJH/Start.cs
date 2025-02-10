@@ -13,7 +13,7 @@ public class Start
         
         dataManager.DeserializeJson();
         
-        GameManger.Instance.player.LevelData.printExpTable();
+        //GameManger.Instance.player.LevelData.printExpTable();
     }
 }
 

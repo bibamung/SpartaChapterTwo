@@ -25,7 +25,7 @@ namespace Sylphyr
         public int DropExp;
         
         public Monster(int monsterId, string monsterName, float maxHp, float curHp, 
-            float atk, float def, float critical, float dex, float criticalChance,
+            float atk, float def, float dex, float criticalChance,
             float criticalDamage, int speed, int dropGold, int dropExp)
         {
             MonsterId = monsterId;

@@ -1,4 +1,5 @@
 using System.Text;
+using Sylphyr.Dungeon;
 using Sylphyr.YJH;
 
 namespace Sylphyr.Character;
@@ -146,15 +147,6 @@ public class Player
 
     public void TakeDamage(float damage)
     {
-        Random rand = new Random();
-        float evasionRate = 100f * (TotalStat.Dex / (TotalStat.Dex + 50f));
-
-        if (rand.NextDouble() < evasionRate)
-        {
-            // TODO: 회피 성공
-            return;
-        }
-
         float finalDamage = damage - (TotalStat.Def / TotalStat.Def + 50f);
         if (finalDamage <= 0)
             finalDamage = 1;

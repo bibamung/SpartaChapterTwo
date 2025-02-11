@@ -19,7 +19,8 @@ public class MainScene
         sb.AppendLine("2. 인벤토리");
         sb.AppendLine("3. 상점");
         sb.AppendLine("4. 던전 입장");
-        sb.AppendLine("5. 저장하기");
+        sb.AppendLine("5. 길드 입장");
+        sb.AppendLine("6. 저장하기");
         sb.AppendLine("0. 게임 종료");
 
         sb.AppendLine();
@@ -49,6 +50,9 @@ public class MainScene
                     break;
                 case Behavior.DungeonEnter:
                     EnterDungeon();
+                    break;
+                case Behavior.GuildEnter:
+                    EnterGuild();
                     break;
                 case Behavior.Save:
                     break;
@@ -90,7 +94,13 @@ public class MainScene
         var inventory = GameManager.Instance.inventory;
         GameManager.Instance.shop.shopScene(player, inventory);
     }
-    
+
+    private void EnterGuild()
+    {
+        var player = GameManager.Instance.player;
+        GameManager.Instance.guild.GuildMain(player);
+    }
+
     private void EnterDungeon()
     {
         dungeonManager.StageSelect();
@@ -140,6 +150,7 @@ public enum Behavior
     Inventory = 2,
     Store = 3,
     DungeonEnter = 4,
-    Save = 5, 
+    GuildEnter = 5,
+    Save = 6, 
     Exit = 0
 }

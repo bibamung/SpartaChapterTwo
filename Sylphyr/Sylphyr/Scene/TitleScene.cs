@@ -19,13 +19,13 @@ public class TitleScene : SingleTon<TitleScene>
         TitleSb.AppendLine("  \\____/  \\\\__,||_|| .__/ |_| |_| \\\\__,||_|   ");
         TitleSb.AppendLine("           __/ |   | |             __/ |      ");
         TitleSb.AppendLine("          |___/    |_|            |___/       ");
+        TitleSb.AppendLine("");
+        TitleSb.AppendLine("");
     }
 
     public void Run()
     {
         Sb.Clear();
-        Sb.AppendLine("");
-        Sb.AppendLine("");
         Sb.AppendLine("  \t\t1. 게임 시작");
         Sb.AppendLine("  \t\t2. 이어 하기");
         Sb.AppendLine("  \t\t3. 게임 종료");

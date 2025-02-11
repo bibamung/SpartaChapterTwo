@@ -32,7 +32,6 @@ namespace Sylphyr.Dungeon
         public Player player = GameManager.Instance.player;
 
         List<Monster> monsterlist = DataManager.Instance.monsters;
-        //MainScene mainScene = new MainScene();
         Inventory Inventory = new Inventory();
 
         public Monster GetMonster(int id)
@@ -211,8 +210,6 @@ namespace Sylphyr.Dungeon
 
         public void StageSelect()
         {
-
-
             while (true)
             {
                 Console.Clear();
@@ -226,7 +223,15 @@ namespace Sylphyr.Dungeon
                 {
                     if (stage >= 1 && stage <= 50)
                     {
-                        DungeonBattleStart(stage);
+                        if (player.BestStage == stage - 1 || stage <= player.BestStage)
+                        {
+                            DungeonBattleStart(stage);
+                        }
+                        else
+                        {
+                            Console.WriteLine("이전 스테이지를 클리어하지 못하였습니다.");
+                            Console.ReadKey();
+                        }
                     }
                     else if (stage == 0)
                     {
@@ -236,12 +241,16 @@ namespace Sylphyr.Dungeon
                     else
                     {
                         Console.WriteLine("1~50스테이지를 입력해 주세요");
+                        Console.Write("any key to continue");
+                        Console.ReadKey();
                     }
 
                 }
                 else
                 {
                     Console.WriteLine("잘못 입력하셨습니다.");
+                    Console.Write("any key to continue");
+                    Console.ReadKey();
                 }
             }
         }
@@ -387,9 +396,10 @@ namespace Sylphyr.Dungeon
                             TotalGold += currentStageMonsters[selectMonster - 1].DropGold;
                             currentStageMonsters.RemoveAt(selectMonster - 1);
 
-                            if (currentStageMonsters.Count() == 0)
+                            if (currentStageMonsters.Count() <= 0)
                             {
                                 scene.DisplayReward(player, TotalGold, TotalExp);
+                                if (player.BestStage < stage) player.SetBestStage(stage);
                                 Console.WriteLine("계속 진행하시려면 Enter키를 눌러주세요...");
                                 Console.ReadLine();
                                 GameManager.Instance.main.Run();
@@ -404,7 +414,6 @@ namespace Sylphyr.Dungeon
                     scene.MonsterAttack(currentStageMonsters[i], player);
                     if (player.CurrentHp <= 0)
                     {
-
                         player.Dead();
                     }
                     repeat++;
@@ -465,6 +474,7 @@ namespace Sylphyr.Dungeon
                                             if (currentStageMonsters.Count <= 0)
                                             {
                                                 scene.DisplayReward(player, TotalGold, TotalExp);
+                                                if (player.BestStage < stage) player.SetBestStage(stage);
                                                 Console.WriteLine("계속 진행하시려면 Enter키를 눌러주세요...");
                                                 Console.ReadLine();
                                                 GameManager.Instance.main.Run();
@@ -475,7 +485,6 @@ namespace Sylphyr.Dungeon
                                     scene.MonsterAttack(currentStageMonsters[i], player);
                                     if (player.CurrentHp <= 0)
                                     {
-
                                         player.Dead();
                                     }
 
@@ -518,6 +527,7 @@ namespace Sylphyr.Dungeon
                                                     if (currentStageMonsters.Count <= 0)
                                                     {
                                                         scene.DisplayReward(player, TotalGold, TotalExp);
+                                                        if (player.BestStage < stage) player.SetBestStage(stage);
                                                         Console.WriteLine("계속 진행하시려면 Enter키를 눌러주세요...");
                                                         Console.ReadLine();
                                                         GameManager.Instance.main.Run();
@@ -580,6 +590,7 @@ namespace Sylphyr.Dungeon
                                                     if (currentStageMonsters.Count <= 0)
                                                     {
                                                         scene.DisplayReward(player, TotalGold, TotalExp);
+                                                        if (player.BestStage < stage) player.SetBestStage(stage);
                                                         Console.WriteLine("계속 진행하시려면 Enter키를 눌러주세요...");
                                                         Console.ReadLine();
                                                         GameManager.Instance.main.Run();

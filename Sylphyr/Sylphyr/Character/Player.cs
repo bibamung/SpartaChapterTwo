@@ -1,6 +1,7 @@
 using System.Text;
 using Sylphyr.Dungeon;
 using Sylphyr.Scene;
+using Sylphyr.Utils;
 using Sylphyr.YJH;
 using static Sylphyr.Character.CharacterStat;
 
@@ -28,7 +29,10 @@ public class Player
     public float CurrentHp { get; private set; }
     public float CurrentMp { get; private set; }
     public int Exp { get; private set; }
-    public int Gold { get; private set; }
+    public int Gold { get; private set; } = 0;
+    
+    //Player Best Stage
+    public int BestStage { get; private set; }
 
     private CharacterStat totalStat = new CharacterStat();
     public CharacterStat TotalStat
@@ -83,9 +87,10 @@ public class Player
     {
         statusSb.Clear();
         statusSb.AppendLine($" Lv.{Level}");
-        statusSb.AppendLine($" {Name} ( {Class} )");
+        statusSb.AppendLine($" {Name} ( {Class.GetClassName()} )");
         statusSb.AppendLine($" HP: {CurrentHp}/{TotalStat.MaxHp}");
         statusSb.AppendLine($" MP: {CurrentMp}/{TotalStat.MaxMp}");
+        statusSb.AppendLine($" Exp: {Exp}/{LevelData.GetExp(Level)}");
         statusSb.AppendLine($" 골드: {Gold} G");
         statusSb.AppendLine();
         statusSb.AppendLine($" 공격력: {TotalStat.Atk}");
@@ -156,8 +161,9 @@ public class Player
 
     private void LevelUp(int remainExp)
     {
-        Console.WriteLine("레벨업!");
-        Console.WriteLine($"{Level} -> {Level + 1}");
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine($"레벨이 올랐습니다! Lv.{Level + 1}이 되었습니다.");
+        Console.ResetColor();
         
         Level++;
         
@@ -184,7 +190,9 @@ public class Player
             if (skill.AcquisitionLevel == Level)
             {
                 learnedSkills.Add(skill);
-                Console.WriteLine($"{skill.SkillName} 습득!");
+                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                Console.WriteLine($"스킬을 배웠습니다! {skill.SkillName} 습득!");
+                Console.ResetColor();
             }
         }
         
@@ -258,8 +266,18 @@ public class Player
     public void Dead()
     {
         GameManager.Instance.GameOver();
+        
+        Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine("사망하였습니다...");
+        Console.ResetColor();
+        
+        Console.WriteLine("press any key to continue...");
+        Console.ReadKey();
         TitleScene.Instance.Run();
+    }
+    public void SetBestStage(int stage)
+    {
+        BestStage = stage;
     }
     
     public SaveData ToSaveData() {

@@ -4,14 +4,27 @@ using CsvHelper;
 using CsvHelper.Configuration;
 using Newtonsoft.Json;
 
-namespace TextRPG.Utils;
-/*
+namespace Sylphyr.Utils;
+
 // CSV 파일을 Json 파일로 변환하는 유틸리티 클래스
 public static class CsvToJsonConverter
 {
-    private const string folderPath = "Data/CSV";
-    private const string outputFolderPath = "Data/JSON";
- 
+    private static readonly string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+    private static string folderPath = "CSV";
+    private static string outputFolderPath = "JSON";
+
+    public static void SetFolderPath()
+    {
+        DirectoryInfo projectDir = Directory.GetParent(baseDirectory); // net8.0
+        projectDir = projectDir.Parent;                                     // Debug
+        projectDir = projectDir.Parent;                                     // bin
+        projectDir = projectDir.Parent;                                     // Sylphyr
+        
+        string dataPath = Path.Combine(projectDir.FullName, "Data");
+        folderPath = Path.Combine(dataPath, folderPath);
+        outputFolderPath = Path.Combine(dataPath, outputFolderPath);
+    }
+    
     private static void ConvertCsvToJson(string csvPath, string jsonOutputPath)
     {
         if (!File.Exists(csvPath))
@@ -56,4 +69,4 @@ public static class CsvToJsonConverter
         
         Console.WriteLine("모든 CSV 파일을 Json으로 변환 완료!");
     }
-}*/
+}

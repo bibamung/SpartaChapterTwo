@@ -3,9 +3,7 @@ using Sylphyr.Dungeon;
 using System.Text;
 
 namespace Sylphyr.Scene;
-public enum Behavior{
-    PlayerInfo = 1, Inventory = 2, Store = 3, DungeonEnter = 4, Storage = 5, Exit = 0
-}
+
 
 public class MainScene
 {
@@ -37,16 +35,27 @@ public class MainScene
         bool isVaildNum = int.TryParse(Console.ReadLine(), out select);
         if (isVaildNum)
         {
-            switch (select)
+            switch ((Behavior)select)
             {
-                case (int)Behavior.DungeonEnter:
-                    dungeonManager.StageSelect();
+                case Behavior.PlayerInfo:
+                    PrintPlayerInfo();
                     break;
-                case (int)Behavior.Store:
-                    GameManger.Instance.shop.shopScene(GameManger.Instance.player, GameManger.Instance.inventory);
+                case Behavior.Inventory:
+                    OpenInventory();
+                    break;
+                case Behavior.Store:
+                    EnterStore();
+                    break;
+                case Behavior.DungeonEnter:
+                    EnterDungeon();
+                    break;
+                case Behavior.Save:
+                    break;
+                case Behavior.Exit:
+                    TitleScene.Instance.ExitGame();
                     break;
                 default:
-                    break;
+                    throw new ArgumentOutOfRangeException();
             }
         }
         else
@@ -54,4 +63,55 @@ public class MainScene
             Console.WriteLine("숫자를 입력해 주세요.");
         }
     }
+
+    private void PrintPlayerInfo()
+    {
+        var player = GameManger.Instance.player;
+        Console.Clear();
+        Console.WriteLine("플레이어의 정보를 확인합니다.");
+        Console.WriteLine();
+        player.PrintStatus();
+        Console.WriteLine();
+        Console.WriteLine("any key to continue");
+        Console.ReadKey();
+        Run();
+    }
+    
+    private void OpenInventory()
+    {
+        var player = GameManger.Instance.player;
+        GameManger.Instance.inventory.invenDisplay(player);
+    }
+
+    private void EnterStore()
+    {
+        var player = GameManger.Instance.player;
+        var inventory = GameManger.Instance.inventory;
+        GameManger.Instance.shop.shopScene(player, inventory);
+    }
+    
+    private void EnterDungeon()
+    {
+        dungeonManager.StageSelect();
+    }
+    
+    private void Save()
+    {
+        
+    }
+    
+    private void EnterCasino()
+    {
+        
+    }
+}
+
+public enum Behavior
+{
+    PlayerInfo = 1, 
+    Inventory = 2,
+    Store = 3,
+    DungeonEnter = 4,
+    Save = 5, 
+    Exit = 0
 }

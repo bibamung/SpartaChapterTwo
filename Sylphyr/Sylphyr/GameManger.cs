@@ -10,7 +10,7 @@ namespace Sylphyr
 {
     public class GameManger : SingleTon<GameManger>
     {
-        public MainScene Main { get; private set; }
+        public MainScene main { get; private set; }
         public Player player { get; private set; }
         public Item shop { get; private set; }
         public Inventory inventory { get; private set; }
@@ -18,7 +18,7 @@ namespace Sylphyr
         public void Init()
         {
             Console.ForegroundColor = ConsoleColor.White;
-            Main = new MainScene();
+            main = new MainScene();
             shop = new Item(10, "qwr", 1, 1, "2", 10, "12", false, false);
             inventory = new Inventory();
         }

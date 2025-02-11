@@ -75,7 +75,7 @@ namespace Sylphyr.Dungeon
                 // 색상 초기화
                 Console.ResetColor();
                 Console.WriteLine();
-                
+
             }
 
         }
@@ -89,6 +89,7 @@ namespace Sylphyr.Dungeon
             int emptyBars = barSize - filledBars;
             if (monster.CurrentHp > 0)
             {
+                if (filledBars < 0) filledBars = 0;
                 // 색상 적용 (콘솔 전용)
                 Console.ForegroundColor = GetHealthColor(healthPercentage);
 
@@ -134,7 +135,7 @@ namespace Sylphyr.Dungeon
                 DisplayPlayerHpBar(player);
 
                 Console.WriteLine("계속 진행하시려면 Enter키를 눌러주세요...");
-                
+
                 Console.ReadLine();
             }
         }
@@ -146,7 +147,7 @@ namespace Sylphyr.Dungeon
             {
                 Console.WriteLine($"{monster.MonsterName}를 공격했다.");
                 Console.WriteLine($"효과는 굉장했다.");
-                Console.WriteLine($"{monster.MonsterName}에게 {finalDamage}만큼 피해를 입혔다.");
+                Console.WriteLine($"{monster.MonsterName}에게 {(finalDamage > 0 ? finalDamage : 0)}만큼 피해를 입혔다.");
                 monster.CurrentHp -= finalDamage;
                 DisplayHealthBar(monster);
 
@@ -156,7 +157,7 @@ namespace Sylphyr.Dungeon
             else            //크리티컬이 안 터졌습니다.
             {
                 Console.WriteLine($"{monster.MonsterName}를 공격했다.");
-                Console.WriteLine($"{monster.MonsterName}에게 {finalDamage}만큼 피해를 입혔다.");
+                Console.WriteLine($"{monster.MonsterName}에게 {(finalDamage > 0 ? finalDamage : finalDamage = 0)}만큼 피해를 입혔다.");
                 monster.CurrentHp -= finalDamage;
                 DisplayHealthBar(monster);
 

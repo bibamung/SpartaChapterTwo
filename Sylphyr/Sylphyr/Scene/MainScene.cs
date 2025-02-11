@@ -67,7 +67,7 @@ public class MainScene
 
     private void PrintPlayerInfo()
     {
-        var player = GameManger.Instance.player;
+        var player = GameManager.Instance.player;
         Console.Clear();
         Console.WriteLine("플레이어의 정보를 확인합니다.");
         Console.WriteLine();
@@ -80,15 +80,15 @@ public class MainScene
     
     private void OpenInventory()
     {
-        var player = GameManger.Instance.player;
-        GameManger.Instance.inventory.invenDisplay(player);
+        var player = GameManager.Instance.player;
+        GameManager.Instance.inventory.invenDisplay(player);
     }
 
     private void EnterStore()
     {
-        var player = GameManger.Instance.player;
-        var inventory = GameManger.Instance.inventory;
-        GameManger.Instance.shop.shopScene(player, inventory);
+        var player = GameManager.Instance.player;
+        var inventory = GameManager.Instance.inventory;
+        GameManager.Instance.shop.shopScene(player, inventory);
     }
     
     private void EnterDungeon()
@@ -111,7 +111,7 @@ public class MainScene
             {
                 // CharacterStats = GameManger.Instance.player.CharacterStats, // 유저 캐릭터 스탯 리스트
                 // Inventories = GameManger.Instance.inventory.Items,     // 인벤토리 아이템들
-                Players = new List<Player> { GameManger.Instance.player } // 플레이어 정보
+                Players = new List<Player> { GameManager.Instance.player } // 플레이어 정보
             };
 
             // 세이브 파일 경로 지정

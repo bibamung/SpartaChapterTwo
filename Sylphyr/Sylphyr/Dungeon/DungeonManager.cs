@@ -29,7 +29,7 @@ namespace Sylphyr.Dungeon
 
         Dictionary<int, List<Monster>> stageMonsters = new Dictionary<int, List<Monster>>();
 
-        public Player player = GameManger.Instance.player;
+        public Player player = GameManager.Instance.player;
 
         List<Monster> monsterlist = DataManager.Instance.monsters;
         //MainScene mainScene = new MainScene();
@@ -390,7 +390,7 @@ namespace Sylphyr.Dungeon
                                 scene.DisplayReward(player, TotalGold, TotalExp);
                                 Console.WriteLine("계속 진행하시려면 Enter키를 눌러주세요...");
                                 Console.ReadLine();
-                                GameManger.Instance.main.Run();
+                                GameManager.Instance.main.Run();
                             }
 
                         }
@@ -465,7 +465,7 @@ namespace Sylphyr.Dungeon
                                                 scene.DisplayReward(player, TotalGold, TotalExp);
                                                 Console.WriteLine("계속 진행하시려면 Enter키를 눌러주세요...");
                                                 Console.ReadLine();
-                                                GameManger.Instance.main.Run();
+                                                GameManager.Instance.main.Run();
                                             }
                                         }
                                     }

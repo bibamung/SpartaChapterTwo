@@ -73,8 +73,8 @@ namespace Guild
                 Console.WriteLine($" {ActiveQuest.Name} 완료!");
                 Console.WriteLine($" {ActiveQuest.RewardGold} Gold & {ActiveQuest.RewardExp} Exp 획득!\n");
 
-                GameManger.Instance.player.AddGold(ActiveQuest.RewardGold);
-                GameManger.Instance.player.AddExp(ActiveQuest.RewardExp);
+                GameManager.Instance.player.AddGold(ActiveQuest.RewardGold);
+                GameManager.Instance.player.AddExp(ActiveQuest.RewardExp);
 
                 CompletedQuests.Add(ActiveQuest);
                 AcceptedQuests.Remove(ActiveQuest);

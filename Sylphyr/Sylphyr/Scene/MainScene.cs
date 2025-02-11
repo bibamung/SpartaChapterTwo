@@ -1,10 +1,10 @@
 using Sylphyr.Character;
 using Sylphyr.Dungeon;
 using System.Text;
+using Sylphyr.Utils;
 using Sylphyr.YJH;
 
 namespace Sylphyr.Scene;
-
 
 public class MainScene
 {
@@ -23,45 +23,37 @@ public class MainScene
         sb.AppendLine("0. 게임 종료");
 
         sb.AppendLine();
-}
-    
+    }
+
     public void Run()
     {
         Console.Clear();
         Console.Write(sb.ToString());
 
-        Console.Write("원하시는 행동을 입력해주세요.\n>> ");
+        Console.Write("원하시는 행동을 입력해주세요.");
 
-        int select;
-        bool isVaildNum = int.TryParse(Console.ReadLine(), out select);
-        if (isVaildNum)
+        int input = Util.GetInput(0, 5);
+        switch ((Behavior)input)
         {
-            switch ((Behavior)select)
-            {
-                case Behavior.PlayerInfo:
-                    PrintPlayerInfo();
-                    break;
-                case Behavior.Inventory:
-                    OpenInventory();
-                    break;
-                case Behavior.Store:
-                    EnterStore();
-                    break;
-                case Behavior.DungeonEnter:
-                    EnterDungeon();
-                    break;
-                case Behavior.Save:
-                    break;
-                case Behavior.Exit:
-                    TitleScene.Instance.ExitGame();
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
-        else
-        {
-            Console.WriteLine("숫자를 입력해 주세요.");
+            case Behavior.PlayerInfo:
+                PrintPlayerInfo();
+                break;
+            case Behavior.Inventory:
+                OpenInventory();
+                break;
+            case Behavior.Store:
+                EnterStore();
+                break;
+            case Behavior.DungeonEnter:
+                EnterDungeon();
+                break;
+            case Behavior.Save:
+                break;
+            case Behavior.Exit:
+                TitleScene.Instance.ExitGame();
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
         }
     }
 
@@ -77,7 +69,7 @@ public class MainScene
         Console.ReadKey();
         Run();
     }
-    
+
     private void OpenInventory()
     {
         var player = GameManager.Instance.player;
@@ -90,7 +82,7 @@ public class MainScene
         var inventory = GameManager.Instance.inventory;
         GameManager.Instance.shop.shopScene(player, inventory);
     }
-    
+
     private void EnterDungeon()
     {
         dungeonManager.StageSelect();
@@ -129,19 +121,14 @@ public class MainScene
         }  
     }
     */
-
-    private void EnterCasino()
-    {
-        
-    }
 }
 
 public enum Behavior
 {
-    PlayerInfo = 1, 
+    PlayerInfo = 1,
     Inventory = 2,
     Store = 3,
     DungeonEnter = 4,
-    Save = 5, 
+    Save = 5,
     Exit = 0
 }

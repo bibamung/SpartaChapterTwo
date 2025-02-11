@@ -19,25 +19,30 @@ namespace Sylphyr.Dungeon
             int barSize = 20; // 체력바 길이 (20칸)
             float healthPercentage = player.CurrentHp / player.TotalStat.MaxHp;
             int filledBars = (int)(barSize * healthPercentage);
+            if (filledBars < 0) filledBars = 0;
             int emptyBars = barSize - filledBars;
 
             // 색상 적용 (콘솔 전용)
             Console.ForegroundColor = GetHealthColor(healthPercentage);
 
             // 체력바 출력
-            Console.Write($"{player.Name} [");
+            Console.Write($" {player.Name} \n HP [");
             Console.Write(new string('■', filledBars)); // 채워진 부분
             Console.Write(new string('□', emptyBars));  // 빈 부분
-            Console.Write($"] {player.CurrentHp}/{player.TotalStat.MaxHp}");
+            Console.Write($"] {(player.CurrentMp > 0 ? player.CurrentMp.ToString("F2") : 0)}/" +
+                $"{player.TotalStat.MaxMp.ToString("F2")}\n");
 
+            healthPercentage = player.CurrentMp / player.TotalStat.MaxMp;
             filledBars = (int)(barSize * healthPercentage);
+            if (filledBars < 0) filledBars = 0;
             emptyBars = barSize - filledBars;
             // 마나바 출력
             Console.ForegroundColor = ConsoleColor.Blue;
-            Console.Write($"{player.Name} [");
+            Console.Write($" MP [");
             Console.Write(new string('■', filledBars)); // 채워진 부분
             Console.Write(new string('□', emptyBars));  // 빈 부분
-            Console.Write($"] {player.CurrentMp}/{player.TotalStat.MaxHp}");
+            Console.Write($"] {(player.CurrentMp > 0 ? player.CurrentMp.ToString("F2") : 0)}/" +
+                $"{player.TotalStat.MaxMp.ToString("F2")}");
 
             // 색상 초기화
             Console.ResetColor();
@@ -47,47 +52,59 @@ namespace Sylphyr.Dungeon
 
         public void DisplayHealthBar(List<Monster> stageMonsters)
         {
+            int count = 1;
             Console.WriteLine($"\n====몬스터=====\n");
             foreach (Monster monster in stageMonsters)
             {
-                int count = 1;
                 int barSize = 20; // 체력바 길이 (20칸)
                 float healthPercentage = monster.CurrentHp / monster.MaxHp;
                 int filledBars = (int)(barSize * healthPercentage);
+                if (filledBars < 0) filledBars = 0;
                 int emptyBars = barSize - filledBars;
 
                 // 색상 적용 (콘솔 전용)
                 Console.ForegroundColor = GetHealthColor(healthPercentage);
 
                 // 체력바 출력
-                Console.Write($"{count}. {monster.MonsterName} [");
+                Console.Write($"{count++}. {monster.MonsterName} [");
                 Console.Write(new string('■', filledBars)); // 채워진 부분
                 Console.Write(new string('□', emptyBars));  // 빈 부분
-                Console.Write($"] {monster.CurrentHp}/{monster.MaxHp}");
+                Console.Write($"] {(monster.CurrentHp > 0 ? monster.CurrentHp.ToString("F2") : 0)}/" +
+                    $"{monster.MaxHp.ToString("F2")}");
 
                 // 색상 초기화
                 Console.ResetColor();
                 Console.WriteLine();
+                
             }
 
         }
 
         public void DisplayHealthBar(Monster monster)
         {
+            if (monster.CurrentHp > 0)
+            {
+                int barSize = 20; // 체력바 길이 (20칸)
+                float healthPercentage = monster.CurrentHp / monster.MaxHp;
+                int filledBars = (int)(barSize * healthPercentage);
+                if (filledBars < 0) filledBars = 0;
+                int emptyBars = barSize - filledBars;
 
-            int barSize = 20; // 체력바 길이 (20칸)
-            float healthPercentage = monster.CurrentHp / monster.MaxHp;
-            int filledBars = (int)(barSize * healthPercentage);
-            int emptyBars = barSize - filledBars;
+                // 색상 적용 (콘솔 전용)
+                Console.ForegroundColor = GetHealthColor(healthPercentage);
 
-            // 색상 적용 (콘솔 전용)
-            Console.ForegroundColor = GetHealthColor(healthPercentage);
-
-            // 체력바 출력
-            Console.Write($"{monster.MonsterName} [");
-            Console.Write(new string('■', filledBars)); // 채워진 부분
-            Console.Write(new string('□', emptyBars));  // 빈 부분
-            Console.Write($"] {monster.CurrentHp}/{monster.MaxHp}");
+                // 체력바 출력
+                Console.Write($"{monster.MonsterName} [");
+                Console.Write(new string('■', filledBars)); // 채워진 부분
+                Console.Write(new string('□', emptyBars));  // 빈 부분
+                Console.Write($"] {(monster.CurrentHp > 0 ? monster.CurrentHp.ToString("F2") : 0)}/" +
+                    $"{monster.MaxHp.ToString("F2")}");
+            }
+            else
+            {
+                Console.Write($"{monster.MonsterName} [□□□□□□□□□□□□□□□□□□□□]{(monster.CurrentHp > 0 ? monster.CurrentHp.ToString("F2") : 0)}/" +
+                    $"{monster.MaxHp.ToString("F2")}\n\n");
+            }
 
             // 색상 초기화
             Console.ResetColor();
@@ -116,6 +133,7 @@ namespace Sylphyr.Dungeon
                 DisplayPlayerHpBar(player);
 
                 Console.WriteLine("계속 진행하시려면 Enter키를 눌러주세요...");
+                
                 Console.ReadLine();
             }
         }
@@ -150,7 +168,7 @@ namespace Sylphyr.Dungeon
         {
             if (isCritical) //크리티컬이 터졌습니다.
             {
-                Console.WriteLine($"{monster.MonsterName}를 {player.Skills[useSkill-1].SkillName}으/로 공격했다.");
+                Console.WriteLine($"{monster.MonsterName}를 {player.Skills[useSkill - 1].SkillName}으/로 공격했다.");
                 Console.WriteLine($"효과는 굉장했다.");
                 Console.WriteLine($"{monster.MonsterName}에게 {finalDamage}만큼 피해를 입혔다.");
                 monster.CurrentHp -= finalDamage;
@@ -237,7 +255,7 @@ namespace Sylphyr.Dungeon
         {
             Random rand = new Random(DateTime.Now.Millisecond);
             bool isCritical = false;
-            float evasionRate = 100.0f * (monster.Dex / (monster.Dex + 50.0f));
+            float evasionRate = (monster.Dex / (monster.Dex + 50.0f));
             float monsterDef = (monster.Def / (monster.Def + 50.0f)) * 100.0f;
             if (rand.NextSingle() > evasionRate)
             {
@@ -267,14 +285,14 @@ namespace Sylphyr.Dungeon
             Random rand = new Random(DateTime.Now.Millisecond);
             float evasionRate = 100.0f * (monster.Dex / monster.Dex + 50.0f);
             float monsterDef = (monster.Def / (monster.Def + 50.0f)) * 100.0f;
-            if (rand.NextSingle() > evasionRate)
+            if (rand.NextSingle() < evasionRate)
             {
                 if (rand.NextSingle() < player.TotalStat.CriticalChance)
                 {
-                    float finalDamage = player.TotalStat.Atk * player.TotalStat.CriticalDamage*player.Skills[useSkill -  1].Damage
+                    float finalDamage = player.TotalStat.Atk * player.TotalStat.CriticalDamage * player.Skills[useSkill - 1].Damage
                         - monsterDef;
 
-                    DisplaySkillHit(player, monster, isCritical, finalDamage,useSkill);
+                    DisplaySkillHit(player, monster, isCritical, finalDamage, useSkill);
                 }
                 else
                 {
@@ -295,7 +313,7 @@ namespace Sylphyr.Dungeon
             bool isCritical = false;
             Random rand = new Random(DateTime.Now.Millisecond);
             float evasionRate = 100.0f * (monster.Dex / monster.Dex + 50.0f);
-            if (rand.NextSingle() > evasionRate)
+            if (rand.NextSingle() < evasionRate)
             {
                 if (rand.NextSingle() < player.TotalStat.CriticalChance)
                 {
@@ -322,15 +340,15 @@ namespace Sylphyr.Dungeon
         {
             bool isCritical = false;
             Random rand = new Random(DateTime.Now.Millisecond);
-            float evasionRate = 100.0f * (player.TotalStat.Dex / (player.TotalStat.Dex + 50.0f));
-            float playerDef = (player.TotalStat.Def / (player.TotalStat.Def + 50.0f));
-            if (rand.NextSingle() > evasionRate)    //회피하지 못했을 경우
+            float evasionRate = 100.0f * (monster.Dex / monster.Dex + 50.0f);
+            if (rand.NextSingle() < evasionRate)
             {
-                Console.Clear();
-                if (rand.NextSingle() < player.TotalStat.CriticalChance)        //크리티컬이 터졌을 경우
+
+
+                if (rand.NextSingle() < monster.CriticalChance)        //크리티컬이 터졌을 경우
                 {
                     isCritical = true;
-                    float finalDamage = monster.Atk * monster.CriticalDamage - playerDef;
+                    float finalDamage = monster.Atk * monster.CriticalDamage;
                     player.TakeDamage(finalDamage);
                     DisplayHit(monster, player, isCritical, finalDamage);
 
@@ -338,7 +356,7 @@ namespace Sylphyr.Dungeon
                 else
                 {
                     isCritical = false;
-                    float finalDamage = monster.Atk - playerDef;
+                    float finalDamage = monster.Atk;
                     player.TakeDamage(finalDamage);
                     DisplayHit(monster, player, isCritical, finalDamage);
                 }
@@ -347,6 +365,7 @@ namespace Sylphyr.Dungeon
             {
                 DisplayEvasion(monster);
             }
+
         }
 
         public void DisplayReward(Player player, int rewardGold, int rewardExp)
@@ -371,6 +390,8 @@ namespace Sylphyr.Dungeon
             Console.WriteLine($"  획득한 골드 => {rewardGold}");
 
             Console.WriteLine("\n============================\n");
+            player.AddGold(rewardGold);
+            player.AddExp(rewardExp);
 
             Console.WriteLine($"  현재 보유 골드 => {player.Gold}");
             Console.WriteLine($"  현재 플레이어 레벨 => {player.Level}");
@@ -381,7 +402,7 @@ namespace Sylphyr.Dungeon
         }
 
 
-        
+
     }
 
 }

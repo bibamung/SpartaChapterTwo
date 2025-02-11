@@ -258,6 +258,8 @@ public class Player
     {
         GameManager.Instance.GameOver();
         Console.WriteLine("사망하였습니다...");
+        Console.WriteLine("press any key to continue...");
+        Console.ReadKey();
         TitleScene.Instance.Run();
     }
 }

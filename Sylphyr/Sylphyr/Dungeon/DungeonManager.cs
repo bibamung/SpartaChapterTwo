@@ -119,7 +119,7 @@ namespace Sylphyr.Dungeon
 
             if (stage == 1)                                             //1스테이지
             {
-                monsterCount = rand.Next(2, 4);
+                monsterCount = 2;
                 while (selectedMonsters.Count < monsterCount)
                 {
                     Monster randomMonster = stageMonsters[stage][0];
@@ -437,7 +437,7 @@ namespace Sylphyr.Dungeon
                 {
                     if (useSkill >= 1 && useSkill <= player.Skills.Count())
                     {
-                        if (player.CurrentMp > player.Skills[useSkill - 1].UseMp)
+                        if (player.CurrentMp >= player.Skills[useSkill - 1].UseMp)
                         {
                             player.UseMp(player.Skills[useSkill - 1].UseMp);
                             //플레이어의 스킬이 광역기 공격일 경우
@@ -513,7 +513,13 @@ namespace Sylphyr.Dungeon
                                                         TotalGold += currentStageMonsters[selectMonster].DropGold;
                                                         currentStageMonsters.RemoveAt(selectMonster - 1);
                                                     }
-
+                                                    if (currentStageMonsters.Count <= 0)
+                                                    {
+                                                        scene.DisplayReward(player, TotalGold, TotalExp);
+                                                        Console.WriteLine("계속 진행하시려면 Enter키를 눌러주세요...");
+                                                        Console.ReadLine();
+                                                        GameManager.Instance.main.Run();
+                                                    }
                                                 }
                                                 scene.MonsterAttack(currentStageMonsters[i], player);
                                                 if (player.CurrentHp <= 0)
@@ -568,6 +574,13 @@ namespace Sylphyr.Dungeon
                                                         TotalExp += currentStageMonsters[selectMonster - 1].DropExp;
                                                         TotalGold += currentStageMonsters[selectMonster - 1].DropGold;
                                                         currentStageMonsters.RemoveAt(selectMonster - 1);
+                                                    }
+                                                    if (currentStageMonsters.Count <= 0)
+                                                    {
+                                                        scene.DisplayReward(player, TotalGold, TotalExp);
+                                                        Console.WriteLine("계속 진행하시려면 Enter키를 눌러주세요...");
+                                                        Console.ReadLine();
+                                                        GameManager.Instance.main.Run();
                                                     }
 
                                                 }

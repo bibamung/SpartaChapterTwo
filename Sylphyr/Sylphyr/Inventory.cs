@@ -342,7 +342,7 @@ namespace Sylphyr
                     else
                     {
                         // 정렬된 텍스트 출력
-                        Console.WriteLine($"- {i}." + AlignText(weaponItem.Name, 23) + " | " +
+                        Console.WriteLine($"- {i}. " + AlignText(weaponItem.Name, 22) + " | " +
                                           AlignText(statname, 10) + "   " +
                                           AlignText("+" + weaponItem.Value, 5) + " | " +
                                           AlignText(weaponslot, 7) + " | " +
@@ -431,12 +431,12 @@ namespace Sylphyr
                 Weapon selectedWeapon = null;
                 Item selectedItem = null;
 
-                if(input >= 1 && input <= invenweapons.Count && selectedWeapon != null)
+                if (input >= 1 && input <= invenweapons.Count && invenweapons.Count != 0)
                 {
                     selectedWeapon = invenweapons[input - 1];
-                    
+
                 }
-                else if (input > invenweapons.Count && input <= invenweapons.Count + invenitems.Count && selectedItem != null)
+                else if (input > invenweapons.Count && input <= invenweapons.Count + invenitems.Count && invenitems.Count != 0)
                 {
                     selectedItem = invenitems[input - invenweapons.Count - 1]; // 유효한 범위 내에서 선택
                 }
@@ -554,22 +554,22 @@ namespace Sylphyr
                             {
                                 selectedItem.isEquip = true;
                                 // 해당 부위에 아무것도 없으면 그냥 장착
-                                if (selectedItem.Slot == "0")
+                                if (selectedItem.Stat == 0)
                                 {
                                     itemsEquip.Add(selectedItem);
                                     player.EnhancedStat.CriticalDamage += selectedItem.Value;
                                 }
-                                else if (selectedItem.Slot == "1")
+                                else if (selectedItem.Stat == 1)
                                 {
                                     itemsEquip.Add(selectedItem);
                                     player.EnhancedStat.Dex += selectedItem.Value;
                                 }
-                                else if (selectedItem.Slot == "2")
+                                else if (selectedItem.Stat == 2)
                                 {
                                     itemsEquip.Add(selectedItem);
                                     player.EnhancedStat.Luk += selectedItem.Value;
                                 }
-                                else if (selectedItem.Slot == "3")
+                                else if (selectedItem.Stat == 3)
                                 {
                                     itemsEquip.Add(selectedItem);
                                     player.EnhancedStat.Def += selectedItem.Value;

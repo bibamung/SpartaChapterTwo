@@ -12,7 +12,6 @@ namespace Guild
     {
         //길드창-퀘스트목록 퀘스트진행상태
         //퀘스트이름 내용 보상 1수락 2거절
-        //인벤.카운트
         public int ID;
         public string Name;
         public string Description;

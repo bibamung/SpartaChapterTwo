@@ -1,8 +1,7 @@
 using System.Text.Json;
 using Player = Sylphyr.Character.Player;
-using CharacterStat =Sylphyr.Character.CharacterStat;
-
-
+using CharacterStat = Sylphyr.Character.CharacterStat;
+using Saving = Sylphyr.YJH.Save;
 
 
 namespace Sylphyr.YJH;
@@ -14,7 +13,7 @@ public class Save
 
 
     //세이브 폴더 만들어주기
-    public void AddSaveFile()
+    public void CreateSaveFolder()
     {
         //파일 위치지정
         DirectoryInfo projectDir = Directory.GetParent(baseDirectory); // net8.0
@@ -30,14 +29,22 @@ public class Save
             SaveFolder.Create();
         }
     }
-    
+
+    //게임 세이브
+    public class GameSave
+    {
+        private readonly string baseDirectory = AppDomain.CurrentDomain.BaseDirectory; //.exe파일위치 상대경로 지정을 위해사용
+        public static string filePath;
+    }
+
+
     //게임 세이브
     public void SaveGame(SaveData data)
     {
         string jsonString = JsonSerializer.Serialize(data);
         File.WriteAllText(filePath, jsonString);
     }
-    
+
     //세이브 파일 불러오기
     public SaveData LoadGame()
     {
@@ -52,17 +59,7 @@ public class Save
             return null;
         }
     }
-    
 }
-
-public class SaveData()
-{
-    public List<CharacterStat> Characters { get; set; } = new List<CharacterStat>();
-    public List<Inventory> Inventories { get; set; } = new List<Inventory>();
-    public List<Player> Players { get; set; } = new List<Player>();
-}
-
-
 
 /*
 // Data 객체를 JSON 문자열로 변환

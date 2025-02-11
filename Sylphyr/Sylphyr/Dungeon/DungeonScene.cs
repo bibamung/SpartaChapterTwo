@@ -287,7 +287,6 @@ namespace Sylphyr.Dungeon
             Random rand = new Random(DateTime.Now.Millisecond);
             float evasionRate = (monster.Dex / monster.Dex + 50.0f);
             float monsterDef = (monster.Def / (monster.Def + 50.0f)) * 100.0f;
-            player.UseMp(player.Skills[useSkill].UseMp);
             if (rand.NextSingle() < evasionRate)
             {
                 if (rand.NextSingle() < player.TotalStat.CriticalChance)

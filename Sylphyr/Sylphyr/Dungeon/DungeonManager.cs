@@ -439,6 +439,7 @@ namespace Sylphyr.Dungeon
                     {
                         if (player.CurrentMp > player.Skills[useSkill - 1].UseMp)
                         {
+                            player.UseMp(player.Skills[useSkill - 1].UseMp);
                             //플레이어의 스킬이 광역기 공격일 경우
                             #region 광역기 스킬 공격을 하였을때
                             if (player.Skills[useSkill - 1].SkillType == (int)SkillType.WideArea)
@@ -561,7 +562,7 @@ namespace Sylphyr.Dungeon
                                                 if (OrderByAttackChar[count++] == player.Name)                       //이번에 공격할 캐릭터가 플레이어일 경우
                                                 {
                                                     scene.DefIgnoreSkillAttack(player, currentStageMonsters[selectMonster - 1], useSkill);
-                                                    player.UseMp(player.Skills[useSkill - 1].UseMp);
+                                                    
                                                     if (currentStageMonsters[selectMonster - 1].CurrentHp <= 0)
                                                     {
                                                         TotalExp += currentStageMonsters[selectMonster - 1].DropExp;
@@ -601,6 +602,8 @@ namespace Sylphyr.Dungeon
                         else
                         {
                             Console.WriteLine("스킬을 사용하기 위한 마나가 부족합니다.");
+                            Console.WriteLine("계속 하시려면 Enter를 눌러주세요");
+                            Console.ReadLine();
                         }
 
                     }

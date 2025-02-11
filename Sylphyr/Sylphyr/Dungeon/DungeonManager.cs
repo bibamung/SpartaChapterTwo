@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Sylphyr.Character;
+using Sylphyr.Scene;
 using Sylphyr.YJH;
 
 
@@ -20,7 +21,6 @@ namespace Sylphyr.Dungeon
     }
     class DungeonManager
     {
-        bool _disposed = false;
         int TotalGold = 0, TotalExp = 0;
         int GainGold = 0;
         Random rand = new Random(DateTime.Now.Millisecond);
@@ -32,6 +32,7 @@ namespace Sylphyr.Dungeon
         public Player player = GameManger.Instance.player;
 
         List<Monster> monsterlist = DataManager.Instance.monsters;
+        //MainScene mainScene = new MainScene();
 
 
         public Monster GetMonster(int id)
@@ -210,9 +211,7 @@ namespace Sylphyr.Dungeon
 
         public void StageSelect()
         {
-            Console.WriteLine("Sylphyr 던전에 오신것을 환영합니다.");
-            Console.WriteLine("스테이지는 1~50스테이지까지 제공되어 있습니다.");
-            Console.Write("원하시는 스테이지를 입력해주세요\n>>  ");
+
 
             while (true)
             {
@@ -229,14 +228,16 @@ namespace Sylphyr.Dungeon
                     {
                         DungeonBattleStart(stage);
                     }
+                    else if (stage == 0)
+                    {
+                        MainScene mainScene = new MainScene();
+                        mainScene.Run();
+                    }
                     else
                     {
                         Console.WriteLine("1~50스테이지를 입력해 주세요");
                     }
-                }
-                else if (stage == 0)
-                {
-                    break;
+
                 }
                 else
                 {

@@ -1,11 +1,7 @@
-using System;
-using Newtonsoft.Json.Linq;
-using System.IO;
 using System.Text.Json;
-using System.Collections.Generic;
 using Player = Sylphyr.Character.Player;
 using CharacterStat =Sylphyr.Character.CharacterStat;
-using Inventory = Sylphyr.Inventory;
+
 
 
 
@@ -35,12 +31,14 @@ public class Save
         }
     }
     
+    //게임 세이브
     public void SaveGame(SaveData data)
     {
         string jsonString = JsonSerializer.Serialize(data);
         File.WriteAllText(filePath, jsonString);
     }
     
+    //세이브 파일 불러오기
     public SaveData LoadGame()
     {
         if (File.Exists(filePath))
@@ -57,7 +55,7 @@ public class Save
     
 }
 
-public class SaveData() // 클래스로
+public class SaveData()
 {
     public List<CharacterStat> Characters { get; set; } = new List<CharacterStat>();
     public List<Inventory> Inventories { get; set; } = new List<Inventory>();

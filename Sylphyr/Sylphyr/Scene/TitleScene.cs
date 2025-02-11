@@ -43,15 +43,15 @@ public class TitleScene : SingleTon<TitleScene>
                 break;
             case 3: ExitGame();
                 break;
-            case 4: DebugScene();
+            case 4: Debug();
                 break;
         }
     }
 
-    private void DebugScene()
+    private void Debug()
     {
-        Scene.DebugScene.Instance.Init();
-        Scene.DebugScene.Instance.Run();
+        DebugScene.Instance.Init();
+        DebugScene.Instance.Run();
     }
 
     private void StartNewGame()

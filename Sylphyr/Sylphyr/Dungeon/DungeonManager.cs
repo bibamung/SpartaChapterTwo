@@ -210,6 +210,7 @@ namespace Sylphyr.Dungeon
 
         public void StageSelect()
         {
+            TotalGold = 0; TotalExp = 0;
             while (true)
             {
                 Console.Clear();

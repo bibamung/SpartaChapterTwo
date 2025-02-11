@@ -7,7 +7,7 @@ public class DebugScene : SingleTon<DebugScene>
     public void Init()
     {
         string name = "테스트";
-        GameManger.Instance.SetPlayer(name, CharacterClass.Thief);
+        GameManager.Instance.SetPlayer(name, CharacterClass.Thief);
     }
     
     public void Run()
@@ -21,7 +21,7 @@ public class DebugScene : SingleTon<DebugScene>
         switch (select)
         {
             case 1:
-                GameManger.Instance.player.PrintStatus();
+                GameManager.Instance.player.PrintStatus();
                 Console.WriteLine("any key to continue");
                 Console.ReadKey();
                 Run();
@@ -46,13 +46,13 @@ public class DebugScene : SingleTon<DebugScene>
         switch (select)
         {
             case 1:
-                GameManger.Instance.player.AddExp(1000);
+                GameManager.Instance.player.AddExp(1000);
                 break;
             case 2:
-                GameManger.Instance.player.AddExp(10000);
+                GameManager.Instance.player.AddExp(10000);
                 break;
             case 3:
-                GameManger.Instance.player.AddExp(100000);
+                GameManager.Instance.player.AddExp(100000);
                 break;
         }
 
@@ -65,7 +65,7 @@ public class DebugScene : SingleTon<DebugScene>
 
     public void LevelUp()
     {
-        var player = GameManger.Instance.player;
+        var player = GameManager.Instance.player;
         int levelUpExp = player.LevelData.GetExp(player.Level);
         int exp = levelUpExp - player.Exp;
         player.AddExp(exp);

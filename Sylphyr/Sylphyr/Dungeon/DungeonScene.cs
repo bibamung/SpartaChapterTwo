@@ -373,6 +373,7 @@ namespace Sylphyr.Dungeon
         {
             int totalGold = 0;
             player.AddRewardGold(rewardGold, out totalGold);
+            player.AddExp(rewardExp);
             Console.Clear();
             Console.WriteLine("******************************************************************************************");
             for (int i = 0; i < 10; i++)

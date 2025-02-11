@@ -1,3 +1,4 @@
+using Sylphyr.Character;
 using Sylphyr.Dungeon;
 using System.Text;
 
@@ -40,6 +41,9 @@ public class MainScene
             {
                 case (int)Behavior.DungeonEnter:
                     DungeonManager.Instance.StageSelect();
+                    break;
+                case (int)Behavior.Store:
+                    GameManger.Instance.shop.shopScene(GameManger.Instance.player, GameManger.Instance.inventory);
                     break;
                 default:
                     break;

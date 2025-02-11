@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Sylphyr.Character;
+using Sylphyr.YJH;
 
 namespace Sylphyr
 {
@@ -25,7 +26,6 @@ namespace Sylphyr
         private List<Item> randomItem = new List<Item>();  // 랜덤 방어구
         private List<Potion> randomPotion = new List<Potion>(); // 랜덤 포션
         private List<Weapon> randomWeapon = new List<Weapon>();  // 랜덤 무기
-
         private static List<Item> ItemsList = new List<Item>();
 
 
@@ -35,7 +35,7 @@ namespace Sylphyr
             int textWidth = text.Sum(c => (c >= 0xAC00 && c <= 0xD7A3) ? 2 : 1); // 한글 2칸, 영문 1칸
             return text + new string(' ', totalWidth - textWidth);
         }
-
+        
 
         public Item(int id, string name, int stat, int value, string slot, int price, string desc, bool purchase , bool isequip)
         {
@@ -70,19 +70,22 @@ namespace Sylphyr
 
 
         // 상점에서 아이템 리스트 출력
-        public void shopScene(Player player, Inventory inventory, Potion potion, Weapon weapon, bool isfail = false)
+        public void shopScene(Player player, Inventory inventory, bool isfail = false)
         {
             int itemct = 3;    // 방어구 아이템 개수
             int weaponct = 3;  // 무기 아이템 개수
             int potionct = 2;  // 포션 아이템 개수
 
-            var randomWeapons = weapon.weaponItem.OrderBy(x => rand.Next()).Take(3).ToList();
+            var weaponList = DataManager.Instance.weaponItem;
+            var potionList = DataManager.Instance.consumeItems;
+
+            var randomWeapons = weaponList.OrderBy(x => rand.Next()).Take(3).ToList();
             var randomarmorItems = ItemsList
                       .Where(item => item.Slot == "0" || item.Slot == "1" || item.Slot == "2" || item.Slot == "3")
                       .OrderBy(x => rand.Next()).Take(3).ToList();
 
             // 랜덤한 포션 2개 선택
-            var randomPotions = potion.potionItem.OrderBy(x => rand.Next()).Take(2).ToList();
+            var randomPotions = potionList.OrderBy(x => rand.Next()).Take(2).ToList();
 
 
             while (true)  // 상점 출력
@@ -711,7 +714,7 @@ namespace Sylphyr
                             if (!selectedWeapon.wisEquip)
                             {
                                 int getgold = (int)(selectedWeapon.Price * 0.8);
-                                player.AddGold(getgold, false);
+                                player.AddGold(getgold);
                                 inventory.RemoveWeapon(selectedWeapon);
                             }
                             else
@@ -719,7 +722,7 @@ namespace Sylphyr
                                 selectedWeapon.wisEquip = false;
                                 player.EnhancedStat.Atk -= selectedWeapon.Value;
                                 int getgold = (int)(selectedWeapon.Price * 0.8);
-                                player.AddGold(getgold, false);
+                                player.AddGold(getgold);
                                 inventory.RemoveWeapon(selectedWeapon);
                             }
 
@@ -731,7 +734,7 @@ namespace Sylphyr
                             if (!selectedItem.isEquip)
                             {
                                 int getgold = (int)(selectedItem.Price * 0.8);
-                                player.AddGold(getgold, false);
+                                player.AddGold(getgold);
                                 inventory.RemoveItem(selectedItem);
                             }
                             else
@@ -742,7 +745,7 @@ namespace Sylphyr
                                 player.EnhancedStat.Dex -= selectedItem.Value;
                                 player.EnhancedStat.Luk -= selectedItem.Value;
                                 int getgold = (int)(selectedItem.Price * 0.8);
-                                player.AddGold(getgold, false);
+                                player.AddGold(getgold);
                                 inventory.RemoveItem(selectedItem);
                             }
 
@@ -752,7 +755,7 @@ namespace Sylphyr
                         else if (selectedPotion != null)
                         {
                             int getgold = (int)(selectedPotion.Price * 0.8);
-                            player.AddGold(getgold, false);
+                            player.AddGold(getgold);
                             inventory.RemovePotion(selectedPotion);
                             selectedPotion.isBuy = false;
                         }

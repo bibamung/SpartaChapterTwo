@@ -19,6 +19,7 @@ namespace Sylphyr.Dungeon
             int barSize = 20; // 체력바 길이 (20칸)
             float healthPercentage = player.CurrentHp / player.TotalStat.MaxHp;
             int filledBars = (int)(barSize * healthPercentage);
+            if (filledBars < 0) filledBars = 0;
             int emptyBars = barSize - filledBars;
 
             // 색상 적용 (콘솔 전용)
@@ -28,17 +29,20 @@ namespace Sylphyr.Dungeon
             Console.Write($" {player.Name} \n HP [");
             Console.Write(new string('■', filledBars)); // 채워진 부분
             Console.Write(new string('□', emptyBars));  // 빈 부분
-            Console.Write($"] {player.CurrentHp.ToString("F2")}/{player.TotalStat.MaxHp}\n");
+            Console.Write($"] {(player.CurrentMp > 0 ? player.CurrentMp.ToString("F2") : 0)}/" +
+                $"{player.TotalStat.MaxMp.ToString("F2")}\n");
 
             healthPercentage = player.CurrentMp / player.TotalStat.MaxMp;
             filledBars = (int)(barSize * healthPercentage);
+            if (filledBars < 0) filledBars = 0;
             emptyBars = barSize - filledBars;
             // 마나바 출력
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.Write($" MP [");
             Console.Write(new string('■', filledBars)); // 채워진 부분
             Console.Write(new string('□', emptyBars));  // 빈 부분
-            Console.Write($"] {player.CurrentMp.ToString("F2")}/{player.TotalStat.MaxMp}");
+            Console.Write($"] {(player.CurrentMp > 0 ? player.CurrentMp.ToString("F2") : 0)}/" +
+                $"{player.TotalStat.MaxMp.ToString("F2")}");
 
             // 색상 초기화
             Console.ResetColor();
@@ -55,6 +59,7 @@ namespace Sylphyr.Dungeon
                 int barSize = 20; // 체력바 길이 (20칸)
                 float healthPercentage = monster.CurrentHp / monster.MaxHp;
                 int filledBars = (int)(barSize * healthPercentage);
+                if (filledBars < 0) filledBars = 0;
                 int emptyBars = barSize - filledBars;
 
                 // 색상 적용 (콘솔 전용)
@@ -64,7 +69,8 @@ namespace Sylphyr.Dungeon
                 Console.Write($"{count++}. {monster.MonsterName} [");
                 Console.Write(new string('■', filledBars)); // 채워진 부분
                 Console.Write(new string('□', emptyBars));  // 빈 부분
-                Console.Write($"] {monster.CurrentHp.ToString("F2")}/{monster.MaxHp}");
+                Console.Write($"] {(monster.CurrentHp > 0 ? monster.CurrentHp.ToString("F2") : 0)}/" +
+                    $"{monster.MaxHp.ToString("F2")}");
 
                 // 색상 초기화
                 Console.ResetColor();
@@ -81,6 +87,7 @@ namespace Sylphyr.Dungeon
                 int barSize = 20; // 체력바 길이 (20칸)
                 float healthPercentage = monster.CurrentHp / monster.MaxHp;
                 int filledBars = (int)(barSize * healthPercentage);
+                if (filledBars < 0) filledBars = 0;
                 int emptyBars = barSize - filledBars;
 
                 // 색상 적용 (콘솔 전용)
@@ -90,11 +97,13 @@ namespace Sylphyr.Dungeon
                 Console.Write($"{monster.MonsterName} [");
                 Console.Write(new string('■', filledBars)); // 채워진 부분
                 Console.Write(new string('□', emptyBars));  // 빈 부분
-                Console.Write($"] {monster.CurrentHp.ToString("F2")}/{monster.MaxHp}");
+                Console.Write($"] {(monster.CurrentHp > 0 ? monster.CurrentHp.ToString("F2") : 0)}/" +
+                    $"{monster.MaxHp.ToString("F2")}");
             }
             else
             {
-                Console.Write($"{monster.MonsterName} [□□□□□□□□□□□□□□□□□□□□]\n\n");
+                Console.Write($"{monster.MonsterName} [□□□□□□□□□□□□□□□□□□□□]{(monster.CurrentHp > 0 ? monster.CurrentHp.ToString("F2") : 0)}/" +
+                    $"{monster.MaxHp.ToString("F2")}\n\n");
             }
 
             // 색상 초기화
@@ -124,6 +133,7 @@ namespace Sylphyr.Dungeon
                 DisplayPlayerHpBar(player);
 
                 Console.WriteLine("계속 진행하시려면 Enter키를 눌러주세요...");
+                
                 Console.ReadLine();
             }
         }
@@ -247,7 +257,7 @@ namespace Sylphyr.Dungeon
             bool isCritical = false;
             float evasionRate = (monster.Dex / (monster.Dex + 50.0f));
             float monsterDef = (monster.Def / (monster.Def + 50.0f)) * 100.0f;
-            if (rand.NextSingle() < evasionRate)
+            if (rand.NextSingle() > evasionRate)
             {
                 if (rand.NextSingle() < player.TotalStat.CriticalChance)
                 {
@@ -330,24 +340,31 @@ namespace Sylphyr.Dungeon
         {
             bool isCritical = false;
             Random rand = new Random(DateTime.Now.Millisecond);
-            
-
-            if (rand.NextSingle() < monster.CriticalChance)        //크리티컬이 터졌을 경우
+            float evasionRate = 100.0f * (monster.Dex / monster.Dex + 50.0f);
+            if (rand.NextSingle() < evasionRate)
             {
-                isCritical = true;
-                float finalDamage = monster.Atk * monster.CriticalDamage;
-                player.TakeDamage(finalDamage);
-                DisplayHit(monster, player, isCritical, finalDamage);
 
+
+                if (rand.NextSingle() < monster.CriticalChance)        //크리티컬이 터졌을 경우
+                {
+                    isCritical = true;
+                    float finalDamage = monster.Atk * monster.CriticalDamage;
+                    player.TakeDamage(finalDamage);
+                    DisplayHit(monster, player, isCritical, finalDamage);
+
+                }
+                else
+                {
+                    isCritical = false;
+                    float finalDamage = monster.Atk;
+                    player.TakeDamage(finalDamage);
+                    DisplayHit(monster, player, isCritical, finalDamage);
+                }
             }
             else
             {
-                isCritical = false;
-                float finalDamage = monster.Atk;
-                player.TakeDamage(finalDamage);
-                DisplayHit(monster, player, isCritical, finalDamage);
+                DisplayEvasion(monster);
             }
-
 
         }
 

@@ -210,8 +210,6 @@ namespace Sylphyr.Dungeon
 
         public void StageSelect()
         {
-            Console.WriteLine(player.BestStage);
-            Console.ReadKey();
             while (true)
             {
                 Console.Clear();
@@ -225,7 +223,7 @@ namespace Sylphyr.Dungeon
                 {
                     if (stage >= 1 && stage <= 50)
                     {
-                        if (player.BestStage == stage - 1 || stage < player.BestStage)
+                        if (player.BestStage == stage - 1 || stage <= player.BestStage)
                         {
                             DungeonBattleStart(stage);
                         }

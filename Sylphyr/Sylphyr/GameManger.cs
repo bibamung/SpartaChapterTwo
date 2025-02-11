@@ -15,6 +15,7 @@ namespace Sylphyr
 
         public void Init()
         {
+            Console.ForegroundColor = ConsoleColor.White;
             Main = new MainScene();
         }
         

@@ -1,5 +1,6 @@
 using System.Text;
 using Sylphyr.Character;
+using Sylphyr.Utils;
 
 namespace Sylphyr.Scene;
 
@@ -35,7 +36,7 @@ public class TitleScene : SingleTon<TitleScene>
         Console.Write(TitleSb.ToString());
         Console.Write(Sb.ToString());
         
-        int input = GetInput(1, 4);
+        int input = Util.GetInput(1, 4);
         switch (input)
         {
             case 1: StartNewGame();
@@ -81,7 +82,7 @@ public class TitleScene : SingleTon<TitleScene>
         newGameSb.AppendLine("3. 궁수");
         newGameSb.AppendLine("4. 팔라딘");
         Console.Write(newGameSb.ToString());
-        int input = GetInput(1, 4);
+        int input = Util.GetInput(1, 4);
         
         GameManager.Instance.SetPlayer(name, (CharacterClass)input);
         GameManager.Instance.Init();
@@ -105,29 +106,5 @@ public class TitleScene : SingleTon<TitleScene>
     public void ExitGame()
     {
         Environment.Exit(0);
-    }
-
-    private int GetInput(int min, int max)
-    {
-        int input = 0;
-        while (true)
-        {
-            Console.Write(">> ");
-            if (int.TryParse(Console.ReadLine(), out input))
-            {
-                if (input >= min && input <= max)
-                {
-                    return input;
-                }
-                else
-                {
-                    Console.WriteLine("잘못된 입력입니다.");
-                }
-            }
-            else
-            {
-                Console.WriteLine("잘못된 입력입니다.");
-            }
-        }
     }
 }

@@ -1,5 +1,6 @@
 using System.Text;
 using Sylphyr.Dungeon;
+using Sylphyr.Scene;
 using Sylphyr.YJH;
 
 namespace Sylphyr.Character;
@@ -82,17 +83,24 @@ public class Player
         statusSb.Clear();
         statusSb.AppendLine($" Lv.{Level}");
         statusSb.AppendLine($" {Name} ( {Class} )");
-        statusSb.AppendLine($"HP: {CurrentHp}/{BaseStat.MaxHp}");
-        statusSb.AppendLine($"MP: {CurrentMp}/{BaseStat.MaxMp}");
+        statusSb.AppendLine($" HP: {CurrentHp}/{BaseStat.MaxHp}");
+        statusSb.AppendLine($" MP: {CurrentMp}/{BaseStat.MaxMp}");
+        statusSb.AppendLine($" 골드: {Gold} G");
         statusSb.AppendLine();
-        statusSb.AppendLine($"공격력: {BaseStat.Atk}");
-        statusSb.AppendLine($"방어력: {BaseStat.Def}");
-        statusSb.AppendLine($"속도: {BaseStat.Speed}");
-        statusSb.AppendLine($"민첩: {BaseStat.Dex}");
-        statusSb.AppendLine($"운: {BaseStat.Luk}");
+        statusSb.AppendLine($" 공격력: {BaseStat.Atk}");
+        statusSb.AppendLine($" 방어력: {BaseStat.Def}");
+        statusSb.AppendLine($" 속도: {BaseStat.Speed}");
+        statusSb.AppendLine($" 민첩: {BaseStat.Dex}");
+        statusSb.AppendLine($" 운: {BaseStat.Luk}");
         statusSb.AppendLine();
-        statusSb.AppendLine($"치명타 확률: {BaseStat.CriticalChance}");
-        statusSb.AppendLine($"치명타 대미지: {BaseStat.CriticalDamage}");
+        statusSb.AppendLine($" 치명타 확률: {BaseStat.CriticalChance}");
+        statusSb.AppendLine($" 치명타 대미지: {BaseStat.CriticalDamage}");
+        statusSb.AppendLine();
+        statusSb.AppendLine("[ 보유 스킬 ]");
+        foreach (var skill in learnedSkills)
+        {
+            statusSb.AppendLine($" - {skill.SkillName} : {skill.Desc}");
+        }
         Console.Write(statusSb.ToString());
     }
 
@@ -141,8 +149,6 @@ public class Player
         // 몬스터에게 데미지 주기
         if (finalDamage <= 0)
             finalDamage = 1;
-
-        // monster.TakeDamage(damage);
     }
 
     public void TakeDamage(float damage)
@@ -161,14 +167,16 @@ public class Player
         int levelUpExp = LevelData.GetExp(Level);
         if (Exp >= levelUpExp)
         {
-            Exp -= levelUpExp;
-            LevelUp();
+            // 남은 exp
+            LevelUp(Exp - levelUpExp);
         }
     }
 
-    // TODO: 머 올림?
-    private void LevelUp()
+    private void LevelUp(int remainExp)
     {
+        Console.WriteLine("레벨업!");
+        Console.WriteLine($"{Level} -> {Level + 1}");
+        
         Level++;
         
         switch (Class)
@@ -191,7 +199,13 @@ public class Player
             if (skill.AcquisitionLevel == Level)
             {
                 learnedSkills.Add(skill);
+                Console.WriteLine($"{skill.SkillName} 습득!");
             }
+        }
+        
+        if (remainExp > 0)
+        {
+            AddExp(remainExp);
         }
 
         return;
@@ -226,25 +240,7 @@ public class Player
 
         return skills;
     }
-
-    public void UseMp(int useMp)
-    {
-        if (CurrentMp > useMp)
-        {
-            CurrentMp -= useMp;
-        }
-        else
-        {
-            Console.WriteLine("마나가 없습니다.");
-        }
-    }
-
-
-    public void Dead()
-    {
-        // 타이틀로 돌아가기;
-    }
-
+    
     public void UseItem(bool isHealth, float value)
     {
         if (isHealth) // hp
@@ -262,8 +258,21 @@ public class Player
         }
     }
 
-    // 장비 착용하기?
-    public void Equip() { }
+    public void UseMp(int useMp)
+    {
+        if (CurrentMp > useMp)
+        {
+            CurrentMp -= useMp;
+        }
+        else
+        {
+            Console.WriteLine("마나가 없습니다.");
+        }
+    }
 
-    public void UnEquip() { }
+    public void Dead()
+    {
+        Console.WriteLine("사망하였습니다...");
+        TitleScene.Instance.Run();
+    }
 }

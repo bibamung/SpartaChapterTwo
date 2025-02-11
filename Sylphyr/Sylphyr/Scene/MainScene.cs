@@ -13,6 +13,7 @@ public class MainScene
 
     public MainScene()
     {
+        sb.Clear();
         sb.AppendLine(" == 루미에라 ==");
         sb.AppendLine();
         sb.AppendLine("1. 상태 보기");

@@ -10,7 +10,7 @@ public enum Behavior{
 public class MainScene
 {
     public StringBuilder sb = new();
-    
+    DungeonManager dungeonManager = new DungeonManager();
 
     public MainScene()
     {
@@ -40,7 +40,7 @@ public class MainScene
             switch (select)
             {
                 case (int)Behavior.DungeonEnter:
-                    DungeonManager.Instance.StageSelect();
+                    dungeonManager.StageSelect();
                     break;
                 case (int)Behavior.Store:
                     GameManger.Instance.shop.shopScene(GameManger.Instance.player, GameManger.Instance.inventory);

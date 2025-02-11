@@ -117,7 +117,7 @@ namespace Sylphyr.Dungeon
         //DisplayHit(때린사람, 맞은 대상, 크리티컬 여부, 최종데미지)
         public void DisplayHit(Monster monster, Player player, bool isCritical, float finalDamage)
         {
-            float playerDef = (player.TotalStat.Def / (player.TotalStat.Def + 50.0f));
+            float playerDef = (player.TotalStat.Def / (player.TotalStat.Def + 50.0f)) * 100;
             if (isCritical) //크리티컬이 터졌습니다.
             {
                 Console.WriteLine($"{monster.MonsterName}이/가 {player.Name}을 공격했다.");

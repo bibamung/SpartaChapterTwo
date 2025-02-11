@@ -27,7 +27,10 @@ public class Player
     public float CurrentHp { get; private set; }
     public float CurrentMp { get; private set; }
     public int Exp { get; private set; }
-    public int Gold { get; private set; }
+    public int Gold { get; private set; } = 0;
+    
+    //Player Best Stage
+    public int BestStage { get; private set; }
 
     private CharacterStat totalStat = new CharacterStat();
     public CharacterStat TotalStat
@@ -259,5 +262,9 @@ public class Player
         GameManager.Instance.GameOver();
         Console.WriteLine("사망하였습니다...");
         TitleScene.Instance.Run();
+    }
+    public void SetBestStage(int stage)
+    {
+        BestStage = stage;
     }
 }

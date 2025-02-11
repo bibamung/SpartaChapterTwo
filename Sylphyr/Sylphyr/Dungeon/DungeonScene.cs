@@ -405,7 +405,7 @@ namespace Sylphyr.Dungeon
             Console.WriteLine($"  현재 플레이어 현재 경험치 => {player.Exp}");
 
             Console.WriteLine("\n====================================\n");
-
+            GameManager.Instance.shop.isShop = true;
         }
 
     }

@@ -96,6 +96,7 @@ public class MainScene
         dungeonManager.StageSelect();
     }
     
+    /*
     private void SaveGameData()
     {
         try
@@ -127,7 +128,8 @@ public class MainScene
             Console.WriteLine($"세이브 중 오류가 발생했습니다: {ex.Message}");
         }  
     }
-    
+    */
+
     private void EnterCasino()
     {
         

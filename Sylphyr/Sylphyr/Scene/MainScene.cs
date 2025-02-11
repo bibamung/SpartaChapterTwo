@@ -74,6 +74,7 @@ public class MainScene
     {
         var player = GameManager.Instance.player;
         GameManager.Instance.inventory.invenDisplay(player);
+        Run();
     }
 
     private void EnterStore()
@@ -81,6 +82,7 @@ public class MainScene
         var player = GameManager.Instance.player;
         var inventory = GameManager.Instance.inventory;
         GameManager.Instance.shop.shopScene(player, inventory);
+        Run();
     }
 
     private void EnterDungeon()

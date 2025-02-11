@@ -33,7 +33,7 @@ namespace Sylphyr.Dungeon
 
         List<Monster> monsterlist = DataManager.Instance.monsters;
         //MainScene mainScene = new MainScene();
-
+        Inventory Inventory = new Inventory();
 
         public Monster GetMonster(int id)
         {
@@ -265,6 +265,8 @@ namespace Sylphyr.Dungeon
                     scene.DisplayHealthBar(currentStageMonsters);           //현재 스테이지 몬스터 정보 출력
                     Console.WriteLine("\n1. 공격\n");
                     Console.WriteLine("2. 스킬사용\n");
+                    Console.WriteLine("3. 회복 아이템 사용\n");
+
 
                     Console.Write("원하시는 행동을 선택해주세요.\n>> ");
                     int selectMonster, behavior;
@@ -304,6 +306,10 @@ namespace Sylphyr.Dungeon
                         else if (behavior == 2)
                         {
                             SkillAttackBattle(stage, currentStageMonsters, player, OrderByAttackChar);
+                        }
+                        else if (behavior == 3)
+                        {
+                            Inventory.ConsumeDisplay(player);
                         }
                         else
                         {
@@ -366,10 +372,6 @@ namespace Sylphyr.Dungeon
             Console.Clear();
             int count = 0, repeat = 1;
             scene.DisplayHealthBar(currentStageMonsters);
-            for (int i = 0; i < OrderByAttackChar.Count; i++)
-            {
-                Console.WriteLine($"OrderByAttackChar = {OrderByAttackChar[i]}");
-            }
             while (currentStageMonsters.Count() > 0 && ++repeat < OrderByAttackChar.Count())
             {
 
@@ -509,8 +511,8 @@ namespace Sylphyr.Dungeon
                                                     scene.SkillAttack(player, currentStageMonsters[selectMonster - 1], useSkill);
                                                     if (currentStageMonsters[selectMonster - 1].CurrentHp <= 0)
                                                     {
-                                                        TotalExp += currentStageMonsters[selectMonster].DropExp;
-                                                        TotalGold += currentStageMonsters[selectMonster].DropGold;
+                                                        TotalExp += currentStageMonsters[selectMonster - 1].DropExp;
+                                                        TotalGold += currentStageMonsters[selectMonster - 1].DropGold;
                                                         currentStageMonsters.RemoveAt(selectMonster - 1);
                                                     }
                                                     if (currentStageMonsters.Count <= 0)

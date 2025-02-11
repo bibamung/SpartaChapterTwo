@@ -549,7 +549,7 @@ namespace Sylphyr
                                           AlignText(statname, 10) + "   " +
                                           AlignText("+" + weaponItem.Value, 5) + " | " +
                                           AlignText(weaponslot, 7) + " | " +
-                                          AlignText(weaponItem.Price + "G", 7) + " | " +
+                                          AlignText(weaponItem.Price * 0.8 + "G", 7) + " | " +
                                           weaponItem.Desc);
                         Console.ResetColor();
                     }
@@ -560,7 +560,7 @@ namespace Sylphyr
                                           AlignText(statname, 10) + "   " +
                                           AlignText("+" + weaponItem.Value, 5) + " | " +
                                           AlignText(weaponslot, 7) + " | " +
-                                          AlignText(weaponItem.Price + "G", 7) + " | " +
+                                          AlignText(weaponItem.Price * 0.8 + "G", 7) + " | " +
                                           weaponItem.Desc);
                     }
                     i++;
@@ -604,7 +604,7 @@ namespace Sylphyr
                                           AlignText(statname, 10) + "   " +
                                           AlignText("+" + item.Value, 5) + " | " +
                                           AlignText(slotname, 10) + " | " +
-                                          AlignText(item.Price + "G", 7) + " | " +
+                                          AlignText(item.Price * 0.8+ "G", 7) + " | " +
                                           item.Desc);
                         Console.ResetColor();
                     }
@@ -615,7 +615,7 @@ namespace Sylphyr
                                           AlignText(statname, 10) + "   " +
                                           AlignText("+" + item.Value, 5) + " | " +
                                           AlignText(slotname, 10) + " | " +
-                                          AlignText(item.Price + "G", 7) + " | " +
+                                          AlignText(item.Price * 0.8 + "G", 7) + " | " +
                                           item.Desc);
                     }
                     //Console.WriteLine($"- {index}. {item.Name} | {statname} +{item.Value} | 슬롯: {slotname} | 가격: {item.Price}G | 설명: {item.Desc}");
@@ -644,7 +644,7 @@ namespace Sylphyr
                         Console.WriteLine($"- {i}. " + AlignText(potionItem.Name, 25) + " | " +
                                           AlignText(hpmp, 10) + "   " +
                                           AlignText("+" + potionItem.Value, 5) + " | " +
-                                          AlignText(potionItem.Price + "G", 7) + " | " +
+                                          AlignText(potionItem.Price * 0.8 + "G", 7) + " | " +
                                           potionItem.Desc);
                     }
                     else
@@ -653,7 +653,7 @@ namespace Sylphyr
                         Console.WriteLine($"- {i}. " + AlignText(potionItem.Name, 25) + " | " +
                                           AlignText(hpmp, 10) + "   " +
                                           AlignText("+" + potionItem.Value, 5) + " | " +
-                                          AlignText(potionItem.Price + "G", 7) + " | " +
+                                          AlignText(potionItem.Price * 0.8 + "G", 7) + " | " +
                                           potionItem.Desc);
                     }
                     i++;

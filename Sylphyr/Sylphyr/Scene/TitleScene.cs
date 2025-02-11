@@ -93,7 +93,10 @@ public class TitleScene : SingleTon<TitleScene>
         newGameSb.AppendLine("press any key to continue...");
         Console.Write(newGameSb.ToString());
         Console.ReadKey();
-        GameManger.Instance.Main.Run();
+        while (true)
+        {
+            GameManger.Instance.Main.Run();
+        }
     }
 
     private void LoadGame()

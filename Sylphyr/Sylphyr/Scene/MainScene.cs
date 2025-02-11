@@ -42,6 +42,9 @@ public class MainScene
                 case (int)Behavior.DungeonEnter:
                     dungeonManager.StageSelect();
                     break;
+                case (int)Behavior.Inventory:
+                    GameManger.Instance.inventory.invenDisplay(GameManger.Instance.player);
+                    break;
                 case (int)Behavior.Store:
                     GameManger.Instance.shop.shopScene(GameManger.Instance.player, GameManger.Instance.inventory);
                     break;

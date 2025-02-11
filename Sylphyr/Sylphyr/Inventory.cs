@@ -522,7 +522,7 @@ namespace Sylphyr
                             }
                             else
                             {
-                                if (selectedWeapon.ID != weaponEquip[0].ID)
+                                if (selectedWeapon.Id != weaponEquip[0].Id)
                                 {
                                     selectedWeapon.wisEquip = true;
                                     player.EnhancedStat.Atk -= weaponEquip[0].Value;

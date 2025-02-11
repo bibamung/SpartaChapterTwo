@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace Sylphyr
 {
-    public class Weapon(int id, string name, int stat, int Value, string slot, int price, string desc, bool wpurchase, bool isequip)
+    public class Weapon()
     {
-        public int ID;
+        public int Id;
         public string Name;
         public int Stat;
         public int Value;
         public string Slot;
         public int Price;
         public string Desc;
-        public bool wpurChase = wpurchase;
-        public bool wisEquip = isequip;
+        public bool wpurChase = false;
+        public bool wisEquip = false;
     }
 }

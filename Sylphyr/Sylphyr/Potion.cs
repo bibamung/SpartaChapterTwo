@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace Sylphyr
 {
-    public class Potion(int id, string name, int stat, int Value, string slot, int price, string desc, bool isbuy, bool isuse)
+    public class Potion()
     {
-        public int ID;
+        public int Id;
         public string Name;
         public int Stat;
         public int Value;
-        public string Slot;
+        // public string Slot;
         public int Price;
         public string Desc;
-        public bool isBuy = isbuy;
-        public bool isUse = isuse;
+        public bool isBuy = false;
+        public bool isUse = false;
     }
 
 }

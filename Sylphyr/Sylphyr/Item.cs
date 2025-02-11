@@ -20,6 +20,7 @@ namespace Sylphyr
         public string Desc { get; private set; }
         public bool isEquip { get; set; }  // 장착 여부
         public bool purChase {  get; set; } // 구매 여부
+        public bool isShop = true;  // 상점 진입 여부
 
         private Random rand = new Random();
 
@@ -245,6 +246,7 @@ namespace Sylphyr
                         {
                             item.isBuy = false;
                         }
+                        isShop = false;
                         return;
                     default:
                         isfail = true;

@@ -30,6 +30,19 @@ public class MainScene
         Console.Clear();
         Console.Write(sb.ToString());
 
+        if (!GameManager.Instance.shop.isShop)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("상점이 닫혔습니다.");
+            Console.ResetColor();
+        }
+        else
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("상점이 열렸습니다.");
+            Console.ResetColor();
+        }
+
         Console.Write("원하시는 행동을 입력해주세요.");
 
         int input = Util.GetInput(0, 5);
@@ -81,7 +94,10 @@ public class MainScene
     {
         var player = GameManager.Instance.player;
         var inventory = GameManager.Instance.inventory;
-        GameManager.Instance.shop.shopScene(player, inventory);
+        if (GameManager.Instance.shop.isShop)
+        {
+            GameManager.Instance.shop.shopScene(player, inventory);
+        }
         Run();
     }
 

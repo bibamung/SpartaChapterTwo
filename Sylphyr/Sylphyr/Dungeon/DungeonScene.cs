@@ -75,7 +75,7 @@ namespace Sylphyr.Dungeon
                 // 색상 초기화
                 Console.ResetColor();
                 Console.WriteLine();
-                
+
             }
 
         }
@@ -84,11 +84,12 @@ namespace Sylphyr.Dungeon
         {
             int barSize = 20; // 체력바 길이 (20칸)
             float healthPercentage = monster.CurrentHp / monster.MaxHp;
+            if (healthPercentage < 0) healthPercentage = 0;
             int filledBars = (int)(barSize * healthPercentage);
-            if (filledBars < 0) filledBars = 0;
             int emptyBars = barSize - filledBars;
             if (monster.CurrentHp > 0)
             {
+                if (filledBars < 0) filledBars = 0;
                 // 색상 적용 (콘솔 전용)
                 Console.ForegroundColor = GetHealthColor(healthPercentage);
 
@@ -116,26 +117,25 @@ namespace Sylphyr.Dungeon
         //DisplayHit(때린사람, 맞은 대상, 크리티컬 여부, 최종데미지)
         public void DisplayHit(Monster monster, Player player, bool isCritical, float finalDamage)
         {
-            float playerDef = player.TotalStat.Def / (player.TotalStat.Def + 50.0f);
+            float playerDef = (player.TotalStat.Def / (player.TotalStat.Def + 50.0f)) * 100;
             if (isCritical) //크리티컬이 터졌습니다.
             {
                 Console.WriteLine($"{monster.MonsterName}이/가 {player.Name}을 공격했다.");
                 Console.WriteLine($"효과는 굉장했다.");
-                Console.WriteLine($"{player.Name}에게 {(finalDamage - playerDef > 0 ? finalDamage - playerDef : 0)}만큼 피해를 입혔다.");
+                Console.WriteLine($"{player.Name}에게 {(finalDamage - playerDef > 0 ? (finalDamage - playerDef).ToString("F2") : 0)}만큼 피해를 입혔다.");
                 DisplayPlayerHpBar(player);
 
-                Console.WriteLine("계속 진행하시려면 Enter키를 눌러주세요...");
-                Console.ReadLine();
+                Console.WriteLine("press any key to continue...");
+                Console.ReadKey();
             }
             else            //크리티컬이 안 터졌습니다.
             {
                 Console.WriteLine($"{monster.MonsterName}이/가 {player.Name}을 공격했다.");
-                Console.WriteLine($"{player.Name}에게 {(finalDamage - playerDef > 0 ? finalDamage - playerDef : 0)}만큼 피해를 입혔다.");
+                Console.WriteLine($"{player.Name}에게 {(finalDamage - playerDef > 0 ? (finalDamage - playerDef).ToString("F2") : 0)}만큼 피해를 입혔다.");
                 DisplayPlayerHpBar(player);
 
-                Console.WriteLine("계속 진행하시려면 Enter키를 눌러주세요...");
-                
-                Console.ReadLine();
+                Console.WriteLine("press any key to continue...");
+                Console.ReadKey();
             }
         }
 
@@ -146,22 +146,22 @@ namespace Sylphyr.Dungeon
             {
                 Console.WriteLine($"{monster.MonsterName}를 공격했다.");
                 Console.WriteLine($"효과는 굉장했다.");
-                Console.WriteLine($"{monster.MonsterName}에게 {finalDamage}만큼 피해를 입혔다.");
+                Console.WriteLine($"{monster.MonsterName}에게 {(finalDamage > 0 ? finalDamage.ToString("F2") : 0)}만큼 피해를 입혔다.");
                 monster.CurrentHp -= finalDamage;
                 DisplayHealthBar(monster);
 
-                Console.WriteLine("계속 진행하시려면 Enter키를 눌러주세요...");
-                Console.ReadLine();
+                Console.WriteLine("press any key to continue...");
+                Console.ReadKey();
             }
             else            //크리티컬이 안 터졌습니다.
             {
                 Console.WriteLine($"{monster.MonsterName}를 공격했다.");
-                Console.WriteLine($"{monster.MonsterName}에게 {finalDamage}만큼 피해를 입혔다.");
+                Console.WriteLine($"{monster.MonsterName}에게 {(finalDamage > 0 ? finalDamage.ToString("F2") : 0)}만큼 피해를 입혔다.");
                 monster.CurrentHp -= finalDamage;
                 DisplayHealthBar(monster);
 
-                Console.WriteLine("계속 진행하시려면 Enter키를 눌러주세요...");
-                Console.ReadLine();
+                Console.WriteLine("press any key to continue...");
+                Console.ReadKey();
             }
         }
         //플레이어가 때렸을 때 (스킬공격)
@@ -169,24 +169,24 @@ namespace Sylphyr.Dungeon
         {
             if (isCritical) //크리티컬이 터졌습니다.
             {
-                Console.WriteLine($"{monster.MonsterName}를 {player.Skills[useSkill - 1].SkillName}으/로 공격했다.");
+                Console.WriteLine($"{monster.MonsterName}를 {player.learnedSkills[useSkill - 1].SkillName}으/로 공격했다.");
                 Console.WriteLine($"효과는 굉장했다.");
-                Console.WriteLine($"{monster.MonsterName}에게 {finalDamage}만큼 피해를 입혔다.");
+                Console.WriteLine($"{monster.MonsterName}에게 {finalDamage.ToString("F2")}만큼 피해를 입혔다.");
                 monster.CurrentHp -= finalDamage;
                 DisplayHealthBar(monster);
 
-                Console.WriteLine("계속 진행하시려면 Enter키를 눌러주세요...");
-                Console.ReadLine();
+                Console.WriteLine("press any key to continue...");
+                Console.ReadKey();
             }
             else            //크리티컬이 안 터졌습니다.
             {
-                Console.WriteLine($"{monster.MonsterName}를 {player.Skills[useSkill - 1].SkillName}으/로 공격했다.");
-                Console.WriteLine($"{monster.MonsterName}에게 {finalDamage}만큼 피해를 입혔다.");
+                Console.WriteLine($"{monster.MonsterName}를 {player.learnedSkills[useSkill - 1].SkillName}으/로 공격했다.");
+                Console.WriteLine($"{monster.MonsterName}에게 {finalDamage.ToString("F2")}만큼 피해를 입혔다.");
                 monster.CurrentHp -= finalDamage;
                 DisplayHealthBar(monster);
 
-                Console.WriteLine("계속 진행하시려면 Enter키를 눌러주세요...");
-                Console.ReadLine();
+                Console.WriteLine("press any key to continue...");
+                Console.ReadKey();
             }
         }
 
@@ -209,8 +209,8 @@ namespace Sylphyr.Dungeon
                     break;
             }
 
-            Console.WriteLine("계속 진행하시려면 Enter키를 눌러주세요...");
-            Console.ReadLine();
+            Console.WriteLine("press any key to continue...");
+            Console.ReadKey();
         }
 
         public void DisplayEvasion(Monster monster)
@@ -230,8 +230,8 @@ namespace Sylphyr.Dungeon
                     break;
             }
 
-            Console.WriteLine("계속 진행하시려면 Enter키를 눌러주세요...");
-            Console.ReadLine();
+            Console.WriteLine("press any key to continue...");
+            Console.ReadKey();
         }
 
         // 체력 상태에 따라 색상 변경 (콘솔용)
@@ -246,11 +246,13 @@ namespace Sylphyr.Dungeon
         public void DisplayPlayerSkill(Player player)
         {
             int count = 1;
-            for (int i = 0; i < player.Skills.Count(); i++)
+            for (int i = 0; i < player.learnedSkills.Count(); i++)
             {
-                Console.WriteLine($"{count++}. {player.Skills[i].SkillName} | 사용 마나: {player.Skills[i].UseMp} | 스킬 설명: {player.Skills[i].Desc}\n");
+                Console.WriteLine($"{count++}. {player.learnedSkills[i].SkillName} | 사용 마나: {player.learnedSkills[i].UseMp} | 스킬 설명: {player.learnedSkills[i].Desc}\n");
             }
         }
+
+
         //기본 공격
         public void BasicAttack(Player player, Monster monster)
         {
@@ -284,23 +286,22 @@ namespace Sylphyr.Dungeon
         {
             bool isCritical = false;
             Random rand = new Random(DateTime.Now.Millisecond);
-            float evasionRate = (monster.Dex / monster.Dex + 50.0f);
+            float evasionRate = (monster.Dex / (monster.Dex + 50.0f));
             float monsterDef = (monster.Def / (monster.Def + 50.0f)) * 100.0f;
-            player.UseMp(player.Skills[useSkill].UseMp);
-            if (rand.NextSingle() < evasionRate)
+            if (rand.NextSingle() > evasionRate)
             {
                 if (rand.NextSingle() < player.TotalStat.CriticalChance)
                 {
-                    float finalDamage = player.TotalStat.Atk * player.TotalStat.CriticalDamage * player.Skills[useSkill - 1].Damage
+                    float finalDamage = player.TotalStat.Atk * player.TotalStat.CriticalDamage * player.learnedSkills[useSkill - 1].Damage
                         - monsterDef;
 
                     DisplaySkillHit(player, monster, isCritical, finalDamage, useSkill);
                 }
                 else
                 {
-                    float finalDamage = player.TotalStat.Atk * player.TotalStat.CriticalDamage * player.Skills[useSkill - 1].Damage
+                    float finalDamage = player.TotalStat.Atk * player.learnedSkills[useSkill - 1].Damage
                         - monsterDef;
-
+                    Console.WriteLine("스킬 데미지: {0}", player.learnedSkills[useSkill - 1].Damage);
                     DisplaySkillHit(player, monster, isCritical, finalDamage, useSkill);
                 }
             }
@@ -314,18 +315,18 @@ namespace Sylphyr.Dungeon
         {
             bool isCritical = false;
             Random rand = new Random(DateTime.Now.Millisecond);
-            float evasionRate = (monster.Dex / monster.Dex + 50.0f);
-            if (rand.NextSingle() < evasionRate)
+            float evasionRate = (monster.Dex / (monster.Dex + 50.0f));
+            if (rand.NextSingle() > evasionRate)
             {
                 if (rand.NextSingle() < player.TotalStat.CriticalChance)
                 {
-                    float finalDamage = player.TotalStat.Atk * player.TotalStat.CriticalDamage * player.TotalStat.CriticalDamage * player.Skills[useSkill - 1].Damage;
+                    float finalDamage = player.TotalStat.Atk * player.TotalStat.CriticalDamage * player.TotalStat.CriticalDamage * player.learnedSkills[useSkill - 1].Damage;
 
                     DisplayHit(player, monster, isCritical, finalDamage);
                 }
                 else
                 {
-                    float finalDamage = player.TotalStat.Atk * player.TotalStat.CriticalDamage * player.Skills[useSkill - 1].Damage;
+                    float finalDamage = player.TotalStat.Atk * player.TotalStat.CriticalDamage * player.learnedSkills[useSkill - 1].Damage;
 
                     DisplayHit(player, monster, isCritical, finalDamage);
                 }
@@ -342,8 +343,8 @@ namespace Sylphyr.Dungeon
         {
             bool isCritical = false;
             Random rand = new Random(DateTime.Now.Millisecond);
-            float evasionRate = (monster.Dex / monster.Dex + 50.0f);
-            if (rand.NextSingle() < evasionRate)
+            float evasionRate = (player.TotalStat.Dex / (player.TotalStat.Dex + 50.0f));
+            if (rand.NextSingle() > evasionRate)
             {
                 if (rand.NextSingle() < monster.CriticalChance)        //크리티컬이 터졌을 경우
                 {
@@ -370,6 +371,9 @@ namespace Sylphyr.Dungeon
 
         public void DisplayReward(Player player, int rewardGold, int rewardExp)
         {
+            int totalGold = 0;
+            player.AddRewardGold(rewardGold, out totalGold);
+            player.AddExp(rewardExp);
             Console.Clear();
             Console.WriteLine("******************************************************************************************");
             for (int i = 0; i < 10; i++)
@@ -384,21 +388,19 @@ namespace Sylphyr.Dungeon
             Console.SetCursorPosition(2, 0);
             Console.WriteLine("\r\n*   _____                                   _           _         _    _               \r\n*  /  __ \\                                 | |         | |       | |  (_)              \r\n* | /  \\/  ___   _ __    __ _  _ __   __ _ | |_  _   _ | |  __ _ | |_  _   ___   _ __  \r\n* | |     / _ \\ | '_ \\  / _` || '__| / _` || __|| | | || | / _` || __|| | / _ \\ | '_ \\ \r\n* | \\__/\\| (_) || | | || (_| || |   | (_| || |_ | |_| || || (_| || |_ | || (_) || | | |\r\n*  \\____/ \\___/ |_| |_| \\__, ||_|    \\__,_| \\__| \\__,_||_| \\__,_| \\__||_| \\___/ |_| |_|\r\n*                        __/ |                                                         \r\n*                       |___/                                                          \r\n");
 
-            Console.WriteLine("\n===========던전 클리어!!!===========\n");
+            Console.WriteLine("\n===========던전 클리어!!!!===========\n");
 
             Console.WriteLine($"  획득한 경험치 => {rewardExp}");
-            Console.WriteLine($"  획득한 골드 => {rewardGold}");
+            Console.WriteLine($"  획득한 골드 => {totalGold}");
 
-            Console.WriteLine("\n============================\n");
-            player.AddGold(rewardGold);
-            player.AddExp(rewardExp);
+            Console.WriteLine("\n====================================\n");
 
             Console.WriteLine($"  현재 보유 골드 => {player.Gold}");
             Console.WriteLine($"  현재 플레이어 레벨 => {player.Level}");
             Console.WriteLine($"  현재 플레이어 현재 경험치 => {player.Exp}");
 
-            Console.WriteLine("\n============================\n");
-
+            Console.WriteLine("\n====================================\n");
+            GameManager.Instance.shop.isShop = true;
         }
 
     }

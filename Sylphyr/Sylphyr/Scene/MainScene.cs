@@ -1,11 +1,10 @@
 using Sylphyr.Character;
 using Sylphyr.Dungeon;
 using System.Text;
+using Sylphyr.Utils;
+using Sylphyr.YJH;
 
 namespace Sylphyr.Scene;
-public enum Behavior{
-    PlayerInfo = 1, Inventory = 2, Store = 3, DungeonEnter = 4, Storage = 5, Exit = 0
-}
 
 public class MainScene
 {
@@ -24,37 +23,130 @@ public class MainScene
         sb.AppendLine("0. 게임 종료");
 
         sb.AppendLine();
-}
-    
+    }
+
     public void Run()
     {
         Console.Clear();
         Console.Write(sb.ToString());
 
-        Console.Write("원하시는 행동을 입력해주세요.\n>> ");
-
-        int select;
-        bool isVaildNum = int.TryParse(Console.ReadLine(), out select);
-        if (isVaildNum)
+        if (!GameManager.Instance.shop.isShop)
         {
-            switch (select)
-            {
-                case (int)Behavior.DungeonEnter:
-                    dungeonManager.StageSelect();
-                    break;
-                case (int)Behavior.Inventory:
-                    GameManger.Instance.inventory.invenDisplay(GameManger.Instance.player);
-                    break;
-                case (int)Behavior.Store:
-                    GameManger.Instance.shop.shopScene(GameManger.Instance.player, GameManger.Instance.inventory);
-                    break;
-                default:
-                    break;
-            }
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("상점이 닫혔습니다.");
+            Console.ResetColor();
         }
         else
         {
-            Console.WriteLine("숫자를 입력해 주세요.");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("상점이 열렸습니다.");
+            Console.ResetColor();
+        }
+
+        Console.Write("원하시는 행동을 입력해주세요.");
+
+        int input = Util.GetInput(0, 5);
+        switch ((Behavior)input)
+        {
+            case Behavior.PlayerInfo:
+                PrintPlayerInfo();
+                break;
+            case Behavior.Inventory:
+                OpenInventory();
+                break;
+            case Behavior.Store:
+                EnterStore();
+                break;
+            case Behavior.DungeonEnter:
+                EnterDungeon();
+                break;
+            case Behavior.Save:
+                break;
+            case Behavior.Exit:
+                TitleScene.Instance.ExitGame();
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
         }
     }
+
+    private void PrintPlayerInfo()
+    {
+        var player = GameManager.Instance.player;
+        Console.Clear();
+        Console.WriteLine("플레이어의 정보를 확인합니다.");
+        Console.WriteLine();
+        player.PrintStatus();
+        Console.WriteLine();
+        Console.WriteLine("press any key to continue...");
+        Console.ReadKey();
+        Run();
+    }
+
+    private void OpenInventory()
+    {
+        var player = GameManager.Instance.player;
+        GameManager.Instance.inventory.invenDisplay(player);
+        Run();
+    }
+
+    private void EnterStore()
+    {
+        var player = GameManager.Instance.player;
+        var inventory = GameManager.Instance.inventory;
+        if (GameManager.Instance.shop.isShop)
+        {
+            GameManager.Instance.shop.shopScene(player, inventory);
+        }
+        Run();
+    }
+
+    private void EnterDungeon()
+    {
+        dungeonManager.StageSelect();
+    }
+    
+    /*
+    private void SaveGameData()
+    {
+        try
+        {
+            // Save 클래스의 인스턴스 생성
+            Save saveSystem = new Save();
+
+            // 세이브 폴더 없으면 생성
+            saveSystem.CreateSaveFolder();
+
+            // SaveData 객체 생성 및 데이터 준비
+            SaveData data = new SaveData
+            {
+                // CharacterStats = GameManger.Instance.player.CharacterStats, // 유저 캐릭터 스탯 리스트
+                // Inventories = GameManger.Instance.inventory.Items,     // 인벤토리 아이템들
+                Players = new List<Player> { GameManager.Instance.player } // 플레이어 정보
+            };
+
+            // 세이브 파일 경로 지정
+            Save.filePath = "Data/Save/GameData.json"; // 상대 경로에 저장
+
+            // 데이터 저장
+            saveSystem.SaveGame(data);
+
+            Console.WriteLine("게임이 성공적으로 저장되었습니다!");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"세이브 중 오류가 발생했습니다: {ex.Message}");
+        }  
+    }
+    */
+}
+
+public enum Behavior
+{
+    PlayerInfo = 1,
+    Inventory = 2,
+    Store = 3,
+    DungeonEnter = 4,
+    Save = 5,
+    Exit = 0
 }

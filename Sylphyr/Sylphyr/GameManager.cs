@@ -8,7 +8,7 @@ using Sylphyr.Scene;
 
 namespace Sylphyr
 {
-    public class GameManger : SingleTon<GameManger>
+    public class GameManager : SingleTon<GameManager>
     {
         public MainScene Main { get; private set; }
         public Player player { get; private set; }
@@ -26,6 +26,14 @@ namespace Sylphyr
         public void SetPlayer(string name, CharacterClass characterClass)
         {
             player = new Player(name, characterClass);
+        }
+
+        public void GameOver()
+        {
+            main = null;
+            player = null;
+            shop = null;
+            inventory = null;
         }
     }
 }

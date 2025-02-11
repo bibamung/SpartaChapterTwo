@@ -1,5 +1,6 @@
 using System.Text;
 using Sylphyr.Character;
+using Sylphyr.Utils;
 
 namespace Sylphyr.Scene;
 
@@ -18,12 +19,13 @@ public class TitleScene : SingleTon<TitleScene>
         TitleSb.AppendLine("  \\____/  \\\\__,||_|| .__/ |_| |_| \\\\__,||_|   ");
         TitleSb.AppendLine("           __/ |   | |             __/ |      ");
         TitleSb.AppendLine("          |___/    |_|            |___/       ");
+        TitleSb.AppendLine("");
+        TitleSb.AppendLine("");
     }
 
     public void Run()
     {
-        Sb.AppendLine("");
-        Sb.AppendLine("");
+        Sb.Clear();
         Sb.AppendLine("  \t\t1. 게임 시작");
         Sb.AppendLine("  \t\t2. 이어 하기");
         Sb.AppendLine("  \t\t3. 게임 종료");
@@ -34,7 +36,7 @@ public class TitleScene : SingleTon<TitleScene>
         Console.Write(TitleSb.ToString());
         Console.Write(Sb.ToString());
         
-        int input = GetInput(1, 4);
+        int input = Util.GetInput(1, 4);
         switch (input)
         {
             case 1: StartNewGame();
@@ -43,15 +45,15 @@ public class TitleScene : SingleTon<TitleScene>
                 break;
             case 3: ExitGame();
                 break;
-            case 4: DebugScene();
+            case 4: Debug();
                 break;
         }
     }
 
-    private void DebugScene()
+    private void Debug()
     {
-        Scene.DebugScene.Instance.Init();
-        Scene.DebugScene.Instance.Run();
+        DebugScene.Instance.Init();
+        DebugScene.Instance.Run();
     }
 
     private void StartNewGame()
@@ -80,11 +82,11 @@ public class TitleScene : SingleTon<TitleScene>
         newGameSb.AppendLine("3. 궁수");
         newGameSb.AppendLine("4. 팔라딘");
         Console.Write(newGameSb.ToString());
-        int input = GetInput(1, 4);
+        int input = Util.GetInput(1, 4);
         
-        GameManger.Instance.SetPlayer(name, (CharacterClass)input);
-        GameManger.Instance.Init();
-        var player = GameManger.Instance.player;
+        GameManager.Instance.SetPlayer(name, (CharacterClass)input);
+        GameManager.Instance.Init();
+        var player = GameManager.Instance.player;
         
         newGameSb.Clear();
         newGameSb.AppendLine();
@@ -93,10 +95,7 @@ public class TitleScene : SingleTon<TitleScene>
         newGameSb.AppendLine("press any key to continue...");
         Console.Write(newGameSb.ToString());
         Console.ReadKey();
-        while (true)
-        {
-            GameManger.Instance.Main.Run();
-        }
+        GameManager.Instance.main.Run();
     }
 
     private void LoadGame()
@@ -104,32 +103,8 @@ public class TitleScene : SingleTon<TitleScene>
         // TODO: Implement LoadGame
     }
     
-    private void ExitGame()
+    public void ExitGame()
     {
         Environment.Exit(0);
-    }
-
-    private int GetInput(int min, int max)
-    {
-        int input = 0;
-        while (true)
-        {
-            Console.Write(">> ");
-            if (int.TryParse(Console.ReadLine(), out input))
-            {
-                if (input >= min && input <= max)
-                {
-                    return input;
-                }
-                else
-                {
-                    Console.WriteLine("잘못된 입력입니다.");
-                }
-            }
-            else
-            {
-                Console.WriteLine("잘못된 입력입니다.");
-            }
-        }
     }
 }

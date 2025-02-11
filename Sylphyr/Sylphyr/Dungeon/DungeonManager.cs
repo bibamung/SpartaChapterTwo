@@ -18,8 +18,9 @@ namespace Sylphyr.Dungeon
     {
         OneTarget = 0, WideArea = 1, DefIgnore = 2
     }
-    class DungeonManager : SingleTon<DungeonManager>
+    class DungeonManager
     {
+        bool _disposed = false;
         int TotalGold = 0, TotalExp = 0;
         int GainGold = 0;
         Random rand = new Random(DateTime.Now.Millisecond);
@@ -109,7 +110,7 @@ namespace Sylphyr.Dungeon
                     monsterlist.SingleOrDefault(monster => monster.MonsterId == 1018)!
                 };
         }
-
+        ~DungeonManager() { }
 
         public List<Monster> GetMonstersForStage(int stage)
         {
@@ -408,6 +409,7 @@ namespace Sylphyr.Dungeon
                     scene.MonsterAttack(currentStageMonsters[i], player);
                     if (player.CurrentHp <= 0)
                     {
+                        
                         player.Dead();
                     }
                     repeat++;
@@ -477,6 +479,7 @@ namespace Sylphyr.Dungeon
                                     scene.MonsterAttack(currentStageMonsters[i], player);
                                     if (player.CurrentHp <= 0)
                                     {
+                                        
                                         player.Dead();
                                     }
 
@@ -491,8 +494,14 @@ namespace Sylphyr.Dungeon
                             #region 단일 타겟팅 스킬을 사용한 경우
                             else if (player.Skills[useSkill - 1].SkillType == (int)SkillType.OneTarget)
                             {
+                                int count = 0;
                                 while (true)
                                 {
+                                    Console.Clear();
+                                    scene.DisplayPlayerHpBar(player);
+                                    scene.DisplayHealthBar(currentStageMonsters);
+                                    Console.Write("공격할 몬스터를 선택해주세요.\n>> ");
+
                                     isVaildNum = int.TryParse(Console.ReadLine(), out selectMonster);
                                     if (isVaildNum)
                                     {
@@ -500,15 +509,15 @@ namespace Sylphyr.Dungeon
                                         {
                                             for (int i = 0; i < currentStageMonsters.Count; i++)       //스테이지에 등장하는 몬스터의 배열을 한바퀴 돌림
                                             {
-                                                int count = 0;
-                                                if (OrderByAttackChar[count++] == player.Name)                       //이번에 공격할 캐릭터가 플레이어일 경우
+                                                
+                                                if (OrderByAttackChar[count] == player.Name)                       //이번에 공격할 캐릭터가 플레이어일 경우
                                                 {
-                                                    scene.SkillAttack(player, currentStageMonsters[selectMonster], useSkill);
-                                                    if (currentStageMonsters[selectMonster].CurrentHp == 0)
-                                                    {
+                                                    scene.SkillAttack(player, currentStageMonsters[selectMonster - 1], useSkill);
+                                                    if (currentStageMonsters[selectMonster - 1].CurrentHp <= 0)
+                                                    {                                                        
                                                         TotalExp += currentStageMonsters[selectMonster].DropExp;
                                                         TotalGold += currentStageMonsters[selectMonster].DropGold;
-                                                        currentStageMonsters.RemoveAt(selectMonster);
+                                                        currentStageMonsters.RemoveAt(selectMonster-1);
                                                     }
 
                                                 }
@@ -517,7 +526,7 @@ namespace Sylphyr.Dungeon
                                                 {
                                                     player.Dead();
                                                 }
-
+                                                count++;
                                             }
                                             break;
 
@@ -540,8 +549,14 @@ namespace Sylphyr.Dungeon
                             #endregion
                             else
                             {
+                                int count = 0;
                                 while (true)
                                 {
+                                    Console.Clear();
+                                    scene.DisplayPlayerHpBar(player);
+                                    scene.DisplayHealthBar(currentStageMonsters);
+                                    Console.Write("공격할 몬스터를 선택해주세요.\n>> ");
+
                                     isVaildNum = int.TryParse(Console.ReadLine(), out selectMonster);
                                     if (isVaildNum)
                                     {
@@ -549,16 +564,16 @@ namespace Sylphyr.Dungeon
                                         {
                                             for (int i = 0; i < currentStageMonsters.Count; i++)       //스테이지에 등장하는 몬스터의 배열을 한바퀴 돌림
                                             {
-                                                int count = 0;
+                                                
                                                 if (OrderByAttackChar[count++] == player.Name)                       //이번에 공격할 캐릭터가 플레이어일 경우
                                                 {
-                                                    scene.DefIgnoreSkillAttack(player, currentStageMonsters[selectMonster], useSkill);
+                                                    scene.DefIgnoreSkillAttack(player, currentStageMonsters[selectMonster - 1], useSkill);
                                                     player.UseMp(player.Skills[useSkill - 1].UseMp);
-                                                    if (currentStageMonsters[selectMonster].CurrentHp == 0)
+                                                    if (currentStageMonsters[selectMonster - 1].CurrentHp <= 0)
                                                     {
-                                                        TotalExp += currentStageMonsters[selectMonster].DropExp;
-                                                        TotalGold += currentStageMonsters[selectMonster].DropGold;
-                                                        currentStageMonsters.RemoveAt(selectMonster);
+                                                        TotalExp += currentStageMonsters[selectMonster - 1].DropExp;
+                                                        TotalGold += currentStageMonsters[selectMonster - 1].DropGold;
+                                                        currentStageMonsters.RemoveAt(selectMonster - 1);
                                                     }
 
                                                 }
@@ -567,10 +582,10 @@ namespace Sylphyr.Dungeon
                                                 {
                                                     player.Dead();
                                                 }
-                                                break;
+                                                
 
                                             }
-
+                                            break;
 
                                         }
 
@@ -610,7 +625,6 @@ namespace Sylphyr.Dungeon
             }
 
         }
-
 
     }
 

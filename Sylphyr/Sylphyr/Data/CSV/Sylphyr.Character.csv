@@ -1,4 +1,4 @@
-Id,Name,MaxHp,MaxMp,Atk,Def,Luk,Dex,Speed,CriticalChance,CriticalDamage
+﻿Id,Name,MaxHp,MaxMp,Atk,Def,Luk,Dex,Speed,CriticalChance,CriticalDamage
 1001,전사,150,50,15,15,5,5,10,0.35,10
 1002,도적,100,100,4,1,20,15,10,0.35,15
 1003,궁수,100,100,4,1,15,15,15,0.35,15

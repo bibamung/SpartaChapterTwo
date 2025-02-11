@@ -359,8 +359,8 @@
     "Dex": "22.3",
     "CriticalChance": "0.39",
     "CritcalDamage": "1.5",
-    "Speed": "-1",
-    "DropGold": "-1",
+    "Speed": "66",
+    "DropGold": "3134",
     "DropExp": "150000"
   },
   {
@@ -373,8 +373,8 @@
     "Dex": "23",
     "CriticalChance": "0.4",
     "CritcalDamage": "1.7",
-    "Speed": "-1",
-    "DropGold": "-1",
+    "Speed": "1987",
+    "DropGold": "7777",
     "DropExp": "200000"
   },
   {
@@ -387,8 +387,8 @@
     "Dex": "23.7",
     "CriticalChance": "0.41",
     "CritcalDamage": "1.81",
-    "Speed": "-1",
-    "DropGold": "-1",
+    "Speed": "37",
+    "DropGold": "1000",
     "DropExp": "300000"
   },
   {
@@ -401,8 +401,8 @@
     "Dex": "24.4",
     "CriticalChance": "0.41",
     "CritcalDamage": "2.55",
-    "Speed": "-1",
-    "DropGold": "-1",
+    "Speed": "914",
+    "DropGold": "6903",
     "DropExp": "500000"
   }
 ]

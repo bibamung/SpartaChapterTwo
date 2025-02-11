@@ -15,9 +15,9 @@ public class DataManager:SingleTon<DataManager>
     public List<CharacterStat> characterStats;
     public Dictionary<int, CharacterStat> characterStatDict;
     public List<Monster> monsters;
-    public List<Item.ConsumeItem> consumeItems;
-    public List<Item.EquipmentItem> equipmentItems;
-    public List<Item.WeaponItem> weaponItems;
+    public List<Potion> consumeItems;
+    public List<Item> equipmentItems;
+    public List<Weapon> weaponItem;
     public List<CharacterSkillData> characterSkills;
     public List<Quest> quests;
   
@@ -33,8 +33,8 @@ public class DataManager:SingleTon<DataManager>
     // Json파일을 여기서 리스트화.
     public void DeserializeJson()
     {
-        //Json파일 위치지정
-        DirectoryInfo projectDir = Directory.GetParent(baseDirectory); // net8.0
+        //파일 위치지정
+        DirectoryInfo projectDir = Directory.GetParent(baseDirectory);      // net8.0
         projectDir = projectDir.Parent;                                     // Debug
         projectDir = projectDir.Parent;                                     // bin
         projectDir = projectDir.Parent;                                     // Sylphyr
@@ -50,9 +50,9 @@ public class DataManager:SingleTon<DataManager>
         
         characterStats = JsonConvert.DeserializeObject<List<CharacterStat>>(File.ReadAllText(dataPathCharacter));
         monsters = JsonConvert.DeserializeObject<List<Monster>>(File.ReadAllText(dataPathMonster));
-        consumeItems = JsonConvert.DeserializeObject<List<Item.ConsumeItem>>(File.ReadAllText(dataPathConsumeItem));
-        equipmentItems = JsonConvert.DeserializeObject<List<Item.EquipmentItem>>(File.ReadAllText(dataPathEquipmentItem));
-        weaponItems = JsonConvert.DeserializeObject<List<Item.WeaponItem>>(File.ReadAllText(dataPathWeaponItem));
+        consumeItems = JsonConvert.DeserializeObject<List<Potion>>(File.ReadAllText(dataPathConsumeItem));
+        equipmentItems = JsonConvert.DeserializeObject<List<Item>>(File.ReadAllText(dataPathEquipmentItem));
+        weaponItem = JsonConvert.DeserializeObject<List<Weapon>>(File.ReadAllText(dataPathWeaponItem));
         quests = JsonConvert.DeserializeObject<List<Quest>>(File.ReadAllText(dataPathQuest));
         characterSkills = JsonConvert.DeserializeObject<List<CharacterSkillData>>(File.ReadAllText(dataPathCharacterSkill));
     }

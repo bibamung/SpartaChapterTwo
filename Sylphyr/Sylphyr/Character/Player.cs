@@ -147,10 +147,9 @@ public class Player
 
     public void TakeDamage(float damage)
     {
-        float finalDamage = damage - (TotalStat.Def / TotalStat.Def + 50f);
+        float finalDamage = damage - (TotalStat.Def / (TotalStat.Def + 50f));
         if (finalDamage <= 0)
-            finalDamage = 1;
-
+            finalDamage = 0;
         CurrentHp -= finalDamage;
     }
 

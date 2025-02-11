@@ -20,6 +20,7 @@ namespace Sylphyr
         public string Desc { get; private set; }
         public bool isEquip { get; set; }  // 장착 여부
         public bool purChase {  get; set; } // 구매 여부
+        public bool isShop = true;  // 상점 진입 여부
 
         private Random rand = new Random();
 
@@ -241,6 +242,11 @@ namespace Sylphyr
                         selltemDisplay(player, inventory);
                         break;
                     case 0:
+                        foreach (var item in inventory.invenpotions)
+                        {
+                            item.isBuy = false;
+                        }
+                        isShop = false;
                         return;
                     default:
                         isfail = true;
@@ -401,7 +407,7 @@ namespace Sylphyr
                 {
                     Console.WriteLine();
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("이미 보유한 아이템 입니다.");
+                    Console.WriteLine("이미 구매한 아이템 입니다.");
                     Console.ResetColor();
                     ispurChase = false;
                 }
@@ -480,7 +486,7 @@ namespace Sylphyr
                                 selectedPotion.isBuy = true;
                             }
                             else if (selectedPotion.isBuy) ispurChase = true;
-                            else if (player.Gold >= selectedPotion.Price) needGold = true;
+                            else if (player.Gold < selectedPotion.Price) needGold = true;
                         }
                         break;
                     default:

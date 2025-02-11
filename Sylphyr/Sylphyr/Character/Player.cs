@@ -1,7 +1,9 @@
 using System.Text;
 using Sylphyr.Dungeon;
 using Sylphyr.Scene;
+using Sylphyr.Utils;
 using Sylphyr.YJH;
+using static Sylphyr.Character.CharacterStat;
 
 namespace Sylphyr.Character;
 
@@ -18,7 +20,7 @@ public class Player
     public CharacterLevelData LevelData { get; }
     
     // Player Skill
-    public CharacterSkillData[] Skills { get; }
+    private CharacterSkillData[] Skills;
     public List<CharacterSkillData> learnedSkills { get; } = new();
 
     // Player Info
@@ -27,7 +29,10 @@ public class Player
     public float CurrentHp { get; private set; }
     public float CurrentMp { get; private set; }
     public int Exp { get; private set; }
-    public int Gold { get; private set; }
+    public int Gold { get; private set; } = 0;
+    
+    //Player Best Stage
+    public int BestStage { get; private set; }
 
     private CharacterStat totalStat = new CharacterStat();
     public CharacterStat TotalStat
@@ -82,9 +87,10 @@ public class Player
     {
         statusSb.Clear();
         statusSb.AppendLine($" Lv.{Level}");
-        statusSb.AppendLine($" {Name} ( {Class} )");
+        statusSb.AppendLine($" {Name} ( {Class.GetClassName()} )");
         statusSb.AppendLine($" HP: {CurrentHp}/{TotalStat.MaxHp}");
         statusSb.AppendLine($" MP: {CurrentMp}/{TotalStat.MaxMp}");
+        statusSb.AppendLine($" Exp: {Exp}/{LevelData.GetExp(Level)}");
         statusSb.AppendLine($" 골드: {Gold} G");
         statusSb.AppendLine();
         statusSb.AppendLine($" 공격력: {TotalStat.Atk}");
@@ -93,8 +99,8 @@ public class Player
         statusSb.AppendLine($" 민첩: {TotalStat.Dex}");
         statusSb.AppendLine($" 운: {TotalStat.Luk}");
         statusSb.AppendLine();
-        statusSb.AppendLine($" 치명타 확률: {TotalStat.CriticalChance}");
-        statusSb.AppendLine($" 치명타 대미지: {TotalStat.CriticalDamage}");
+        statusSb.AppendLine($" 치명타 확률: {TotalStat.CriticalChance * 100}%");
+        statusSb.AppendLine($" 치명타 대미지: {TotalStat.CriticalDamage * 10}%");
         statusSb.AppendLine();
         statusSb.AppendLine("[ 보유 스킬 ]");
         foreach (var skill in learnedSkills)
@@ -135,7 +141,7 @@ public class Player
 
     public void TakeDamage(float damage)
     {
-        float finalDamage = damage - (TotalStat.Def / (TotalStat.Def + 50f));
+        float finalDamage = damage - (TotalStat.Def / (TotalStat.Def + 50f)) * 100f;
         if (finalDamage <= 0)
             finalDamage = 0;
         CurrentHp -= finalDamage;
@@ -155,8 +161,9 @@ public class Player
 
     private void LevelUp(int remainExp)
     {
-        Console.WriteLine("레벨업!");
-        Console.WriteLine($"{Level} -> {Level + 1}");
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine($"레벨이 올랐습니다! Lv.{Level + 1}이 되었습니다.");
+        Console.ResetColor();
         
         Level++;
         
@@ -183,7 +190,9 @@ public class Player
             if (skill.AcquisitionLevel == Level)
             {
                 learnedSkills.Add(skill);
-                Console.WriteLine($"{skill.SkillName} 습득!");
+                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                Console.WriteLine($"스킬을 배웠습니다! {skill.SkillName} 습득!");
+                Console.ResetColor();
             }
         }
         
@@ -257,7 +266,41 @@ public class Player
     public void Dead()
     {
         GameManager.Instance.GameOver();
+        
+        Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine("사망하였습니다...");
+        Console.ResetColor();
+        
+        Console.WriteLine("press any key to continue...");
+        Console.ReadKey();
         TitleScene.Instance.Run();
+    }
+    public void SetBestStage(int stage)
+    {
+        BestStage = stage;
+    }
+    
+    public SaveData ToSaveData() {
+        return new SaveData {
+            Name = Name,
+            CharacterClass = Class.ToString(),
+            Level = Level,
+            CurrentHp = CurrentHp,
+            CurrentMp = CurrentMp,
+            Exp = Exp,
+            Gold = Gold,
+            BaseStat = new CharacterStatData {
+                Strength = BaseStat.Atk,
+                Dexterity = BaseStat.Dex,
+                Intelligence = BaseStat.Luk,
+                Vitality = BaseStat.Def
+            },
+            EnhancedStat = new CharacterStatData {
+                Strength = EnhancedStat.Atk,
+                Dexterity = EnhancedStat.Dex,
+                Intelligence = EnhancedStat.Luk,
+                Vitality = EnhancedStat.Def
+            }
+        };
     }
 }

@@ -66,7 +66,7 @@ public class MainScene
         Console.WriteLine();
         player.PrintStatus();
         Console.WriteLine();
-        Console.WriteLine("any key to continue");
+        Console.WriteLine("press any key to continue...");
         Console.ReadKey();
         Run();
     }

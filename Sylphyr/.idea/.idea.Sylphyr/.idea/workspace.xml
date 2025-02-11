@@ -11,8 +11,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Sylphyr/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Sylphyr/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Sylphyr/Character/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/Character/Player.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Sylphyr/Scene/MainScene.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/Scene/MainScene.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sylphyr/Scene/TitleScene.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/Scene/TitleScene.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sylphyr/Utils/Util.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/Utils/Util.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

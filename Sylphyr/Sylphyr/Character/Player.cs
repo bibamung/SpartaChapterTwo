@@ -96,8 +96,8 @@ public class Player
         statusSb.AppendLine($" 민첩: {TotalStat.Dex}");
         statusSb.AppendLine($" 운: {TotalStat.Luk}");
         statusSb.AppendLine();
-        statusSb.AppendLine($" 치명타 확률: {TotalStat.CriticalChance * 100}%");
-        statusSb.AppendLine($" 치명타 대미지: {TotalStat.CriticalDamage * 10}%");
+        statusSb.AppendLine($" 치명타 확률: {TotalStat.CriticalChance * 100:N1}%");
+        statusSb.AppendLine($" 치명타 대미지: {TotalStat.CriticalDamage * 10:N1}%");
         statusSb.AppendLine();
         statusSb.AppendLine("[ 보유 스킬 ]");
         foreach (var skill in learnedSkills)

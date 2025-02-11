@@ -584,79 +584,82 @@ namespace Sylphyr
 
         public void ConsumeDisplay(Player player, bool isfail = false)
         {
-            int i = 1;
-            bool choosepotion;
-            Console.Clear();
-            Console.WriteLine("인벤토리 - 포션");
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine(new string('-', 110));
-            Console.WriteLine("포션");
-
-            if (invenpotions.Count == 0)
+            while (true)
             {
-                Console.WriteLine("아이템이 비어 있습니다.");
-            }
-
-            foreach (var potionItem in invenpotions)
-            {
-                string hpmp = "";  // HPMP 구분
-                if (potionItem.Stat == 0) hpmp = "HP";
-                else hpmp = "MP";
-
-                if (!potionItem.isBuy)
-                {
-                    // 정렬된 텍스트 출력
-                    Console.WriteLine($"- {i}. " + AlignText(potionItem.Name, 15) + " | " +
-                                      AlignText(hpmp, 10) + "   " +
-                                      AlignText("+" + potionItem.Value, 5) + " | " +
-                                      potionItem.Desc);
-                }
-                else
-                {
-                    // 정렬된 텍스트 출력
-                    Console.WriteLine($"- {i}. " + AlignText(potionItem.Name, 15) + " | " +
-                                      AlignText(hpmp, 10) + "   " +
-                                      AlignText("+" + potionItem.Value, 5) + " | " +
-                                      potionItem.Desc);
-                }
-                i++;
-            }
-
-
-            Console.WriteLine();
-            Console.WriteLine("0. 나가기");
-
-
-            if (isfail)
-            {
+                int i = 1;
+                bool choosepotion;
+                Console.Clear();
+                Console.WriteLine("인벤토리 - 포션");
                 Console.WriteLine();
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("다시 입력해주세요.");
-                Console.ResetColor();
-                isfail = false;
+                Console.WriteLine();
+                Console.WriteLine(new string('-', 110));
+                Console.WriteLine("포션");
+
+                if (invenpotions.Count == 0)
+                {
+                    Console.WriteLine("아이템이 비어 있습니다.");
+                }
+
+                foreach (var potionItem in invenpotions)
+                {
+                    string hpmp = "";  // HPMP 구분
+                    if (potionItem.Stat == 0) hpmp = "HP";
+                    else hpmp = "MP";
+
+                    if (!potionItem.isBuy)
+                    {
+                        // 정렬된 텍스트 출력
+                        Console.WriteLine($"- {i}. " + AlignText(potionItem.Name, 15) + " | " +
+                                          AlignText(hpmp, 10) + "   " +
+                                          AlignText("+" + potionItem.Value, 5) + " | " +
+                                          potionItem.Desc);
+                    }
+                    else
+                    {
+                        // 정렬된 텍스트 출력
+                        Console.WriteLine($"- {i}. " + AlignText(potionItem.Name, 15) + " | " +
+                                          AlignText(hpmp, 10) + "   " +
+                                          AlignText("+" + potionItem.Value, 5) + " | " +
+                                          potionItem.Desc);
+                    }
+                    i++;
+                }
+
+
+                Console.WriteLine();
+                Console.WriteLine("0. 나가기");
+
+
+                if (isfail)
+                {
+                    Console.WriteLine();
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("다시 입력해주세요.");
+                    Console.ResetColor();
+                    isfail = false;
+                }
+
+                int input = GetInput(0, invenitems.Count + invenpotions.Count + invenweapons.Count);
+
+                Potion selectedPotion = null;
+
+                if (input >= 1 && input <= invenpotions.Count) selectedPotion = invenpotions[input - 1];
+                else isfail = true;
+
+                switch (input)
+                {
+                    case -1:
+                        isfail = true;
+                        break;
+                    case 0:
+                        return;
+                    default:
+                        invenpotions.Remove(selectedPotion);
+                        if (selectedPotion.Stat == 0) player.UseItem(true, selectedPotion.Value);
+                        else if (selectedPotion.Stat == 1) player.UseItem(false, selectedPotion.Value);
+                        break;
+                }
             }
-
-            int input = GetInput(0, invenitems.Count + invenpotions.Count + invenweapons.Count);
-
-            Potion selectedPotion = null;
-
-            if (input >= 1 && input <= invenpotions.Count) selectedPotion = invenpotions[input - 1];
-
-            switch (input)
-            {
-                case -1:
-                    isfail = true;
-                    break;
-                case 0:
-                    return;
-                default:
-                    invenpotions.Remove(selectedPotion);
-                    if (selectedPotion.Stat == 0) player.UseItem(true, selectedPotion.Value);
-                    else player.UseItem(false, selectedPotion.Value);
-                    break;
-            }
-
         }
 
 

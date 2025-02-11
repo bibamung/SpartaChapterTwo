@@ -78,6 +78,7 @@ namespace Guild
                 GameManager.Instance.player.AddExp(ActiveQuest.RewardExp);
 
                 CompletedQuests.Add(ActiveQuest);
+                AcceptedQuests.Remove(ActiveQuest);
                 ActiveQuest = null;
             }
 
@@ -98,6 +99,8 @@ namespace Guild
             {
                 Console.WriteLine("완료할 퀘스트가 있습니다.");
             }
+            else 
+                return;
         }
        
         public void Start()
@@ -160,12 +163,11 @@ namespace Guild
 
                 ProgressQuest();
                 Console.WriteLine("\n0. 나가기");
-
                 Console.Write("\n원하시는 퀘스트를 선택해주세요.\n>> ");
 
                 if (!int.TryParse(Console.ReadLine(), out int choice) || choice < 0 || choice > questList.Count)
                 {
-                    Console.WriteLine("잘못된 입력입니다.");
+                    Console.WriteLine("잘못된 입력입니다.엔터를 눌러주세요.");
                     Console.ReadLine();
                     continue;
                 }
@@ -176,7 +178,7 @@ namespace Guild
 
                 if (CompletedQuests.Contains(selectedQuest))
                 {
-                    Console.WriteLine("\n이미 완료한 퀘스트입니다.");
+                    Console.WriteLine("\n이미 완료한 퀘스트입니다.엔터를 눌러주세요.");
                     Console.ReadLine();
                     continue;
                 }
@@ -200,7 +202,7 @@ namespace Guild
                     ActiveQuest = null;
                 }
 
-                Console.WriteLine("\nEnter 키를 눌러 계속");
+                Console.WriteLine("\n엔터를 눌러주세요.");
                 Console.ReadLine();
 
                 while (ActiveQuest != null)

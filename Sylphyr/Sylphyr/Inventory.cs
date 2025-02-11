@@ -122,7 +122,7 @@ namespace Sylphyr
                     {
                         // 정렬된 텍스트 출력
                         Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine($"- [{AlignText(equippedText1, 1)}] " + AlignText(weaponItem.Name, 18) + " | " +
+                        Console.WriteLine($"- [{AlignText(equippedText1, 1)}] " + AlignText(weaponItem.Name, 25) + " | " +
                                           AlignText(statname, 10) + "   " +
                                           AlignText("+" + weaponItem.Value, 5) + " | " +
                                           AlignText(weaponslot, 8) + " | " +
@@ -133,7 +133,7 @@ namespace Sylphyr
                     else
                     {
                         // 정렬된 텍스트 출력
-                        Console.WriteLine("- " + AlignText(weaponItem.Name, 22) + " | " +
+                        Console.WriteLine("- " + AlignText(weaponItem.Name, 28) + " | " +
                                           AlignText(statname, 10) + "   " +
                                           AlignText("+" + weaponItem.Value, 5) + " | " +
                                           AlignText(weaponslot, 8) + " | " +
@@ -180,7 +180,7 @@ namespace Sylphyr
                     if (item.isEquip && iseee)
                     {
                         Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine($"- [{AlignText(equippedText, 1)}] " + AlignText(item.Name, 18) + " | " +
+                        Console.WriteLine($"- [{AlignText(equippedText, 1)}] " + AlignText(item.Name, 25) + " | " +
                                               AlignText(statname, 10) + "   " +
                                               AlignText("+" + item.Value, 5) + " | " +
                                               AlignText(slotname, 8) + " | " +
@@ -190,7 +190,7 @@ namespace Sylphyr
                     }
                     else
                     {
-                        Console.WriteLine($"- " + AlignText(item.Name, 22) + " | " +
+                        Console.WriteLine($"- " + AlignText(item.Name, 28) + " | " +
                                               AlignText(statname, 10) + "   " +
                                               AlignText("+" + item.Value, 5) + " | " +
                                               AlignText(slotname, 8) + " | " +
@@ -220,15 +220,15 @@ namespace Sylphyr
                     {
                         // 정렬된 텍스트 출력
                         Console.WriteLine("- " + AlignText(potionItem.Name, 15) + " | " +
-                                          AlignText(hpmp, 10) + "   " +
+                                          AlignText(hpmp, 6) + "   " +
                                           AlignText("+" + potionItem.Value, 5) + " | " +
                                           potionItem.Desc);
                     }
                     else
                     {
                         // 정렬된 텍스트 출력
-                        Console.WriteLine("- " + AlignText(potionItem.Name, 15) + " | " +
-                                          AlignText(hpmp, 10) + "   " +
+                        Console.WriteLine("- " + AlignText(potionItem.Name, 17) + " | " +
+                                          AlignText(hpmp, 6) + "   " +
                                           AlignText("+" + potionItem.Value, 5) + " | " +
                                           potionItem.Desc);
                     }
@@ -332,7 +332,7 @@ namespace Sylphyr
                     {
                         // 정렬된 텍스트 출력
                         Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine($"- {i}. [{AlignText(equippedText1, 1)}] " + AlignText(weaponItem.Name, 18) + " | " +
+                        Console.WriteLine($"- {i}. [{AlignText(equippedText1, 1)}] " + AlignText(weaponItem.Name, 25) + " | " +
                                           AlignText(statname, 10) + "   " +
                                           AlignText("+" + weaponItem.Value, 5) + " | " +
                                           AlignText(weaponslot, 7) + " | " +
@@ -342,7 +342,7 @@ namespace Sylphyr
                     else
                     {
                         // 정렬된 텍스트 출력
-                        Console.WriteLine($"- {i}. " + AlignText(weaponItem.Name, 22) + " | " +
+                        Console.WriteLine($"- {i}. " + AlignText(weaponItem.Name, 29) + " | " +
                                           AlignText(statname, 10) + "   " +
                                           AlignText("+" + weaponItem.Value, 5) + " | " +
                                           AlignText(weaponslot, 7) + " | " +
@@ -393,7 +393,7 @@ namespace Sylphyr
                     if (iseee)
                     {
                         Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine($"- {i}. [{AlignText(equippedText, 1)}] " + AlignText(item.Name, 18) + " | " +
+                        Console.WriteLine($"- {i}. [{AlignText(equippedText, 1)}] " + AlignText(item.Name, 25) + " | " +
                                               AlignText(statname, 10) + "   " +
                                               AlignText("+" + item.Value, 5) + " | " +
                                               AlignText(slotname, 7) + " | " +
@@ -402,7 +402,7 @@ namespace Sylphyr
                     }
                     else
                     {
-                        Console.WriteLine($"- {i}. " + AlignText(item.Name, 22) + " | " +
+                        Console.WriteLine($"- {i}. " + AlignText(item.Name, 29) + " | " +
                                               AlignText(statname, 10) + "   " +
                                               AlignText("+" + item.Value, 5) + " | " +
                                               AlignText(slotname, 7) + " | " +
@@ -454,6 +454,7 @@ namespace Sylphyr
                         {
                             if (!selectedWeapon.wisEquip)
                             {
+                                /*
                                 if (!noneweapon)
                                 {
                                     selectedWeapon.wisEquip = true;
@@ -462,15 +463,15 @@ namespace Sylphyr
                                     noneweapon = true;
                                 }
                                 else
-                                {
-                                    selectedWeapon.wisEquip = true;
-                                    player.EnhancedStat.Atk -= weaponEquip[0].Value;
-                                    player.EnhancedStat.Atk += selectedWeapon.Value;
+                                {*/
+                                selectedWeapon.wisEquip = true;
+                                if (weaponEquip.Count != 0) player.EnhancedStat.Atk -= weaponEquip[0].Value;
+                                player.EnhancedStat.Atk += selectedWeapon.Value;
 
-                                    weaponEquip.Clear();
-                                    weaponEquip.Add(selectedWeapon);
-                                    noneweapon = true;
-                                }
+                                weaponEquip.Clear();
+                                weaponEquip.Add(selectedWeapon);
+                                noneweapon = true;
+
                             }
                             else
                             {
@@ -488,11 +489,9 @@ namespace Sylphyr
                                     selectedWeapon.wisEquip = false;
                                     player.EnhancedStat.Atk -= weaponEquip[0].Value;
                                     weaponEquip.Clear();
-                                    weaponEquip.Add(selectedWeapon);
                                 }
                             }
                             
-
                         }
 
                         else if (selectedItem != null)

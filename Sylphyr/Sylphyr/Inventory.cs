@@ -249,7 +249,7 @@ namespace Sylphyr
                     isfail = false;
                 }
 
-                int input = GetInput(0, 1);
+                int input = GetInput(0, 2);
 
                 switch (input)
                 {

@@ -1,6 +1,7 @@
 using System.Text;
 using Sylphyr.Dungeon;
 using Sylphyr.Scene;
+using Sylphyr.Utils;
 using Sylphyr.YJH;
 using static Sylphyr.Character.CharacterStat;
 
@@ -83,9 +84,10 @@ public class Player
     {
         statusSb.Clear();
         statusSb.AppendLine($" Lv.{Level}");
-        statusSb.AppendLine($" {Name} ( {Class} )");
+        statusSb.AppendLine($" {Name} ( {Class.GetClassName()} )");
         statusSb.AppendLine($" HP: {CurrentHp}/{TotalStat.MaxHp}");
         statusSb.AppendLine($" MP: {CurrentMp}/{TotalStat.MaxMp}");
+        statusSb.AppendLine($" Exp: {Exp}/{LevelData.GetExp(Level)}");
         statusSb.AppendLine($" 골드: {Gold} G");
         statusSb.AppendLine();
         statusSb.AppendLine($" 공격력: {TotalStat.Atk}");
@@ -259,6 +261,8 @@ public class Player
     {
         GameManager.Instance.GameOver();
         Console.WriteLine("사망하였습니다...");
+        Console.WriteLine("press any key to continue...");
+        Console.ReadKey();
         TitleScene.Instance.Run();
     }
     

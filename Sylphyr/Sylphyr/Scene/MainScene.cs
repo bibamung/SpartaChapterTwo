@@ -13,6 +13,7 @@ public class MainScene
 
     public MainScene()
     {
+        sb.Clear();
         sb.AppendLine(" == 루미에라 ==");
         sb.AppendLine();
         sb.AppendLine("1. 상태 보기");
@@ -30,7 +31,7 @@ public class MainScene
         Console.Clear();
         Console.Write(sb.ToString());
 
-        Console.Write("원하시는 행동을 입력해주세요.");
+        Console.WriteLine("원하시는 행동을 입력해주세요.");
 
         int input = Util.GetInput(0, 5);
         switch ((Behavior)input)

@@ -133,24 +133,6 @@ public class Player
             Gold = 0;
     }
 
-    public void Attack() //(Monster monster)
-    {
-        // 크리티컬 확률 계산
-        Random rand = new Random();
-        bool isCritical = rand.NextDouble() < TotalStat.CriticalChance;
-        // float damageReduce = 100f *  (monster.Def / (monster.Def + 50f));
-        float finalDamage = TotalStat.Atk; // * (1 - damageReduce / 100f);
-
-        if (isCritical)
-        {
-            finalDamage *= TotalStat.CriticalDamage;
-        }
-
-        // 몬스터에게 데미지 주기
-        if (finalDamage <= 0)
-            finalDamage = 1;
-    }
-
     public void TakeDamage(float damage)
     {
         float finalDamage = damage - (TotalStat.Def / (TotalStat.Def + 50f));
@@ -167,7 +149,6 @@ public class Player
         int levelUpExp = LevelData.GetExp(Level);
         if (Exp >= levelUpExp)
         {
-            // 남은 exp
             LevelUp(Exp - levelUpExp);
         }
     }

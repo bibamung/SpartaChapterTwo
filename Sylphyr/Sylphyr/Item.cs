@@ -241,6 +241,10 @@ namespace Sylphyr
                         selltemDisplay(player, inventory);
                         break;
                     case 0:
+                        foreach (var item in inventory.invenpotions)
+                        {
+                            item.isBuy = false;
+                        }
                         return;
                     default:
                         isfail = true;
@@ -401,7 +405,7 @@ namespace Sylphyr
                 {
                     Console.WriteLine();
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("이미 보유한 아이템 입니다.");
+                    Console.WriteLine("이미 구매한 아이템 입니다.");
                     Console.ResetColor();
                     ispurChase = false;
                 }
@@ -480,7 +484,7 @@ namespace Sylphyr
                                 selectedPotion.isBuy = true;
                             }
                             else if (selectedPotion.isBuy) ispurChase = true;
-                            else if (player.Gold >= selectedPotion.Price) needGold = true;
+                            else if (player.Gold < selectedPotion.Price) needGold = true;
                         }
                         break;
                     default:

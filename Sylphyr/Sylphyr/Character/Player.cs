@@ -19,7 +19,7 @@ public class Player
     public CharacterLevelData LevelData { get; }
     
     // Player Skill
-    public CharacterSkillData[] Skills { get; }
+    private CharacterSkillData[] Skills;
     public List<CharacterSkillData> learnedSkills { get; } = new();
 
     // Player Info
@@ -94,8 +94,8 @@ public class Player
         statusSb.AppendLine($" 민첩: {TotalStat.Dex}");
         statusSb.AppendLine($" 운: {TotalStat.Luk}");
         statusSb.AppendLine();
-        statusSb.AppendLine($" 치명타 확률: {TotalStat.CriticalChance}");
-        statusSb.AppendLine($" 치명타 대미지: {TotalStat.CriticalDamage}");
+        statusSb.AppendLine($" 치명타 확률: {TotalStat.CriticalChance * 100}%");
+        statusSb.AppendLine($" 치명타 대미지: {TotalStat.CriticalDamage * 10}%");
         statusSb.AppendLine();
         statusSb.AppendLine("[ 보유 스킬 ]");
         foreach (var skill in learnedSkills)
@@ -136,7 +136,7 @@ public class Player
 
     public void TakeDamage(float damage)
     {
-        float finalDamage = damage - (TotalStat.Def / (TotalStat.Def + 50f));
+        float finalDamage = damage - (TotalStat.Def / (TotalStat.Def + 50f)) * 100f;
         if (finalDamage <= 0)
             finalDamage = 0;
         CurrentHp -= finalDamage;
@@ -257,7 +257,7 @@ public class Player
 
     public void Dead()
     {
-        GameManger.Instance.GameOver();
+        GameManager.Instance.GameOver();
         Console.WriteLine("사망하였습니다...");
         TitleScene.Instance.Run();
     }

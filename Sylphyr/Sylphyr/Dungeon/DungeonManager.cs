@@ -435,14 +435,14 @@ namespace Sylphyr.Dungeon
 
                 if (isVaildNum)
                 {
-                    if (useSkill >= 1 && useSkill <= player.Skills.Count())
+                    if (useSkill >= 1 && useSkill <= player.learnedSkills.Count())
                     {
-                        if (player.CurrentMp > player.Skills[useSkill - 1].UseMp)
+                        if (player.CurrentMp > player.learnedSkills[useSkill - 1].UseMp)
                         {
-                            player.UseMp(player.Skills[useSkill - 1].UseMp);
+                            player.UseMp(player.learnedSkills[useSkill - 1].UseMp);
                             //플레이어의 스킬이 광역기 공격일 경우
                             #region 광역기 스킬 공격을 하였을때
-                            if (player.Skills[useSkill - 1].SkillType == (int)SkillType.WideArea)
+                            if (player.learnedSkills[useSkill - 1].SkillType == (int)SkillType.WideArea)
                             {
                                 int count = 0;
                                 for (int i = 0; i < currentStageMonsters.Count; i++)       //스테이지에 등장하는 몬스터의 배열을 한바퀴 돌림
@@ -486,7 +486,7 @@ namespace Sylphyr.Dungeon
 
                             //플레이어의 스킬이 1인 타겟일 경우
                             #region 단일 타겟팅 스킬을 사용한 경우
-                            else if (player.Skills[useSkill - 1].SkillType == (int)SkillType.OneTarget)
+                            else if (player.learnedSkills[useSkill - 1].SkillType == (int)SkillType.OneTarget)
                             {
                                 int count = 0;
                                 while (true)

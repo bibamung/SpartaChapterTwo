@@ -43,6 +43,7 @@ public class Save
     {
         string jsonString = JsonSerializer.Serialize(data);
         File.WriteAllText(filePath, jsonString);
+        Console.WriteLine("생성된 JSON 데이터:\n" + jsonString);
     }
 
     //세이브 파일 불러오기

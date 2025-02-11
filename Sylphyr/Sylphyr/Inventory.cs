@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Guild;
 using Sylphyr.Character;
+using Sylphyr.YJH;
 
 namespace Sylphyr
 {
@@ -19,6 +20,9 @@ namespace Sylphyr
         public List<Potion> invenpotions = new List<Potion>();
         public List<Weapon> weaponEquip = new List<Weapon>();
         public List<Item> itemsEquip = new List<Item>();
+        
+
+
 
         static string AlignText(string text, int totalWidth)
         {
@@ -642,6 +646,21 @@ namespace Sylphyr
             Console.Write(">> ");
             if(int.TryParse(Console.ReadLine(), out int input) && input >= min && input <= max) return input;
             else return -1;
+        }
+        
+        public List<ItemData> ConvertToItemData()
+        {
+            return invenitems.Select(item => new ItemData
+            {
+                Id = item.ID,
+                Name = item.Name,
+                Stat = item.Stat,
+                Slot = item.Slot,
+                Price = item.Price,
+                Desc = item.Desc,
+                isEquip = item.isEquip,
+                purChase = item.purChase
+            }).ToList();
         }
     }
 }

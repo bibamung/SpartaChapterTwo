@@ -2,6 +2,7 @@ using System.Text;
 using Sylphyr.Dungeon;
 using Sylphyr.Scene;
 using Sylphyr.YJH;
+using static Sylphyr.Character.CharacterStat;
 
 namespace Sylphyr.Character;
 
@@ -259,5 +260,29 @@ public class Player
         GameManger.Instance.GameOver();
         Console.WriteLine("사망하였습니다...");
         TitleScene.Instance.Run();
+    }
+    
+    public SaveData ToSaveData() {
+        return new SaveData {
+            Name = Name,
+            CharacterClass = Class.ToString(),
+            Level = Level,
+            CurrentHp = CurrentHp,
+            CurrentMp = CurrentMp,
+            Exp = Exp,
+            Gold = Gold,
+            BaseStat = new CharacterStatData {
+                Strength = BaseStat.Atk,
+                Dexterity = BaseStat.Dex,
+                Intelligence = BaseStat.Luk,
+                Vitality = BaseStat.Def
+            },
+            EnhancedStat = new CharacterStatData {
+                Strength = EnhancedStat.Atk,
+                Dexterity = EnhancedStat.Dex,
+                Intelligence = EnhancedStat.Luk,
+                Vitality = EnhancedStat.Def
+            }
+        };
     }
 }

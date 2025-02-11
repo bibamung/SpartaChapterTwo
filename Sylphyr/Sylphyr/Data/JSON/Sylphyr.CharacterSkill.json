@@ -1,0 +1,162 @@
+[
+  {
+    "SkillName": "파워 스트라이크",
+    "CharacterClass": "1",
+    "Damage": "2",
+    "SkillType": "0",
+    "UseMp": "5",
+    "AcquisitionLevel": "5",
+    "Desc": "몬스터에게 강화된 데미지만큼 피해를 입힌다.",
+    "": ""
+  },
+  {
+    "SkillName": "휠 윈드",
+    "CharacterClass": "1",
+    "Damage": "1.75",
+    "SkillType": "1",
+    "UseMp": "10",
+    "AcquisitionLevel": "10",
+    "Desc": "검을 돌려서 모든 몬스터에게 피해를 입힌다.",
+    "": ""
+  },
+  {
+    "SkillName": "파괴 강타",
+    "CharacterClass": "1",
+    "Damage": "1.95",
+    "SkillType": "2",
+    "UseMp": "20",
+    "AcquisitionLevel": "15",
+    "Desc": "몬스터의 방어력을 무시하고 강화된 데미지만큼 피해를 입힌다.",
+    "": ""
+  },
+  {
+    "SkillName": "대지 가르기",
+    "CharacterClass": "1",
+    "Damage": "2",
+    "SkillType": "1",
+    "UseMp": "45",
+    "AcquisitionLevel": "20",
+    "Desc": "대지를 갈라서 모든 몬스터에게 피해를 입힌다.",
+    "": ""
+  },
+  {
+    "SkillName": "블레이드 익스플로젼",
+    "CharacterClass": "2",
+    "Damage": "1.75",
+    "SkillType": "1",
+    "UseMp": "5",
+    "AcquisitionLevel": "5",
+    "Desc": "단검을 터뜨려 모든 몬스터에게 피해를 입힌다.",
+    "": ""
+  },
+  {
+    "SkillName": "급소 찌르기",
+    "CharacterClass": "2",
+    "Damage": "2.1",
+    "SkillType": "0",
+    "UseMp": "10",
+    "AcquisitionLevel": "10",
+    "Desc": "적의 급소를 찔러서 높은 피해를 입힌다.",
+    "": ""
+  },
+  {
+    "SkillName": "그림자 일격",
+    "CharacterClass": "2",
+    "Damage": "1.99",
+    "SkillType": "2",
+    "UseMp": "20",
+    "AcquisitionLevel": "15",
+    "Desc": "적의 그림자를 단검으로 찔러 적의 방어력을무시하고 높은 피해를 입힌다.",
+    "": "설명"
+  },
+  {
+    "SkillName": "백어택",
+    "CharacterClass": "2",
+    "Damage": "2.35",
+    "SkillType": "2",
+    "UseMp": "45",
+    "AcquisitionLevel": "20",
+    "Desc": "적의 그림자를 이용해 뒤로 이동한 후 적에게 강력한 피해를 입힌다.",
+    "": "단일 타겟팅"
+  },
+  {
+    "SkillName": "정조준일격",
+    "CharacterClass": "3",
+    "Damage": "2",
+    "SkillType": "0",
+    "UseMp": "5",
+    "AcquisitionLevel": "5",
+    "Desc": "적 몬스터를 정조준하여 피해를 입힌다.",
+    "": "광역기"
+  },
+  {
+    "SkillName": "멀티샷",
+    "CharacterClass": "3",
+    "Damage": "1.75",
+    "SkillType": "1",
+    "UseMp": "10",
+    "AcquisitionLevel": "10",
+    "Desc": "모든 몬스터를 조준하여 피해를 입힌다.",
+    "": "(단일) 방어력 무시"
+  },
+  {
+    "SkillName": "스톰 애로우",
+    "CharacterClass": "3",
+    "Damage": "1.95",
+    "SkillType": "1",
+    "UseMp": "20",
+    "AcquisitionLevel": "15",
+    "Desc": "하늘로 화살을 여러발을 쏴서 모든 몬스터에게 높은 피해를 입힌다.",
+    "": ""
+  },
+  {
+    "SkillName": "약점관통",
+    "CharacterClass": "3",
+    "Damage": "2.1",
+    "SkillType": "2",
+    "UseMp": "45",
+    "AcquisitionLevel": "20",
+    "Desc": "적의 약점을 조준하여 화살을 발사해 적에게 강력한 피해를 입힌다.",
+    "": ""
+  },
+  {
+    "SkillName": "신성폭발",
+    "CharacterClass": "4",
+    "Damage": "1.75",
+    "SkillType": "1",
+    "UseMp": "5",
+    "AcquisitionLevel": "5",
+    "Desc": "적 중앙에 빛을 집중시켜 폭발시켜서 모든 몬스터에게 피해를 입힌다.",
+    "": ""
+  },
+  {
+    "SkillName": "홀리스트라이크",
+    "CharacterClass": "4",
+    "Damage": "1.9",
+    "SkillType": "0",
+    "UseMp": "10",
+    "AcquisitionLevel": "10",
+    "Desc": "빛의 힘을 무기에 둘러 적에게 높은 피해를 입힌다.",
+    "": ""
+  },
+  {
+    "SkillName": "디바인 저지먼트",
+    "CharacterClass": "4",
+    "Damage": "1.95",
+    "SkillType": "1",
+    "UseMp": "20",
+    "AcquisitionLevel": "15",
+    "Desc": "빛의 심판.",
+    "": ""
+  },
+  {
+    "SkillName": "모즈구스",
+    "CharacterClass": "4",
+    "Damage": "2.25",
+    "SkillType": "2",
+    "UseMp": "45",
+    "AcquisitionLevel": "20",
+    "Desc": "무기를 사용해 적의 머리를 후려쳐 적의 방어력을 무시하고 피해를 입힌다.",
+    "": ""
+  }
+]

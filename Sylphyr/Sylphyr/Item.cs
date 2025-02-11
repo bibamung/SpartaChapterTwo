@@ -128,12 +128,14 @@ namespace Sylphyr
                                       weaponItem.Desc);
                     else
                     {
+                        Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine("- " + AlignText(weaponItem.Name, 15) + " | " +
                                       AlignText(statname, 10) + "   " +
                                       AlignText("+" + weaponItem.Value, 5) + " | " +
                                       AlignText(weaponslot, 7) + " | " +
                                       AlignText(weaponItem.Price + "G", 7) + " | " +
                                       weaponItem.Desc + "구매 완료");
+                        Console.ResetColor();
                     }
                 }
 
@@ -177,12 +179,14 @@ namespace Sylphyr
                     }
                     else
                     {
+                        Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine("- " + AlignText(item.Name, 15) + " | " +
                                          AlignText(statname, 10) + "   " +
                                          AlignText("+" + item.Value, 5) + " | " +
                                          AlignText(slotname, 7) + " | " +
                                          AlignText(item.Price + "G", 7) + " | " +
                                          item.Desc + "구매 완료");
+                        Console.ResetColor();
                     }
                     //Console.WriteLine($"- {item.Name} | {statname} +{item.Value} | 슬롯: {slotname} | 가격: {item.Price}G | 설명: {item.Desc}");
                 }
@@ -214,11 +218,13 @@ namespace Sylphyr
                     }
                     else
                     {
+                        Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine("- " + AlignText(potion1.Name, 15) + " | " +
                                           AlignText(hpmp, 10) + "   " +
                                           AlignText("+" + potion1.Value, 5) + " | " +
                                           AlignText(potion1.Price + "G", 7) + " | " +
                                           potion1.Desc + "구매 완료");
+                        Console.ResetColor();
                     }
                 }
 
@@ -293,12 +299,14 @@ namespace Sylphyr
                     else
                     {
                         // 정렬된 텍스트 출력
+                        Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine("- " + index + ". " + AlignText(weaponItem.Name, 15) + " | " +
                                           AlignText(statname, 10) + "   " +
                                           AlignText("+" + weaponItem.Value, 5) + " | " +
                                           AlignText(weaponslot, 7) + " | " +
                                           AlignText(weaponItem.Price + "G", 7) + " | " +
                                           weaponItem.Desc + " 구매 완료");
+                        Console.ResetColor();
                         index++;
                     }
                 }
@@ -328,12 +336,14 @@ namespace Sylphyr
                     if (item.purChase)
                     {
                         // 정렬된 텍스트 출력
+                        Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine("- " + index + ". " + AlignText(item.Name, 15) + " | " +
                                           AlignText(statname, 10) + "   " +
                                           AlignText("+" + item.Value, 5) + " | " +
                                           AlignText(slotname, 7) + " | " +
                                           AlignText(item.Price + "G", 7) + " | " +
                                           item.Desc + " 구매 완료");
+                        Console.ResetColor();
                     }
                     else
                     {
@@ -371,17 +381,16 @@ namespace Sylphyr
                     else
                     {
                         // 정렬된 텍스트 출력
+                        Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine("- " + index + ". " + AlignText(potionItem.Name, 15) + " | " +
                                           AlignText(hpmp, 10) + "   " +
                                           AlignText("+" + potionItem.Value, 5) + " | " +
                                           AlignText(potionItem.Price + "G", 7) + " | " +
                                           potionItem.Desc + " 구매 완료");
+                        Console.ResetColor();
                     }
                     index++;
                 }
-
-
-
 
 
                 Console.WriteLine();
@@ -390,13 +399,17 @@ namespace Sylphyr
                 if (isfail)
                 {
                     Console.WriteLine();
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("다시 입력해주세요.");
+                    Console.ResetColor();
                     isfail = false;
                 }
                 else if (ispurChase)
                 {
                     Console.WriteLine();
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("이미 보유한 아이템 입니다.");
+                    Console.ResetColor();
                     ispurChase = false;
                 }
                 else if (needGold)
@@ -486,13 +499,17 @@ namespace Sylphyr
 
 
 
-        public void selltemDisplay(Player player, Inventory inventory, bool isfail = false, bool isEquipMesege = false)
+        public void selltemDisplay(Player player, Inventory inventory, bool isfail = false, bool isEquipMesege = false, bool isWeponEquip = false)
         {
             while (true)
             {
                 Console.Clear();
                 Console.WriteLine("상점 - 아이템 판매");
                 Console.WriteLine();
+                
+                int i = 1;  // 아이템 구매 번호
+
+                /*
                 // 테이블 헤더 출력
                 Console.WriteLine("     " + AlignText("아이템명", 15) + " | " + "       " +
                                   AlignText("스탯", 10) + " " + " | " +
@@ -501,13 +518,70 @@ namespace Sylphyr
                                   "설명");
 
                 Console.WriteLine(new string('-', 110));
+                */
+                string equippedText = null;   // 방어구 [E]
+                string equippedText1 = null;  // 무기   [E]
+
+                Console.WriteLine("무기");
+
+                if (inventory.invenweapons.Count == 0)
+                {
+                    Console.WriteLine("인벤토리가 비어 있습니다.");
+                }
+
+                foreach (var weaponItem in  inventory.invenweapons)
+                {
+                    string statname = "공격력";
+                    string weaponslot = "무기";
+
+                    if (inventory.weaponEquip.Count > 0 && inventory.weaponEquip[0].wisEquip)
+                    {
+                        if (weaponItem.Desc == inventory.weaponEquip[0].Desc)
+                        {
+                            equippedText1 = "E";
+                            isWeponEquip = true;
+                        }
+                        else
+                        {
+                            weaponItem.wisEquip = false;
+                            isWeponEquip = false;
+                        }
+                    }
+
+                    if (isWeponEquip)
+                    {
+                        // 정렬된 텍스트 출력
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine($"- {i}. [{AlignText(equippedText1, 1)}] " + AlignText(weaponItem.Name, 18) + " | " +
+                                          AlignText(statname, 10) + "   " +
+                                          AlignText("+" + weaponItem.Value, 5) + " | " +
+                                          AlignText(weaponslot, 7) + " | " +
+                                          AlignText(weaponItem.Price + "G", 7) + " | " +
+                                          weaponItem.Desc);
+                        Console.ResetColor();
+                    }
+                    else
+                    {
+                        // 정렬된 텍스트 출력
+                        Console.WriteLine($"- {i}." + AlignText(weaponItem.Name, 23) + " | " +
+                                          AlignText(statname, 10) + "   " +
+                                          AlignText("+" + weaponItem.Value, 5) + " | " +
+                                          AlignText(weaponslot, 7) + " | " +
+                                          AlignText(weaponItem.Price + "G", 7) + " | " +
+                                          weaponItem.Desc);
+                    }
+                    i++;
+                }
+
+                Console.WriteLine();
+                Console.WriteLine(new string('-', 110));
+                Console.WriteLine("방어구");
 
                 if (inventory.invenitems.Count == 0)
                 {
                     Console.WriteLine("인벤토리가 비어 있습니다.");
                 }
-
-                int index = 1;  // 아이템 구매 번호
+               
 
                 foreach (var item in inventory.invenitems)
                 {
@@ -526,19 +600,70 @@ namespace Sylphyr
                     else if (item.Stat == 2) statname = "행운";
                     else if (item.Stat == 3) statname = "방어력";
 
-                    string equippedText = item.isEquip ? "[E] " : "";
+                    equippedText = item.isEquip ? "[E] " : "";
 
                     // 정렬된 텍스트 출력
-                    Console.WriteLine($"- {index}. {equippedText}" +
-                                      AlignText(item.Name, 15) + " | " +
-                                      AlignText(statname, 10) + "   " +
-                                      AlignText("+" + item.Value, 5) + " | " +
-                                      AlignText(slotname, 10) + " | " +
-                                      AlignText(item.Price + "G", 7) + " | " +
-                                      item.Desc);
-
+                    if (equippedText == "[E] ")
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine($"- {i}. {equippedText}" +
+                                          AlignText(item.Name, 15) + " | " +
+                                          AlignText(statname, 10) + "   " +
+                                          AlignText("+" + item.Value, 5) + " | " +
+                                          AlignText(slotname, 10) + " | " +
+                                          AlignText(item.Price + "G", 7) + " | " +
+                                          item.Desc);
+                        Console.ResetColor();
+                    }
+                    else
+                    {
+                        Console.WriteLine($"- {i}. {equippedText}" +
+                                          AlignText(item.Name, 15) + " | " +
+                                          AlignText(statname, 10) + "   " +
+                                          AlignText("+" + item.Value, 5) + " | " +
+                                          AlignText(slotname, 10) + " | " +
+                                          AlignText(item.Price + "G", 7) + " | " +
+                                          item.Desc);
+                    }
                     //Console.WriteLine($"- {index}. {item.Name} | {statname} +{item.Value} | 슬롯: {slotname} | 가격: {item.Price}G | 설명: {item.Desc}");
-                    index++;
+                    i++;
+                }
+
+                Console.WriteLine();
+                Console.WriteLine(new string('-', 110));
+                Console.WriteLine("포션");
+
+
+                if (inventory.invenpotions.Count == 0)
+                {
+                    Console.WriteLine("인벤토리가 비어 있습니다.");
+                }
+
+                foreach (var potionItem  in inventory.invenpotions)
+                {
+                    string hpmp = "";  // HPMP 구분
+                    if (potionItem.Stat == 0) hpmp = "HP";
+                    else hpmp = "MP";
+
+                    if (!potionItem.isBuy)
+                    {
+                        // 정렬된 텍스트 출력
+                        Console.WriteLine($"- {i}. " + AlignText(potionItem.Name, 15) + " | " +
+                                          AlignText(hpmp, 10) + "   " +
+                                          AlignText("+" + potionItem.Value, 5) + " | " +
+                                          AlignText(potionItem.Price + "G", 7) + " | " +
+                                          potionItem.Desc);
+                    }
+                    else
+                    {
+                        // 정렬된 텍스트 출력
+                        Console.WriteLine($"- {i}. " + AlignText(potionItem.Name, 15) + " | " +
+                                          AlignText(hpmp, 10) + "   " +
+                                          AlignText("+" + potionItem.Value, 5) + " | " +
+                                          AlignText(potionItem.Price + "G", 7) + " | " +
+                                          potionItem.Desc);
+                    }
+                    i++;
                 }
 
                 Console.WriteLine();
@@ -547,23 +672,30 @@ namespace Sylphyr
                 if (isfail)
                 {
                     Console.WriteLine();
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("다시 입력해주세요.");
+                    Console.ResetColor();
                     isfail = false;
                 }
-                
-                else if (isEquipMesege)
-                {
-                    Console.WriteLine("장착 중인 아이템은 판매 불가능합니다.");
-                    isEquipMesege = false;
-                }
 
-                int input = GetInput(0, inventory.invenitems.Count);
+                int input = GetInput(0, inventory.invenitems.Count + inventory.invenweapons.Count + inventory.invenpotions.Count);
 
+                Weapon selectedWeapon = null;
                 Item selectedItem = null;
+                Potion selectedPotion = null;
 
-                if (input >= 1 && input <= inventory.invenitems.Count)
+                if (input >= 1 && input <= inventory.invenweapons.Count)
                 {
-                    selectedItem = inventory.invenitems[input - 1]; // 유효한 범위 내에서 선택
+                    selectedWeapon = inventory.invenweapons[input - 1];
+
+                }
+                else if (input > inventory.invenweapons.Count && input <= inventory.invenweapons.Count + inventory.invenitems.Count)
+                {
+                    selectedItem = inventory.invenitems[input - inventory.invenweapons.Count - 1]; // 유효한 범위 내에서 선택
+                }
+                else if (input > inventory.invenweapons.Count + inventory.invenitems.Count && input <= inventory.invenpotions.Count + inventory.invenweapons.Count + inventory.invenitems.Count)
+                {
+                    selectedPotion = inventory.invenpotions[input - inventory.invenweapons.Count - inventory.invenitems.Count - 1];
                 }
 
                 switch (input)
@@ -574,11 +706,55 @@ namespace Sylphyr
                     case 0:
                         return;
                     default:
-                        if (!isEquip)
+                        if (selectedWeapon != null)
                         {
-                            int getgold = (int)(selectedItem.Price * 0.8);
+                            if (!selectedWeapon.wisEquip)
+                            {
+                                int getgold = (int)(selectedWeapon.Price * 0.8);
+                                player.AddGold(getgold, false);
+                                inventory.RemoveWeapon(selectedWeapon);
+                            }
+                            else
+                            {
+                                selectedWeapon.wisEquip = false;
+                                player.EnhancedStat.Atk -= selectedWeapon.Value;
+                                int getgold = (int)(selectedWeapon.Price * 0.8);
+                                player.AddGold(getgold, false);
+                                inventory.RemoveWeapon(selectedWeapon);
+                            }
+
+                            selectedWeapon.wpurChase = false;
+
+                        }
+                        else if (selectedItem != null)
+                        { 
+                            if (!selectedItem.isEquip)
+                            {
+                                int getgold = (int)(selectedItem.Price * 0.8);
+                                player.AddGold(getgold, false);
+                                inventory.RemoveItem(selectedItem);
+                            }
+                            else
+                            {
+                                selectedItem.isEquip = false;
+                                player.EnhancedStat.CriticalDamage -= selectedItem.Value;
+                                player.EnhancedStat.Def -= selectedItem.Value;
+                                player.EnhancedStat.Dex -= selectedItem.Value;
+                                player.EnhancedStat.Luk -= selectedItem.Value;
+                                int getgold = (int)(selectedItem.Price * 0.8);
+                                player.AddGold(getgold, false);
+                                inventory.RemoveItem(selectedItem);
+                            }
+
+                            selectedItem.purChase = false;
+
+                        }
+                        else if (selectedPotion != null)
+                        {
+                            int getgold = (int)(selectedPotion.Price * 0.8);
                             player.AddGold(getgold, false);
-                            inventory.RemoveItem(selectedItem);
+                            inventory.RemovePotion(selectedPotion);
+                            selectedPotion.isBuy = false;
                         }
                         else isEquipMesege = true;
                         break;

@@ -105,21 +105,30 @@ namespace Sylphyr
                     string statname = "공격력";
                     string weaponslot = "무기";
 
-                    if (weaponEquip.Count > 0 && weaponEquip[0].wisEquip && weaponItem.Desc == weaponEquip[0].Desc)
+                    if (weaponEquip.Count > 0 && weaponEquip[0].wisEquip)
                     {
-                        equippedText1 = "E";
-                        iswee = true;
+                        if (weaponItem.Desc == weaponEquip[0].Desc)
+                        {
+                            equippedText1 = "E";
+                            iswee = true;
+                        }
+                        else
+                        {
+                            weaponItem.wisEquip = false;
+                        }
                     }
-
+                    
                     if (weaponItem.wisEquip && iswee)
                     {
                         // 정렬된 텍스트 출력
+                        Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine($"- [{AlignText(equippedText1, 1)}] " + AlignText(weaponItem.Name, 18) + " | " +
                                           AlignText(statname, 10) + "   " +
                                           AlignText("+" + weaponItem.Value, 5) + " | " +
                                           AlignText(weaponslot, 8) + " | " +
                                           AlignText(weaponItem.Price + "G", 7) + " | " +
                                           weaponItem.Desc);
+                        Console.ResetColor();
                         iswee = false;
                     }
                     else
@@ -172,12 +181,14 @@ namespace Sylphyr
 
                     if (item.isEquip && iseee)
                     {
+                        Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine($"- [{AlignText(equippedText, 1)}] " + AlignText(item.Name, 18) + " | " +
                                               AlignText(statname, 10) + "   " +
                                               AlignText("+" + item.Value, 5) + " | " +
                                               AlignText(slotname, 8) + " | " +
                                               AlignText(item.Price + "G", 7) + " | " +
                                               item.Desc);
+                        Console.ResetColor();
                         iseee = false;
                     }
                     else
@@ -237,7 +248,9 @@ namespace Sylphyr
 
                 if (isfail)
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("다시 입력해주세요.");
+                    Console.ResetColor();
                     isfail = false;
                 }
 
@@ -262,7 +275,7 @@ namespace Sylphyr
 
 
         // 장비 착용 해제 메뉴
-        public void EquipDisplay(Player player, bool isfail = false, bool noneweapon = false, bool ishigh = false, bool islow = false, bool isboots = false, bool isacc = false)   
+        public void EquipDisplay(Player player, bool isfail = false, bool noneweapon = false)   
         {
             while (true)
             {
@@ -301,25 +314,34 @@ namespace Sylphyr
                     string statname = "공격력";
                     string weaponslot = "무기";
 
-                    
-                    if (weaponEquip.Count > 0 && weaponEquip[0].wisEquip && weaponItem.Desc == weaponEquip[0].Desc)
-                    {
-                        equippedText1 = "E";
-                        iswee = true;
-                    }
-                    
 
-                    else iswee = false;
+                    if (weaponEquip.Count > 0 && weaponEquip[0].wisEquip)
+                    {
+                        if (weaponItem.Desc == weaponEquip[0].Desc)
+                        {
+                            equippedText1 = "E";
+                            iswee = true;
+                        }
+                        else
+                        {
+                            weaponItem.wisEquip = false;
+                            iswee = false;
+                        }
+                    }
+
+
 
                     if (iswee)
                     {
                         // 정렬된 텍스트 출력
+                        Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine($"- {i}. [{AlignText(equippedText1, 1)}] " + AlignText(weaponItem.Name, 18) + " | " +
                                           AlignText(statname, 10) + "   " +
                                           AlignText("+" + weaponItem.Value, 5) + " | " +
                                           AlignText(weaponslot, 7) + " | " +
                                           AlignText(weaponItem.Price + "G", 7) + " | " +
                                           weaponItem.Desc);
+                        Console.ResetColor();
                     }
                     else
                     {
@@ -361,21 +383,27 @@ namespace Sylphyr
                     else if (item.Stat == 2) statname = "행운";
                     else statname = "방어력";
 
-                    if (item.isEquip)
+                    if (itemsEquip.Count > 0 && item.isEquip == itemsEquip[0].isEquip)
                     {
                         equippedText = "E";
                         iseee = true;
                     }
-                    else iseee = false;
+                    else
+                    {
+                        item.isEquip = false;
+                        iseee = false;
+                    }
 
                     if (iseee)
                     {
+                        Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine($"- {i}. [{AlignText(equippedText, 1)}] " + AlignText(item.Name, 18) + " | " +
                                               AlignText(statname, 10) + "   " +
                                               AlignText("+" + item.Value, 5) + " | " +
                                               AlignText(slotname, 7) + " | " +
                                               AlignText(item.Price + "G", 7) + " | " +
                                               item.Desc);
+                        Console.ResetColor();
                     }
                     else
                     {
@@ -434,7 +462,9 @@ namespace Sylphyr
                 if (isfail)
                 {
                     Console.WriteLine();
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("다시 입력해주세요.");
+                    Console.ResetColor();
                     isfail = false;
                 }
                 
@@ -454,7 +484,7 @@ namespace Sylphyr
                 {
                     selectedItem = invenitems[input - invenweapons.Count - 1]; // 유효한 범위 내에서 선택
                 }
-                else if (input > invenweapons.Count + invenitems.Count && input <= invenpotions.Count + invenweapons.Count + invenitems.Count)
+                else if (input >= invenweapons.Count + invenitems.Count && input <= invenpotions.Count + invenweapons.Count + invenitems.Count)
                 {
                     selectedPotion = invenpotions[input - invenweapons.Count - invenitems.Count - 1];
                 }
@@ -492,80 +522,112 @@ namespace Sylphyr
                             }
                             else
                             {
-                                selectedWeapon.wisEquip = true;
-                                player.EnhancedStat.Atk -= weaponEquip[0].Value;
-                                player.EnhancedStat.Atk += selectedWeapon.Value;
+                                if (selectedWeapon.ID != weaponEquip[0].ID)
+                                {
+                                    selectedWeapon.wisEquip = true;
+                                    player.EnhancedStat.Atk -= weaponEquip[0].Value;
+                                    player.EnhancedStat.Atk += selectedWeapon.Value;
 
-                                weaponEquip.Clear();
-                                weaponEquip.Add(selectedWeapon);
+                                    weaponEquip.Clear();
+                                    weaponEquip.Add(selectedWeapon);
+                                }
+                                else
+                                {
+                                    selectedWeapon.wisEquip = false;
+                                    player.EnhancedStat.Atk -= weaponEquip[0].Value;
+                                    weaponEquip.Clear();
+                                    weaponEquip.Add(selectedWeapon);
+                                }
                             }
+                            
+
                         }
 
                         else if (selectedItem != null)
                         {
                             // 기존 방어구 부위와 새로 선택한 아이템 부위 비교
                             bool isReplaced = false;
-                            foreach (var equippedItem in itemsEquip)
+                            bool isskip = false;
+
+                            if (itemsEquip.Count > 0)
                             {
-                                if (equippedItem.Slot == selectedItem.Slot)  // 동일 부위 비교
+                                foreach (var equippedItem in itemsEquip)
                                 {
-                                    // 기존 아이템 스텟 감소
-                                    if (equippedItem.Stat == 0) player.EnhancedStat.CriticalDamage -= equippedItem.Value;
-                                    else if (equippedItem.Stat == 1) player.EnhancedStat.Dex -= equippedItem.Value;
-                                    else if (equippedItem.Stat == 2) player.EnhancedStat.Luk -= equippedItem.Value;
-                                    else if (equippedItem.Stat == 3) player.EnhancedStat.Def -= equippedItem.Value;
+                                    if (selectedItem.ID != equippedItem.ID)
+                                    {
+                                        if (equippedItem.Slot == selectedItem.Slot)  // 동일 부위 비교
+                                        {
+                                            selectedItem.isEquip = true;
 
-                                    // 새 아이템으로 교체
-                                    equippedItem.isEquip = false;  // 기존 아이템 장착 해제
-                                    selectedItem.isEquip = true;   // 새 아이템 장착
+                                            // 기존 아이템 스텟 감소
+                                            if (equippedItem.Stat == 0) player.EnhancedStat.CriticalDamage -= equippedItem.Value;
+                                            else if (equippedItem.Stat == 1) player.EnhancedStat.Dex -= equippedItem.Value;
+                                            else if (equippedItem.Stat == 2) player.EnhancedStat.Luk -= equippedItem.Value;
+                                            else if (equippedItem.Stat == 3) player.EnhancedStat.Def -= equippedItem.Value;
 
-                                    // 새 아이템 스텟 증가
-                                    if (selectedItem.Stat == 0) player.EnhancedStat.CriticalDamage += selectedItem.Value;
-                                    else if (selectedItem.Stat == 1) player.EnhancedStat.Dex += selectedItem.Value;
-                                    else if (selectedItem.Stat == 2) player.EnhancedStat.Luk += selectedItem.Value;
-                                    else if (selectedItem.Stat == 3) player.EnhancedStat.Def += selectedItem.Value;
+                                            // 새 아이템으로 교체
+                                            equippedItem.isEquip = false;  // 기존 아이템 장착 해제
+                                            selectedItem.isEquip = true;   // 새 아이템 장착
 
-                                    // 교체된 아이템을 장착 목록에 추가
-                                    itemsEquip.Remove(equippedItem);
-                                    itemsEquip.Add(selectedItem);
+                                            // 새 아이템 스텟 증가
+                                            if (selectedItem.Stat == 0) player.EnhancedStat.CriticalDamage += selectedItem.Value;
+                                            else if (selectedItem.Stat == 1) player.EnhancedStat.Dex += selectedItem.Value;
+                                            else if (selectedItem.Stat == 2) player.EnhancedStat.Luk += selectedItem.Value;
+                                            else if (selectedItem.Stat == 3) player.EnhancedStat.Def += selectedItem.Value;
 
-                                    isReplaced = true;
-                                    break;
+                                            // 교체된 아이템을 장착 목록에 추가
+                                            itemsEquip.Remove(equippedItem);
+                                            itemsEquip.Add(selectedItem);
+
+                                            isReplaced = true;
+                                            break;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        selectedItem.isEquip = false;
+                                        if (equippedItem.Stat == 0) player.EnhancedStat.CriticalDamage -= selectedItem.Value;
+                                        else if (equippedItem.Stat == 1) player.EnhancedStat.Dex -= selectedItem.Value;
+                                        else if (equippedItem.Stat == 2) player.EnhancedStat.Luk -= selectedItem.Value;
+                                        else if (equippedItem.Stat == 3) player.EnhancedStat.Def -= selectedItem.Value;
+                                        itemsEquip.Remove(equippedItem);
+                                        isskip = true;
+                                        break;
+                                    }
                                 }
                             }
 
-                            if (!isReplaced)
+
+                            if (!isReplaced && !isskip)
                             {
+                                selectedItem.isEquip = true;
                                 // 해당 부위에 아무것도 없으면 그냥 장착
-                                if (selectedItem.Slot == "0" && !ishigh)
+                                if (selectedItem.Slot == "0")
                                 {
-                                    ishigh = true;
-                                    selectedItem.isEquip = true;
                                     itemsEquip.Add(selectedItem);
                                     player.EnhancedStat.CriticalDamage += selectedItem.Value;
                                 }
-                                else if (selectedItem.Slot == "1" && !islow)
+                                else if (selectedItem.Slot == "1")
                                 {
-                                    islow = true;
-                                    selectedItem.isEquip = true;
                                     itemsEquip.Add(selectedItem);
                                     player.EnhancedStat.Dex += selectedItem.Value;
                                 }
-                                else if (selectedItem.Slot == "2" && !isboots)
+                                else if (selectedItem.Slot == "2")
                                 {
-                                    isboots = true;
-                                    selectedItem.isEquip = true;
                                     itemsEquip.Add(selectedItem);
                                     player.EnhancedStat.Luk += selectedItem.Value;
                                 }
-                                else if (selectedItem.Slot == "3" && !isacc)
+                                else if (selectedItem.Slot == "3")
                                 {
-                                    isacc = true;
-                                    selectedItem.isEquip = true;
                                     itemsEquip.Add(selectedItem);
                                     player.EnhancedStat.Def += selectedItem.Value;
                                 }
                             }
+
+                            
+                            
+                                
+                            
                         }
                         break;
                     case 7:
@@ -582,67 +644,6 @@ namespace Sylphyr
             }
         }
 
-
-        public void ItemEEE(Player player, Item selectedItem, Item[] item)
-        {
-            if (!item[0].isEquip)  // 아이템 장착
-            {
-                selectedItem.isEquip = true;
-                item[0].isEquip = selectedItem.isEquip;
-                selectedItem.isEquip = false;
-
-                switch (selectedItem.Stat)
-                {
-                    case 0:
-                        item[0].Value = selectedItem.Value;
-                        player.EnhancedStat.CriticalDamage += selectedItem.Value;
-                        break;
-                    case 1:
-                        item[0].Value = selectedItem.Value;
-                        player.EnhancedStat.Dex += selectedItem.Value;
-                        break;
-                    case 2:
-                        item[0].Value = selectedItem.Value;
-                        player.EnhancedStat.Luk += selectedItem.Value;
-                        break;
-                    case 3:
-                        item[0].Value = selectedItem.Value;
-                        player.EnhancedStat.Def += selectedItem.Value;
-                        break;
-                }
-            }
-            else if (item[0].isEquip)  // 기존 상의 해제 후 장착
-            {
-                item[0].isEquip = false;
-                selectedItem.isEquip = true;
-                item[0].isEquip = selectedItem.isEquip;
-                selectedItem.isEquip = false;
-
-                switch (selectedItem.Stat)
-                {
-                    case 0:
-                        player.EnhancedStat.CriticalDamage -= item[0].Value;
-                        item[0].Value = selectedItem.Value;
-                        player.EnhancedStat.CriticalDamage += selectedItem.Value;
-                        break;
-                    case 1:
-                        player.EnhancedStat.Dex -= item[0].Value;
-                        item[0].Value = selectedItem.Value;
-                        player.EnhancedStat.Dex += selectedItem.Value;
-                        break;
-                    case 2:
-                        player.EnhancedStat.Luk -= item[0].Value;
-                        item[0].Value = selectedItem.Value;
-                        player.EnhancedStat.Luk += selectedItem.Value;
-                        break;
-                    case 3:
-                        player.EnhancedStat.Def -= item[0].Value;
-                        item[0].Value = selectedItem.Value;
-                        player.EnhancedStat.Def += selectedItem.Value;
-                        break;
-                }
-            }
-        }
 
 
         private static int GetInput(int min, int max)

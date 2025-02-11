@@ -3,7 +3,7 @@ using Sylphyr.Character;
 
 namespace Sylphyr.Scene;
 
-public class TitleScene
+public class TitleScene : SingleTon<TitleScene>
 {
     public StringBuilder TitleSb = new();
     public StringBuilder Sb = new();
@@ -27,13 +27,14 @@ public class TitleScene
         Sb.AppendLine("  \t\t1. 게임 시작");
         Sb.AppendLine("  \t\t2. 이어 하기");
         Sb.AppendLine("  \t\t3. 게임 종료");
+        Sb.AppendLine("  \t\t4. 디버그");
         Sb.AppendLine();
         
         Console.Clear();
         Console.Write(TitleSb.ToString());
         Console.Write(Sb.ToString());
         
-        int input = GetInput(1, 3);
+        int input = GetInput(1, 4);
         switch (input)
         {
             case 1: StartNewGame();
@@ -42,7 +43,15 @@ public class TitleScene
                 break;
             case 3: ExitGame();
                 break;
+            case 4: DebugScene();
+                break;
         }
+    }
+
+    private void DebugScene()
+    {
+        Scene.DebugScene.Instance.Init();
+        Scene.DebugScene.Instance.Run();
     }
 
     private void StartNewGame()

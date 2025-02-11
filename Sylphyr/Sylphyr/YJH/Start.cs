@@ -9,7 +9,6 @@ public class Start
         Console.WriteLine("모든 작업이 완료되었습니다.");
         DataManager.Instance.DeserializeJson();
 
-        TitleScene titleScene = new TitleScene();
-        titleScene.Run();
+        TitleScene.Instance.Run();
     }
 }

@@ -256,6 +256,7 @@ public class Player
 
     public void Dead()
     {
+        GameManger.Instance.GameOver();
         Console.WriteLine("사망하였습니다...");
         TitleScene.Instance.Run();
     }

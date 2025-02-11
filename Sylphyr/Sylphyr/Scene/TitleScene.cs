@@ -22,6 +22,7 @@ public class TitleScene : SingleTon<TitleScene>
 
     public void Run()
     {
+        Sb.Clear();
         Sb.AppendLine("");
         Sb.AppendLine("");
         Sb.AppendLine("  \t\t1. 게임 시작");

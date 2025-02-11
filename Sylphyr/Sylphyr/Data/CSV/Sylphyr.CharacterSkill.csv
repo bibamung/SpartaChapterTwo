@@ -1,4 +1,4 @@
-﻿SkillName,CharacterClass,Damage,SkillType,UseMp,AcquisitionLevel,Desc,,,,,,,
+SkillName,CharacterClass,Damage,SkillType,UseMp,AcquisitionLevel,Desc,,,,,,,
 파워 스트라이크,1,2,0,5,5,몬스터에게 강화된 데미지만큼 피해를 입힌다.,,,,,,,
 휠 윈드,1,1.75,1,10,10,검을 돌려서 모든 몬스터에게 피해를 입힌다.,,,,,,,
 파괴 강타,1,1.95,2,20,15,몬스터의 방어력을 무시하고 강화된 데미지만큼 피해를 입힌다.,,,,,,,

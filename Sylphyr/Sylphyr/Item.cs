@@ -11,13 +11,13 @@ namespace Sylphyr
 {
     public class Item
     {
-        public int ID { get; set; }
-        public string Name { get; set; }
-        public int Stat { get; set; }
-        public int Value { get; set; }
-        public int Price { get; set; }
-        public string Slot { get; set; }
-        public string Desc { get; set; }
+        public int ID { get; private set; }
+        public string Name { get; private set; }
+        public int Stat { get; private set; }
+        public int Value { get; private set; }
+        public int Price { get; private set; }
+        public string Slot { get; private set; }
+        public string Desc { get; private set; }
         public bool isEquip { get; set; }  // 장착 여부
         public bool purChase {  get; set; } // 구매 여부
 

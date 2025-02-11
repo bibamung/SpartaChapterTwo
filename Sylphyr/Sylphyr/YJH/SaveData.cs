@@ -15,11 +15,10 @@ public class SaveData
     public CharacterStatData BaseStat; // BaseStat 저장
     public CharacterStatData EnhancedStat; // EnhancedStat 저장
     
-    //인벤토리정보
+    // 인벤토리정보
     public List<ItemData> Items; // 인벤토리에서 아이템 저장
     public List<ItemData> Weapons; // 무기 저장
     public List<ItemData> Potions; // 포션 저장
-
 }
 
 // CharacterStat 데이터를 변환하기 위한 데이터 구조

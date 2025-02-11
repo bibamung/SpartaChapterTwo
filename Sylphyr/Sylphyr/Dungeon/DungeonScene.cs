@@ -84,8 +84,8 @@ namespace Sylphyr.Dungeon
         {
             int barSize = 20; // 체력바 길이 (20칸)
             float healthPercentage = monster.CurrentHp / monster.MaxHp;
+            if (healthPercentage < 0) healthPercentage = 0;
             int filledBars = (int)(barSize * healthPercentage);
-            if (filledBars < 0) filledBars = 0;
             int emptyBars = barSize - filledBars;
             if (monster.CurrentHp > 0)
             {
@@ -285,9 +285,9 @@ namespace Sylphyr.Dungeon
         {
             bool isCritical = false;
             Random rand = new Random(DateTime.Now.Millisecond);
-            float evasionRate = (monster.Dex / monster.Dex + 50.0f);
+            float evasionRate = (monster.Dex / (monster.Dex + 50.0f));
             float monsterDef = (monster.Def / (monster.Def + 50.0f)) * 100.0f;
-            if (rand.NextSingle() < evasionRate)
+            if (rand.NextSingle() > evasionRate)
             {
                 if (rand.NextSingle() < player.TotalStat.CriticalChance)
                 {
@@ -298,9 +298,9 @@ namespace Sylphyr.Dungeon
                 }
                 else
                 {
-                    float finalDamage = player.TotalStat.Atk * player.TotalStat.CriticalDamage * player.Skills[useSkill - 1].Damage
+                    float finalDamage = player.TotalStat.Atk * player.Skills[useSkill - 1].Damage
                         - monsterDef;
-
+                    Console.WriteLine("스킬 데미지: {0}", player.Skills[useSkill - 1].Damage);
                     DisplaySkillHit(player, monster, isCritical, finalDamage, useSkill);
                 }
             }
@@ -314,8 +314,8 @@ namespace Sylphyr.Dungeon
         {
             bool isCritical = false;
             Random rand = new Random(DateTime.Now.Millisecond);
-            float evasionRate = (monster.Dex / monster.Dex + 50.0f);
-            if (rand.NextSingle() < evasionRate)
+            float evasionRate = (monster.Dex / (monster.Dex + 50.0f));
+            if (rand.NextSingle() > evasionRate)
             {
                 if (rand.NextSingle() < player.TotalStat.CriticalChance)
                 {
@@ -342,8 +342,8 @@ namespace Sylphyr.Dungeon
         {
             bool isCritical = false;
             Random rand = new Random(DateTime.Now.Millisecond);
-            float evasionRate = (monster.Dex / monster.Dex + 50.0f);
-            if (rand.NextSingle() < evasionRate)
+            float evasionRate = (monster.Dex / (monster.Dex + 50.0f));
+            if (rand.NextSingle() > evasionRate)
             {
                 if (rand.NextSingle() < monster.CriticalChance)        //크리티컬이 터졌을 경우
                 {

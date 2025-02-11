@@ -163,13 +163,16 @@ public class Player
         switch (Class)
         {
             case CharacterClass.Thief:
-                AddStat(10, 5, 2, 1, 1, 1, 1, 0.01f, 0.1f);
+                AddStat(9.5f, 5, 1.6f, 0.95f, 1.0f, 0.75f, 3, 0.018f, 0.01f);
                 break;
             case CharacterClass.Archer:
+                AddStat(9.5f, 5, 1.6f, 0.95f, 1, 0.75f, 3, 0.018f, 0.01f);
                 break;
             case CharacterClass.Warrior:
+                AddStat(15, 5, 1.5f, 1.2f, 1, 0.75f, 3, 0.01f, 0.01f);
                 break;
             case CharacterClass.Paladin:
+                AddStat(10.5f, 5, 1.55f, 1.05f, 1, 0.79f, 3, 0.009f, 0.02f);
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(Class), Class, null);

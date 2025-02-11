@@ -110,7 +110,6 @@ namespace Sylphyr.Dungeon
                     monsterlist.SingleOrDefault(monster => monster.MonsterId == 1018)!
                 };
         }
-        ~DungeonManager() { }
 
         public List<Monster> GetMonstersForStage(int stage)
         {
@@ -153,7 +152,7 @@ namespace Sylphyr.Dungeon
                     case (int)BossStage.GoblinKing:
                         selectedMonsters = new List<Monster>
                         {
-                            GetMonster(1019), GetMonster(1006), GetMonster(1006), GetMonster(1006)
+                            GetMonster(1019), GetMonster(1005), GetMonster(1005), GetMonster(1005)
                         };
                         return selectedMonsters;
                     case (int)BossStage.LichKing:
@@ -211,15 +210,6 @@ namespace Sylphyr.Dungeon
 
         public void StageSelect()
         {
-            player.AddExp(1000000);
-            player.AddExp(1000000);
-            player.AddExp(1000000);
-            player.AddExp(1000000);
-            player.AddExp(1000000);
-            player.AddExp(1000000);
-            player.AddExp(1000000);
-            player.AddExp(1000000);
-            player.AddExp(1000000);
             Console.WriteLine("Sylphyr 던전에 오신것을 환영합니다.");
             Console.WriteLine("스테이지는 1~50스테이지까지 제공되어 있습니다.");
             Console.Write("원하시는 스테이지를 입력해주세요\n>>  ");
@@ -229,6 +219,7 @@ namespace Sylphyr.Dungeon
                 Console.Clear();
                 Console.WriteLine("Sylphyr 던전에 오신것을 환영합니다.");
                 Console.WriteLine("스테이지는 1~50스테이지까지 제공되어 있습니다.");
+                Console.WriteLine("(※ 돌아가시려면 0을 누르십시오)");
                 Console.Write("원하시는 스테이지를 입력해주세요\n>>  ");
                 int stage;
                 bool isValidNum = int.TryParse(Console.ReadLine(), out stage);
@@ -242,6 +233,10 @@ namespace Sylphyr.Dungeon
                     {
                         Console.WriteLine("1~50스테이지를 입력해 주세요");
                     }
+                }
+                else if (stage == 0)
+                {
+                    break;
                 }
                 else
                 {
@@ -339,10 +334,8 @@ namespace Sylphyr.Dungeon
             currentStageMonsters.Sort(new Comparison<Monster>((n1, n2) => n2.Speed.CompareTo(n1.Speed)));
 
 
-
             foreach (var monsterSpeed in currentStageMonsters)
             {
-                Console.WriteLine($"현재 스테이지 몬스터: {monsterSpeed.MonsterName}");
                 if (player.TotalStat.Speed >= monsterSpeed.Speed)
                 {
                     if (!result.Contains(player.Name))
@@ -357,12 +350,11 @@ namespace Sylphyr.Dungeon
                 }
 
             }
-            for (int i = 0; i < result.Count; i++)
+
+            if (!result.Contains(player.Name))
             {
-                Console.WriteLine($"공격 순서 : {i}. {result[i]}");
+                result.Add(player.Name);
             }
-            Console.WriteLine("계속 진행하시려면 Enter키를 눌러주세요...");
-            Console.ReadLine();
 
             return result;
         }

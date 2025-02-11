@@ -83,18 +83,18 @@ public class Player
         statusSb.Clear();
         statusSb.AppendLine($" Lv.{Level}");
         statusSb.AppendLine($" {Name} ( {Class} )");
-        statusSb.AppendLine($" HP: {CurrentHp}/{totalStat.MaxHp}");
-        statusSb.AppendLine($" MP: {CurrentMp}/{totalStat.MaxMp}");
+        statusSb.AppendLine($" HP: {CurrentHp}/{TotalStat.MaxHp}");
+        statusSb.AppendLine($" MP: {CurrentMp}/{TotalStat.MaxMp}");
         statusSb.AppendLine($" 골드: {Gold} G");
         statusSb.AppendLine();
-        statusSb.AppendLine($" 공격력: {totalStat.Atk}");
-        statusSb.AppendLine($" 방어력: {totalStat.Def}");
-        statusSb.AppendLine($" 속도: {totalStat.Speed}");
-        statusSb.AppendLine($" 민첩: {totalStat.Dex}");
-        statusSb.AppendLine($" 운: {totalStat.Luk}");
+        statusSb.AppendLine($" 공격력: {TotalStat.Atk}");
+        statusSb.AppendLine($" 방어력: {TotalStat.Def}");
+        statusSb.AppendLine($" 속도: {TotalStat.Speed}");
+        statusSb.AppendLine($" 민첩: {TotalStat.Dex}");
+        statusSb.AppendLine($" 운: {TotalStat.Luk}");
         statusSb.AppendLine();
-        statusSb.AppendLine($" 치명타 확률: {totalStat.CriticalChance}");
-        statusSb.AppendLine($" 치명타 대미지: {totalStat.CriticalDamage}");
+        statusSb.AppendLine($" 치명타 확률: {TotalStat.CriticalChance}");
+        statusSb.AppendLine($" 치명타 대미지: {TotalStat.CriticalDamage}");
         statusSb.AppendLine();
         statusSb.AppendLine("[ 보유 스킬 ]");
         foreach (var skill in learnedSkills)
@@ -256,6 +256,7 @@ public class Player
 
     public void Dead()
     {
+        GameManger.Instance.GameOver();
         Console.WriteLine("사망하였습니다...");
         TitleScene.Instance.Run();
     }

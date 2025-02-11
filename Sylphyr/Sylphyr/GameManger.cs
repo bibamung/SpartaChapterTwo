@@ -17,7 +17,7 @@ namespace Sylphyr
 
         public void Init()
         {
-            Console.ForegroundColor = ConsoleColor.White;
+            Console.ResetColor();
             main = new MainScene();
             shop = new Item(10, "qwr", 1, 1, "2", 10, "12", false, false);
             inventory = new Inventory();
@@ -26,6 +26,14 @@ namespace Sylphyr
         public void SetPlayer(string name, CharacterClass characterClass)
         {
             player = new Player(name, characterClass);
+        }
+
+        public void GameOver()
+        {
+            main = null;
+            player = null;
+            shop = null;
+            inventory = null;
         }
     }
 }

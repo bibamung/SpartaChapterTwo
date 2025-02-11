@@ -9,7 +9,38 @@
   <component name="ChangeListManager">
     <list default="true" id="31bad01f-6a79-4b3a-a781-2641141f45d1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Sylphyr/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Sylphyr/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sylphyr/Character/CharacterLevelData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/Character/CharacterLevelData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sylphyr/Character/CharacterSkillData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/Character/CharacterSkillData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sylphyr/Character/CharacterStatDatas.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/Character/CharacterStatDatas.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sylphyr/Character/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/Character/Player.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sylphyr/Data/CSV/Sylphyr.Character.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/Data/CSV/Sylphyr.Character.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sylphyr/Data/CSV/Sylphyr.CharacterSkill.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/Data/CSV/Sylphyr.CharacterSkill.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sylphyr/Data/CSV/Sylphyr.EquipmentItem.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/Data/CSV/Sylphyr.EquipmentItem.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sylphyr/Data/CSV/Sylphyr.Monster.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/Data/CSV/Sylphyr.Monster.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sylphyr/Data/CSV/Sylphyr.Quest.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/Data/CSV/Sylphyr.Quest.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sylphyr/Data/CSV/Sylphyr.WeaponItem.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/Data/CSV/Sylphyr.WeaponItem.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sylphyr/Data/JSON/Sylphyr.Character.json" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/Data/JSON/Sylphyr.Character.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sylphyr/Data/JSON/Sylphyr.CharacterSkill.json" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/Data/JSON/Sylphyr.CharacterSkill.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sylphyr/Data/JSON/Sylphyr.ConsumeItem.json" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/Data/JSON/Sylphyr.ConsumeItem.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sylphyr/Data/JSON/Sylphyr.EquipmentItem.json" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/Data/JSON/Sylphyr.EquipmentItem.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sylphyr/Data/JSON/Sylphyr.Monster.json" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/Data/JSON/Sylphyr.Monster.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sylphyr/Data/JSON/Sylphyr.Quest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/Data/JSON/Sylphyr.Quest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sylphyr/Data/JSON/Sylphyr.WeaponItem.json" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/Data/JSON/Sylphyr.WeaponItem.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sylphyr/Dungeon/DungeonManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/Dungeon/DungeonManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sylphyr/Dungeon/DungeonScene.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/Dungeon/DungeonScene.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sylphyr/GameManger.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/GameManger.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sylphyr/Guild.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/Guild.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sylphyr/Inventory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/Inventory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sylphyr/Item.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/Item.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sylphyr/Monster.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/Monster.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sylphyr/Scene/MainScene.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/Scene/MainScene.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sylphyr/Scene/TitleScene.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/Scene/TitleScene.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sylphyr/SingleTon.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/SingleTon.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sylphyr/Sylphyr.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/Sylphyr.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sylphyr/Utils/CsvToJson.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/Utils/CsvToJson.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sylphyr/YJH/DataManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/YJH/DataManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Sylphyr/YJH/Save.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/YJH/Save.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sylphyr/YJH/Start.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/YJH/Start.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,7 +65,6 @@
     &quot;accountId&quot;: &quot;2b4ac883-52bf-4dcb-9daa-98da28e418eb&quot;
   }
 }</component>
-  <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
@@ -46,21 +76,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    ".NET Project.Sylphyr.executor": "Debug",
-    ".NET 프로젝트.Sylphyr.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "feature/yjh/Data",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;.NET Project.Sylphyr.executor&quot;: &quot;Debug&quot;,
+    &quot;.NET 프로젝트.Sylphyr.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="Sylphyr" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="" />
@@ -100,14 +130,12 @@
       <workItem from="1739087358337" duration="422000" />
       <workItem from="1739093224091" duration="1997000" />
       <workItem from="1739232080159" duration="3408000" />
-      <workItem from="1739242909631" duration="1465000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />

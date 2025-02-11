@@ -10,7 +10,7 @@
     "Dex": "7",
     "Speed": "25",
     "CriticalChance": "0.13",
-    "CriticalDamage": "1.5"
+    "CriticalDamage": "0.15"
   },
   {
     "Id": "1002",
@@ -41,7 +41,7 @@
   {
     "Id": "1004",
     "Name": "팔라딘",
-    "MaxHp": "150",
+    "MaxHp": "190",
     "MaxMp": "50",
     "Atk": "47",
     "Def": "27",

@@ -390,7 +390,7 @@ namespace Sylphyr.Dungeon
                                 scene.DisplayReward(player, TotalGold, TotalExp);
                                 Console.WriteLine("계속 진행하시려면 Enter키를 눌러주세요...");
                                 Console.ReadLine();
-                                GameManger.Instance.Main.Run();
+                                GameManger.Instance.main.Run();
                             }
 
                         }
@@ -443,9 +443,9 @@ namespace Sylphyr.Dungeon
                             #region 광역기 스킬 공격을 하였을때
                             if (player.Skills[useSkill - 1].SkillType == (int)SkillType.WideArea)
                             {
+                                int count = 0;
                                 for (int i = 0; i < currentStageMonsters.Count; i++)       //스테이지에 등장하는 몬스터의 배열을 한바퀴 돌림
                                 {
-                                    int count = 0;
                                     if (OrderByAttackChar[count++] == player.Name)                       //이번에 공격할 캐릭터가 플레이어일 경우
                                     {
                                         //모든 몬스터 데미지 출력
@@ -464,7 +464,7 @@ namespace Sylphyr.Dungeon
                                                 scene.DisplayReward(player, TotalGold, TotalExp);
                                                 Console.WriteLine("계속 진행하시려면 Enter키를 눌러주세요...");
                                                 Console.ReadLine();
-                                                GameManger.Instance.Main.Run();
+                                                GameManger.Instance.main.Run();
                                             }
                                         }
                                     }

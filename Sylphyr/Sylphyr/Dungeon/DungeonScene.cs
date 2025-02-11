@@ -29,8 +29,8 @@ namespace Sylphyr.Dungeon
             Console.Write($" {player.Name} \n HP [");
             Console.Write(new string('■', filledBars)); // 채워진 부분
             Console.Write(new string('□', emptyBars));  // 빈 부분
-            Console.Write($"] {(player.CurrentMp > 0 ? player.CurrentMp.ToString("F2") : 0)}/" +
-                $"{player.TotalStat.MaxMp.ToString("F2")}\n");
+            Console.Write($"] {(player.CurrentHp > 0 ? player.CurrentHp.ToString("F2") : 0)}/" +
+                $"{player.TotalStat.MaxHp.ToString("F2")}\n");
 
             healthPercentage = player.CurrentMp / player.TotalStat.MaxMp;
             filledBars = (int)(barSize * healthPercentage);
@@ -82,14 +82,14 @@ namespace Sylphyr.Dungeon
 
         public void DisplayHealthBar(Monster monster)
         {
+            int barSize = 20; // 체력바 길이 (20칸)
+            float healthPercentage = monster.CurrentHp / monster.MaxHp;
+            int filledBars = (int)(barSize * healthPercentage);
+            if (filledBars < 0) filledBars = 0;
+            int emptyBars = barSize - filledBars;
             if (monster.CurrentHp > 0)
             {
-                int barSize = 20; // 체력바 길이 (20칸)
-                float healthPercentage = monster.CurrentHp / monster.MaxHp;
-                int filledBars = (int)(barSize * healthPercentage);
                 if (filledBars < 0) filledBars = 0;
-                int emptyBars = barSize - filledBars;
-
                 // 색상 적용 (콘솔 전용)
                 Console.ForegroundColor = GetHealthColor(healthPercentage);
 
@@ -102,6 +102,7 @@ namespace Sylphyr.Dungeon
             }
             else
             {
+                Console.ForegroundColor = GetHealthColor(healthPercentage);
                 Console.Write($"{monster.MonsterName} [□□□□□□□□□□□□□□□□□□□□]{(monster.CurrentHp > 0 ? monster.CurrentHp.ToString("F2") : 0)}/" +
                     $"{monster.MaxHp.ToString("F2")}\n\n");
             }
@@ -116,11 +117,12 @@ namespace Sylphyr.Dungeon
         //DisplayHit(때린사람, 맞은 대상, 크리티컬 여부, 최종데미지)
         public void DisplayHit(Monster monster, Player player, bool isCritical, float finalDamage)
         {
+            float playerDef = player.TotalStat.Def / (player.TotalStat.Def + 50.0f);
             if (isCritical) //크리티컬이 터졌습니다.
             {
                 Console.WriteLine($"{monster.MonsterName}이/가 {player.Name}을 공격했다.");
                 Console.WriteLine($"효과는 굉장했다.");
-                Console.WriteLine($"{player.Name}에게 {finalDamage}만큼 피해를 입혔다.");
+                Console.WriteLine($"{player.Name}에게 {(finalDamage - playerDef > 0 ? finalDamage - playerDef : 0)}만큼 피해를 입혔다.");
                 DisplayPlayerHpBar(player);
 
                 Console.WriteLine("계속 진행하시려면 Enter키를 눌러주세요...");
@@ -129,7 +131,7 @@ namespace Sylphyr.Dungeon
             else            //크리티컬이 안 터졌습니다.
             {
                 Console.WriteLine($"{monster.MonsterName}이/가 {player.Name}을 공격했다.");
-                Console.WriteLine($"{player.Name}에게 {finalDamage}만큼 피해를 입혔다.");
+                Console.WriteLine($"{player.Name}에게 {(finalDamage - playerDef > 0 ? finalDamage - playerDef : 0)}만큼 피해를 입혔다.");
                 DisplayPlayerHpBar(player);
 
                 Console.WriteLine("계속 진행하시려면 Enter키를 눌러주세요...");
@@ -145,7 +147,7 @@ namespace Sylphyr.Dungeon
             {
                 Console.WriteLine($"{monster.MonsterName}를 공격했다.");
                 Console.WriteLine($"효과는 굉장했다.");
-                Console.WriteLine($"{monster.MonsterName}에게 {finalDamage}만큼 피해를 입혔다.");
+                Console.WriteLine($"{monster.MonsterName}에게 {(finalDamage > 0 ? finalDamage : 0)}만큼 피해를 입혔다.");
                 monster.CurrentHp -= finalDamage;
                 DisplayHealthBar(monster);
 
@@ -155,7 +157,7 @@ namespace Sylphyr.Dungeon
             else            //크리티컬이 안 터졌습니다.
             {
                 Console.WriteLine($"{monster.MonsterName}를 공격했다.");
-                Console.WriteLine($"{monster.MonsterName}에게 {finalDamage}만큼 피해를 입혔다.");
+                Console.WriteLine($"{monster.MonsterName}에게 {(finalDamage > 0 ? finalDamage : finalDamage = 0)}만큼 피해를 입혔다.");
                 monster.CurrentHp -= finalDamage;
                 DisplayHealthBar(monster);
 
@@ -283,7 +285,7 @@ namespace Sylphyr.Dungeon
         {
             bool isCritical = false;
             Random rand = new Random(DateTime.Now.Millisecond);
-            float evasionRate = 100.0f * (monster.Dex / monster.Dex + 50.0f);
+            float evasionRate = (monster.Dex / monster.Dex + 50.0f);
             float monsterDef = (monster.Def / (monster.Def + 50.0f)) * 100.0f;
             player.UseMp(player.Skills[useSkill].UseMp);
             if (rand.NextSingle() < evasionRate)
@@ -313,7 +315,7 @@ namespace Sylphyr.Dungeon
         {
             bool isCritical = false;
             Random rand = new Random(DateTime.Now.Millisecond);
-            float evasionRate = 100.0f * (monster.Dex / monster.Dex + 50.0f);
+            float evasionRate = (monster.Dex / monster.Dex + 50.0f);
             if (rand.NextSingle() < evasionRate)
             {
                 if (rand.NextSingle() < player.TotalStat.CriticalChance)
@@ -341,11 +343,9 @@ namespace Sylphyr.Dungeon
         {
             bool isCritical = false;
             Random rand = new Random(DateTime.Now.Millisecond);
-            float evasionRate = 100.0f * (monster.Dex / monster.Dex + 50.0f);
+            float evasionRate = (monster.Dex / monster.Dex + 50.0f);
             if (rand.NextSingle() < evasionRate)
             {
-
-
                 if (rand.NextSingle() < monster.CriticalChance)        //크리티컬이 터졌을 경우
                 {
                     isCritical = true;
@@ -401,8 +401,6 @@ namespace Sylphyr.Dungeon
             Console.WriteLine("\n============================\n");
 
         }
-
-
 
     }
 

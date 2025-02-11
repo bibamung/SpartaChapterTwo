@@ -39,7 +39,7 @@ public class CharacterStat
 
 public enum CharacterClass
 {
-    Warrior,
+    Warrior = 1,
     Thief,
     Archer,
     Paladin,

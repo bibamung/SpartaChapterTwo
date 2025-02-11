@@ -1,7 +1,7 @@
 [
   {
     "SkillName": "파워 스트라이크",
-    "CharacterClass": "2",
+    "CharacterClass": "1",
     "Damage": "2",
     "SkillType": "0",
     "UseMp": "5",
@@ -11,7 +11,7 @@
   },
   {
     "SkillName": "휠 윈드",
-    "CharacterClass": "2",
+    "CharacterClass": "1",
     "Damage": "1.75",
     "SkillType": "1",
     "UseMp": "10",
@@ -21,7 +21,7 @@
   },
   {
     "SkillName": "파괴 강타",
-    "CharacterClass": "2",
+    "CharacterClass": "1",
     "Damage": "1.95",
     "SkillType": "2",
     "UseMp": "20",
@@ -31,7 +31,7 @@
   },
   {
     "SkillName": "대지 가르기",
-    "CharacterClass": "2",
+    "CharacterClass": "1",
     "Damage": "2",
     "SkillType": "1",
     "UseMp": "45",
@@ -41,7 +41,7 @@
   },
   {
     "SkillName": "블레이드 익스플로젼",
-    "CharacterClass": "0",
+    "CharacterClass": "2",
     "Damage": "1.75",
     "SkillType": "1",
     "UseMp": "5",
@@ -51,7 +51,7 @@
   },
   {
     "SkillName": "급소 찌르기",
-    "CharacterClass": "0",
+    "CharacterClass": "2",
     "Damage": "2.1",
     "SkillType": "0",
     "UseMp": "10",
@@ -61,7 +61,7 @@
   },
   {
     "SkillName": "그림자 일격",
-    "CharacterClass": "0",
+    "CharacterClass": "2",
     "Damage": "1.99",
     "SkillType": "2",
     "UseMp": "20",
@@ -71,7 +71,7 @@
   },
   {
     "SkillName": "백어택",
-    "CharacterClass": "0",
+    "CharacterClass": "2",
     "Damage": "2.35",
     "SkillType": "2",
     "UseMp": "45",
@@ -81,7 +81,7 @@
   },
   {
     "SkillName": "정조준일격",
-    "CharacterClass": "1",
+    "CharacterClass": "3",
     "Damage": "2",
     "SkillType": "0",
     "UseMp": "5",
@@ -91,7 +91,7 @@
   },
   {
     "SkillName": "멀티샷",
-    "CharacterClass": "1",
+    "CharacterClass": "3",
     "Damage": "1.75",
     "SkillType": "1",
     "UseMp": "10",
@@ -101,7 +101,7 @@
   },
   {
     "SkillName": "스톰 애로우",
-    "CharacterClass": "1",
+    "CharacterClass": "3",
     "Damage": "1.95",
     "SkillType": "1",
     "UseMp": "20",
@@ -111,7 +111,7 @@
   },
   {
     "SkillName": "약점관통",
-    "CharacterClass": "1",
+    "CharacterClass": "3",
     "Damage": "2.1",
     "SkillType": "2",
     "UseMp": "45",
@@ -121,7 +121,7 @@
   },
   {
     "SkillName": "신성폭발",
-    "CharacterClass": "3",
+    "CharacterClass": "4",
     "Damage": "1.75",
     "SkillType": "1",
     "UseMp": "5",
@@ -131,7 +131,7 @@
   },
   {
     "SkillName": "홀리스트라이크",
-    "CharacterClass": "3",
+    "CharacterClass": "4",
     "Damage": "1.9",
     "SkillType": "0",
     "UseMp": "10",
@@ -141,7 +141,7 @@
   },
   {
     "SkillName": "디바인 저지먼트",
-    "CharacterClass": "3",
+    "CharacterClass": "4",
     "Damage": "1.95",
     "SkillType": "1",
     "UseMp": "20",
@@ -151,7 +151,7 @@
   },
   {
     "SkillName": "모즈구스",
-    "CharacterClass": "3",
+    "CharacterClass": "4",
     "Damage": "2.25",
     "SkillType": "2",
     "UseMp": "45",

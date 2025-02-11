@@ -27,14 +27,6 @@ public class CharacterLevelData
         }
     }
 
-    public void printExpTable()
-    {
-        for (int i = 0; i < expTable.Length; i++)
-        {
-            Console.WriteLine($"Level {i + 1} : {expTable[i]}");
-        }
-    }
-
     public int GetExp(int level)
     {
         return (int)expTable[level - 1];

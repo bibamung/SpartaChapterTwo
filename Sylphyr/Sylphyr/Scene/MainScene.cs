@@ -121,8 +121,6 @@ public class MainScene
         }  
     }
     */
-
-    private void EnterCasino() { }
 }
 
 public enum Behavior

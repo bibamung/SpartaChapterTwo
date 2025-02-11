@@ -174,6 +174,13 @@ namespace Guild
 
                 Quest selectedQuest = questList[choice - 1];
 
+                if (CompletedQuests.Contains(selectedQuest))
+                {
+                    Console.WriteLine("\n이미 완료한 퀘스트입니다.");
+                    Console.ReadLine();
+                    continue;
+                }
+
                 selectedQuest.ShowQuest();
 
                 Console.WriteLine("1. 수락");

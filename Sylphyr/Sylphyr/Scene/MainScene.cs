@@ -109,8 +109,8 @@ public class MainScene
             // SaveData 객체 생성 및 데이터 준비
             SaveData data = new SaveData
             {
-                CharacterStats = GameManger.Instance.player.CharacterStats, // 유저 캐릭터 스탯 리스트
-                Inventories = GameManger.Instance.inventory.Items,     // 인벤토리 아이템들
+                // CharacterStats = GameManger.Instance.player.CharacterStats, // 유저 캐릭터 스탯 리스트
+                // Inventories = GameManger.Instance.inventory.Items,     // 인벤토리 아이템들
                 Players = new List<Player> { GameManger.Instance.player } // 플레이어 정보
             };
 

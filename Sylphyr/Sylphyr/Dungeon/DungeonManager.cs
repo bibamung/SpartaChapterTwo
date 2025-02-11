@@ -22,7 +22,6 @@ namespace Sylphyr.Dungeon
     class DungeonManager
     {
         int TotalGold = 0, TotalExp = 0;
-        int GainGold = 0;
         Random rand = new Random(DateTime.Now.Millisecond);
         List<Monster> currentStageMonsters = new List<Monster>();
         DungeonScene scene = new DungeonScene();
@@ -211,8 +210,7 @@ namespace Sylphyr.Dungeon
 
         public void StageSelect()
         {
-
-
+            TotalGold = 0; TotalExp = 0;
             while (true)
             {
                 Console.Clear();

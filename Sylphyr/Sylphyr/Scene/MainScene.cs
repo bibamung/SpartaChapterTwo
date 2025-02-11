@@ -1,6 +1,7 @@
 using Sylphyr.Character;
 using Sylphyr.Dungeon;
 using System.Text;
+using Sylphyr.YJH;
 
 namespace Sylphyr.Scene;
 
@@ -95,9 +96,36 @@ public class MainScene
         dungeonManager.StageSelect();
     }
     
-    private void Save()
+    private void SaveGameData()
     {
-        
+        try
+        {
+            // Save 클래스의 인스턴스 생성
+            Save saveSystem = new Save();
+
+            // 세이브 폴더 없으면 생성
+            saveSystem.CreateSaveFolder();
+
+            // SaveData 객체 생성 및 데이터 준비
+            SaveData data = new SaveData
+            {
+                CharacterStats = GameManger.Instance.player.CharacterStats, // 유저 캐릭터 스탯 리스트
+                Inventories = GameManger.Instance.inventory.Items,     // 인벤토리 아이템들
+                Players = new List<Player> { GameManger.Instance.player } // 플레이어 정보
+            };
+
+            // 세이브 파일 경로 지정
+            Save.filePath = "Data/Save/GameData.json"; // 상대 경로에 저장
+
+            // 데이터 저장
+            saveSystem.SaveGame(data);
+
+            Console.WriteLine("게임이 성공적으로 저장되었습니다!");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"세이브 중 오류가 발생했습니다: {ex.Message}");
+        }  
     }
     
     private void EnterCasino()

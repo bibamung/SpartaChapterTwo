@@ -43,15 +43,15 @@ public class TitleScene : SingleTon<TitleScene>
                 break;
             case 3: ExitGame();
                 break;
-            case 4: Debug();
+            case 4: DebugScene();
                 break;
         }
     }
 
-    private void Debug()
+    private void DebugScene()
     {
-        DebugScene.Instance.Init();
-        DebugScene.Instance.Run();
+        Scene.DebugScene.Instance.Init();
+        Scene.DebugScene.Instance.Run();
     }
 
     private void StartNewGame()
@@ -93,7 +93,10 @@ public class TitleScene : SingleTon<TitleScene>
         newGameSb.AppendLine("press any key to continue...");
         Console.Write(newGameSb.ToString());
         Console.ReadKey();
-        GameManger.Instance.main.Run();
+        while (true)
+        {
+            GameManger.Instance.Main.Run();
+        }
     }
 
     private void LoadGame()
@@ -101,7 +104,7 @@ public class TitleScene : SingleTon<TitleScene>
         // TODO: Implement LoadGame
     }
     
-    public void ExitGame()
+    private void ExitGame()
     {
         Environment.Exit(0);
     }

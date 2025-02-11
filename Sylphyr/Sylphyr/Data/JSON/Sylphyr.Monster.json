@@ -8,7 +8,7 @@
     "Def": "20",
     "Dex": "6.2",
     "CriticalChance": "0.21",
-    "CritcalDamage": "1.3",
+    "CriticalDamage": "1.3",
     "Speed": "10",
     "DropGold": "20",
     "DropExp": "20"
@@ -22,7 +22,7 @@
     "Def": "20",
     "Dex": "6.2",
     "CriticalChance": "0.21",
-    "CritcalDamage": "1.3",
+    "CriticalDamage": "1.3",
     "Speed": "10",
     "DropGold": "30",
     "DropExp": "30"
@@ -36,7 +36,7 @@
     "Def": "20",
     "Dex": "6.2",
     "CriticalChance": "0.22",
-    "CritcalDamage": "1.4",
+    "CriticalDamage": "1.4",
     "Speed": "10",
     "DropGold": "50",
     "DropExp": "50"
@@ -50,7 +50,7 @@
     "Def": "30",
     "Dex": "6.9",
     "CriticalChance": "0.23",
-    "CritcalDamage": "1.45",
+    "CriticalDamage": "1.45",
     "Speed": "10",
     "DropGold": "150",
     "DropExp": "150"
@@ -64,7 +64,7 @@
     "Def": "30",
     "Dex": "7.6",
     "CriticalChance": "0.24",
-    "CritcalDamage": "1.5",
+    "CriticalDamage": "1.5",
     "Speed": "20",
     "DropGold": "250",
     "DropExp": "250"
@@ -78,7 +78,7 @@
     "Def": "30",
     "Dex": "8.3",
     "CriticalChance": "0.25",
-    "CritcalDamage": "1.5",
+    "CriticalDamage": "1.5",
     "Speed": "30",
     "DropGold": "270",
     "DropExp": "300"
@@ -92,7 +92,7 @@
     "Def": "40",
     "Dex": "9",
     "CriticalChance": "0.26",
-    "CritcalDamage": "2",
+    "CriticalDamage": "2",
     "Speed": "30",
     "DropGold": "732",
     "DropExp": "380"
@@ -106,7 +106,7 @@
     "Def": "40",
     "Dex": "9.7",
     "CriticalChance": "0.26",
-    "CritcalDamage": "1.55",
+    "CriticalDamage": "1.55",
     "Speed": "30",
     "DropGold": "350",
     "DropExp": "450"
@@ -120,7 +120,7 @@
     "Def": "40",
     "Dex": "10.4",
     "CriticalChance": "0.27",
-    "CritcalDamage": "1.55",
+    "CriticalDamage": "1.55",
     "Speed": "20",
     "DropGold": "380",
     "DropExp": "600"
@@ -134,7 +134,7 @@
     "Def": "50",
     "Dex": "11.1",
     "CriticalChance": "0.28",
-    "CritcalDamage": "1.6",
+    "CriticalDamage": "1.6",
     "Speed": "50",
     "DropGold": "450",
     "DropExp": "750"
@@ -148,7 +148,7 @@
     "Def": "50",
     "Dex": "11.8",
     "CriticalChance": "0.29",
-    "CritcalDamage": "1.8",
+    "CriticalDamage": "1.8",
     "Speed": "70",
     "DropGold": "470",
     "DropExp": "850"
@@ -162,7 +162,7 @@
     "Def": "50",
     "Dex": "12.5",
     "CriticalChance": "0.3",
-    "CritcalDamage": "1.85",
+    "CriticalDamage": "1.85",
     "Speed": "85",
     "DropGold": "550",
     "DropExp": "1500"
@@ -176,7 +176,7 @@
     "Def": "60",
     "Dex": "13.2",
     "CriticalChance": "0.3",
-    "CritcalDamage": "1.85",
+    "CriticalDamage": "1.85",
     "Speed": "70",
     "DropGold": "650",
     "DropExp": "2500"
@@ -190,7 +190,7 @@
     "Def": "60",
     "Dex": "13.9",
     "CriticalChance": "0.31",
-    "CritcalDamage": "1.2",
+    "CriticalDamage": "1.2",
     "Speed": "90",
     "DropGold": "700",
     "DropExp": "3000"
@@ -204,7 +204,7 @@
     "Def": "60",
     "Dex": "14.6",
     "CriticalChance": "0.32",
-    "CritcalDamage": "1.4",
+    "CriticalDamage": "1.4",
     "Speed": "60",
     "DropGold": "666",
     "DropExp": "2800"
@@ -218,7 +218,7 @@
     "Def": "70",
     "Dex": "15.3",
     "CriticalChance": "0.33",
-    "CritcalDamage": "1.4",
+    "CriticalDamage": "1.4",
     "Speed": "9999",
     "DropGold": "790",
     "DropExp": "5000"
@@ -232,7 +232,7 @@
     "Def": "70",
     "Dex": "16",
     "CriticalChance": "0.33",
-    "CritcalDamage": "1.8",
+    "CriticalDamage": "1.8",
     "Speed": "9999",
     "DropGold": "800",
     "DropExp": "5500"
@@ -246,7 +246,7 @@
     "Def": "80",
     "Dex": "16.7",
     "CriticalChance": "0.34",
-    "CritcalDamage": "1.7",
+    "CriticalDamage": "1.7",
     "Speed": "50",
     "DropGold": "830",
     "DropExp": "10000"
@@ -260,7 +260,7 @@
     "Def": "80",
     "Dex": "17.4",
     "CriticalChance": "0.35",
-    "CritcalDamage": "1.3",
+    "CriticalDamage": "1.3",
     "Speed": "95",
     "DropGold": "870",
     "DropExp": "15000"
@@ -274,7 +274,7 @@
     "Def": "80",
     "Dex": "18.1",
     "CriticalChance": "0.35",
-    "CritcalDamage": "1.5",
+    "CriticalDamage": "1.5",
     "Speed": "50",
     "DropGold": "500",
     "DropExp": "3000"
@@ -288,7 +288,7 @@
     "Def": "90",
     "Dex": "18.8",
     "CriticalChance": "0.36",
-    "CritcalDamage": "1.75",
+    "CriticalDamage": "1.75",
     "Speed": "80",
     "DropGold": "800",
     "DropExp": "5000"
@@ -302,7 +302,7 @@
     "Def": "90",
     "Dex": "19.5",
     "CriticalChance": "0.37",
-    "CritcalDamage": "1.85",
+    "CriticalDamage": "1.85",
     "Speed": "120",
     "DropGold": "1000",
     "DropExp": "7500"
@@ -316,7 +316,7 @@
     "Def": "90",
     "Dex": "20.2",
     "CriticalChance": "0.37",
-    "CritcalDamage": "1.77",
+    "CriticalDamage": "1.77",
     "Speed": "100",
     "DropGold": "1250",
     "DropExp": "25000"
@@ -330,7 +330,7 @@
     "Def": "100",
     "Dex": "20.9",
     "CriticalChance": "0.38",
-    "CritcalDamage": "1.99",
+    "CriticalDamage": "1.99",
     "Speed": "95",
     "DropGold": "1950",
     "DropExp": "30000"
@@ -344,7 +344,7 @@
     "Def": "100",
     "Dex": "21.6",
     "CriticalChance": "0.39",
-    "CritcalDamage": "1.65",
+    "CriticalDamage": "1.65",
     "Speed": "90",
     "DropGold": "2500",
     "DropExp": "100000"
@@ -358,7 +358,7 @@
     "Def": "100",
     "Dex": "22.3",
     "CriticalChance": "0.39",
-    "CritcalDamage": "1.5",
+    "CriticalDamage": "1.5",
     "Speed": "66",
     "DropGold": "3134",
     "DropExp": "150000"
@@ -372,7 +372,7 @@
     "Def": "110",
     "Dex": "23",
     "CriticalChance": "0.4",
-    "CritcalDamage": "1.7",
+    "CriticalDamage": "1.7",
     "Speed": "1987",
     "DropGold": "7777",
     "DropExp": "200000"
@@ -386,7 +386,7 @@
     "Def": "110",
     "Dex": "23.7",
     "CriticalChance": "0.41",
-    "CritcalDamage": "1.81",
+    "CriticalDamage": "1.81",
     "Speed": "37",
     "DropGold": "1000",
     "DropExp": "300000"
@@ -400,7 +400,7 @@
     "Def": "110",
     "Dex": "24.4",
     "CriticalChance": "0.41",
-    "CritcalDamage": "2.55",
+    "CriticalDamage": "2.55",
     "Speed": "914",
     "DropGold": "6903",
     "DropExp": "500000"

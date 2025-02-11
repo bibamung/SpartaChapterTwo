@@ -277,6 +277,7 @@ namespace Sylphyr
                 int index = 0;
                 bool iseee = false;  // 방어구 장착 표시를 정함
                 bool iswee = false;  // 무기 장착 표시를 정함
+                bool choosepotion;
                 string equippedText = null;   // 방어구 [E]
                 string equippedText1 = null;  // 무기   [E]
 
@@ -464,16 +465,16 @@ namespace Sylphyr
                 Item selectedItem = null;
                 Potion selectedPotion = null;
 
-                if(input >= 1 && input <= invenweapons.Count)
+                if(input >= 1 && input <= invenweapons.Count && selectedWeapon != null)
                 {
                     selectedWeapon = invenweapons[input - 1];
                     
                 }
-                else if (input > invenweapons.Count && input <= invenweapons.Count + invenitems.Count)
+                else if (input > invenweapons.Count && input <= invenweapons.Count + invenitems.Count && selectedItem != null)
                 {
                     selectedItem = invenitems[input - invenweapons.Count - 1]; // 유효한 범위 내에서 선택
                 }
-                else if (input >= invenweapons.Count + invenitems.Count && input <= invenpotions.Count + invenweapons.Count + invenitems.Count)
+                else if (input > invenweapons.Count + invenitems.Count && input <= invenpotions.Count + invenweapons.Count + invenitems.Count && selectedPotion != null)
                 {
                     selectedPotion = invenpotions[input - invenweapons.Count - invenitems.Count - 1];
                 }
@@ -612,22 +613,20 @@ namespace Sylphyr
                                     player.EnhancedStat.Def += selectedItem.Value;
                                 }
                             }
-
-                            
-                            
-                                
-                            
                         }
-                        break;
-                    case 7:
-                    case 8:
-                    case 9:
-                        /*if (selectedPotion.Stat == 0)   // Stat이 0이면 HP 회복  1이면 MP 회복
+                        if (selectedPotion != null)
                         {
-                            player.UseItem(selectedPotion.Value, 0);  // HP 포션 사용  -------------------------------
+                            if (selectedPotion.Stat == 0)
+                            {
+                                choosepotion = true;
+                                player.UseItem(choosepotion, selectedPotion.Value);
+                            }
+                            else
+                            {
+                                choosepotion = false;
+                                player.UseItem(choosepotion, selectedPotion.Value);
+                            }
                         }
-                        else player.UseItem(selectedPotion.Value, 1);  // MP 포션 사용 -------------------------------
-                        */
                         break;
                 }
             }

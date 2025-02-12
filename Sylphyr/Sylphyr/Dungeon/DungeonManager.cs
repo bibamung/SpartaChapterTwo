@@ -401,7 +401,6 @@ namespace Sylphyr.Dungeon
                             scene.DisplayReward(player, TotalGold, TotalExp);
                             if (player.BestStage < stage) player.SetBestStage(stage);
                             clearCount[stage - 1]++;
-                            Console.WriteLine(clearCount[stage - 1]);
                             Console.WriteLine("press any key to continue...");
                             Console.ReadKey(true);
                             GameManager.Instance.main.Run();

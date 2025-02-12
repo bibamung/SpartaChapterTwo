@@ -78,8 +78,9 @@ namespace Guild
             {
                 int j = 0;
                 Console.Clear();
-                Console.WriteLine("========= Quest =========\n");
-                Console.WriteLine("퀘스트를 선택할 수 있습니다.");
+                Console.WriteLine("========= Guild =========\n");
+                Console.WriteLine("길드에 오신것을 환영합니다.");
+                Console.WriteLine("퀘스트를 클리어하여 보상을 받아가세요!\n");
 
                 for (int i = 0; i < QuestList.Count; i++)
                 {
@@ -123,7 +124,7 @@ namespace Guild
                             }
                             else if(AcceptedQuests[0].ID % 1000 == 1 || AcceptedQuests[0].ID % 1000 == 6 || AcceptedQuests[0].ID % 1000 == 7)
                             {
-                                Console.Write($"\t 진행도: {GameManager.Instance.quest.CurrentBuyItems} / {QuestList[i].RequiredBuyItems}\t");
+                                Console.Write($"\t 진행도: {GameManager.Instance.quest.CurrentBuyItems} / {QuestList[i].RequiredBuyItems} \t");
                                 if (GameManager.Instance.quest.CurrentBuyItems == QuestList[i].RequiredBuyItems)
                                 {
                                     AcceptedQuests[0].Isclear = true;
@@ -134,7 +135,7 @@ namespace Guild
                             }
                             else if (AcceptedQuests[0].ID % 1000 == 2)
                             {
-                                Console.Write($"\t 진행도: {GameManager.Instance.quest.CurrentSellItems} / {QuestList[i].RequiredSellItems}\t");
+                                Console.Write($"\t 진행도: {GameManager.Instance.quest.CurrentSellItems} / {QuestList[i].RequiredSellItems} \t");
                                 if (GameManager.Instance.quest.CurrentSellItems == QuestList[i].RequiredSellItems)
                                 {
                                     AcceptedQuests[0].Isclear = true;
@@ -150,7 +151,7 @@ namespace Guild
                                 {
                                     sum += DungeonManager.clearCount[n];
                                 }
-                                Console.Write($"\t 진행도: {sum} / {QuestList[i].RequiredFloors}\t");
+                                Console.Write($"\t 진행도: {sum} / {QuestList[i].RequiredFloors} 층 \t");
 
                                 int questnum = AcceptedQuests[0].ID % 1000;
                                 switch (questnum)
@@ -182,7 +183,14 @@ namespace Guild
                     Console.WriteLine();
                 }
 
-                Console.WriteLine("\n0. 나가기");
+                Console.WriteLine("\n0. 나가기\n");
+                if (AcceptedQuests.Count > 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine($"{AcceptedQuests[0].Name} 진행중");
+                    Console.ResetColor();
+                }
+
                 Console.Write("\n원하시는 퀘스트를 선택해주세요.\n>> ");
 
                 if (!int.TryParse(Console.ReadLine(), out int choice) || choice < 0 || choice > QuestList.Count)
@@ -216,21 +224,19 @@ namespace Guild
                 string action = Console.ReadLine();
                 
                 bool isint = int.TryParse(action, out int choosenum);
-                if (!isint) Console.WriteLine("숫자를 입력해주세요.");
+                if (choosenum != 1 && choosenum != 2) Console.WriteLine("1 또는 2를 입력해주세요.");
                     
                 if (choosenum == 1)
                 {
                     if (AcceptedQuests.Count == 0)
                     {
-                        Console.Clear();
                         AcceptedQuests.Add(selectedQuest);
                         selectedQuest.Request = true;
                         Console.WriteLine($"\n {selectedQuest.Name} 퀘스트를 수락했습니다!");
                     }
                     else
                     {
-                        Console.Clear();
-                        Console.WriteLine("이미 수령한 퀘스트가 있습니다.");
+                        Console.WriteLine("\n 이미 수령한 퀘스트가 있습니다.");
                     }
                 }
                 else if (choosenum == 2)
@@ -301,58 +307,58 @@ namespace Guild
         }
         
 
-        public void DungeonCountClearQuest()
-        {
-            foreach (var select in QuestList)
-            {
-                switch (select.ID % 1000)
-                {
-                    case 0:
-                    case 3:
-                    case 4:
+        //public void DungeonCountClearQuest()
+        //{
+        //    foreach (var select in QuestList)
+        //    {
+        //        switch (select.ID % 1000)
+        //        {
+        //            case 0:
+        //            case 3:
+        //            case 4:
 
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
-
-
-        public void BestStageQuest()  // 층 도달 미션
-        {
-            foreach (var select in QuestList)
-            {
-                switch (select.ID % 1000)
-                {
-                    case 5:
-                    case 9:
-
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
+        //                break;
+        //            default:
+        //                break;
+        //        }
+        //    }
+        //}
 
 
+        //public void BestStageQuest()  // 층 도달 미션
+        //{
+        //    foreach (var select in QuestList)
+        //    {
+        //        switch (select.ID % 1000)
+        //        {
+        //            case 5:
+        //            case 9:
 
-        public void ShopPurchaseQuest()
-        {
-            foreach (var select in QuestList)
-            {
-                switch (select.ID % 1000)
-                {
-                    case 1:
-                    case 6:
-                    case 7:
+        //                break;
+        //            default:
+        //                break;
+        //        }
+        //    }
+        //}
 
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
+
+
+        //public void ShopPurchaseQuest()
+        //{
+        //    foreach (var select in QuestList)
+        //    {
+        //        switch (select.ID % 1000)
+        //        {
+        //            case 1:
+        //            case 6:
+        //            case 7:
+
+        //                break;
+        //            default:
+        //                break;
+        //        }
+        //    }
+        //}
 
 
         //public void SelectQuest(int selectQuest)

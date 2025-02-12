@@ -3,7 +3,6 @@ using Sylphyr.Dungeon;
 using System.Text;
 using Sylphyr.Utils;
 using Sylphyr.YJH;
-using Sylphyr.Character;
 
 namespace Sylphyr.Scene;
 

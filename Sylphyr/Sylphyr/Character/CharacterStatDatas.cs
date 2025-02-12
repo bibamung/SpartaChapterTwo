@@ -1,3 +1,5 @@
+using Sylphyr.YJH;
+
 namespace Sylphyr.Character;
 
 public class CharacterStatDatas
@@ -42,6 +44,7 @@ public class CharacterStat
     public float CriticalChance;
     public float CriticalDamage;
 }
+
 
 public enum CharacterClass
 {

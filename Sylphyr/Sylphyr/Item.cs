@@ -161,7 +161,7 @@ namespace Sylphyr
                     {
                         Console.WriteLine("- " + AlignText(item.Name, 25) + " | " +
                                           AlignText(statname, 15) + "   " +
-                                          AlignText("+" + (statname == "크리데미지" ? ((float)item.Value / 100) + "%" : item.Value), 5) + " | " +
+                                          AlignText("+" + (statname == "크리데미지" ? ((float)item.Value / 10) + "%" : item.Value), 5) + " | " +
                                           AlignText(slotname, 7) + " | " +
                                           AlignText(item.Price + "G", 7) + " | " +
                                           item.Desc);
@@ -171,7 +171,7 @@ namespace Sylphyr
                         Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine("- " + AlignText(item.Name, 25) + " | " +
                                           AlignText(statname, 15) + "   " +
-                                          AlignText("+" + (statname == "크리데미지" ? ((float)item.Value / 100) + "%" : item.Value), 5) + " | " +
+                                          AlignText("+" + (statname == "크리데미지" ? ((float)item.Value / 10) + "%" : item.Value), 5) + " | " +
                                           AlignText(slotname, 7) + " | " +
                                           AlignText(item.Price + "G", 7) + " | " +
                                           item.Desc + "구매 완료");
@@ -246,7 +246,7 @@ namespace Sylphyr
                             item.isBuy = false;
                         }
 
-                        //isShop = false;
+                        isShop = false;
                         return;
                     default:
                         isfail = true;
@@ -339,7 +339,7 @@ namespace Sylphyr
                         Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine("- " + index + ". " + AlignText(item.Name, 25) + " | " +
                                           AlignText(statname, 10) + "   " +
-                                          AlignText("+" + (statname == "크리데미지" ? ((float)item.Value / 100) + "%" : item.Value), 5) + " | " +
+                                          AlignText("+" + (statname == "크리데미지" ? ((float)item.Value / 10) + "%" : item.Value), 5) + " | " +
                                           AlignText(slotname, 7) + " | " +
                                           AlignText(item.Price + "G", 7) + " | " +
                                           item.Desc + " 구매 완료");
@@ -350,7 +350,7 @@ namespace Sylphyr
                         // 정렬된 텍스트 출력
                         Console.WriteLine("- " + index + ". " + AlignText(item.Name, 25) + " | " +
                                           AlignText(statname, 10) + "   " +
-                                          AlignText("+" + (statname == "크리데미지" ? ((float)item.Value / 100) + "%" : item.Value), 5) + " | " +
+                                          AlignText("+" + (statname == "크리데미지" ? ((float)item.Value / 10) + "%" : item.Value), 5) + " | " +
                                           AlignText(slotname, 7) + " | " +
                                           AlignText(item.Price + "G", 7) + " | " +
                                           item.Desc);
@@ -617,7 +617,7 @@ namespace Sylphyr
                         Console.WriteLine($"- {i}. {equippedText}" +
                                           AlignText(item.Name, 28) + " | " +
                                           AlignText(statname, 14) + "   " +
-                                          AlignText("+" + (statname == "크리데미지" ? ((float)item.Value / 100) + "%" : item.Value), 5) + " | " +
+                                          AlignText("+" + (statname == "크리데미지" ? ((float)item.Value / 10) + "%" : item.Value), 5) + " | " +
                                           AlignText(slotname, 8) + " | " +
                                           AlignText(item.Price * 0.8 + "G", 7) + " | " +
                                           item.Desc);
@@ -628,7 +628,7 @@ namespace Sylphyr
                         Console.WriteLine($"- {i}. " +
                                           AlignText(item.Name, 32) + " | " +
                                           AlignText(statname, 15) +
-                                          AlignText("+" + (statname == "크리데미지" ? ((float)item.Value / 100) + "%" : item.Value), 7) + " | " +
+                                          AlignText("+" + (statname == "크리데미지" ? ((float)item.Value / 10) + "%" : item.Value), 7) + " | " +
                                           AlignText(slotname, 8) + " | " +
                                           AlignText(item.Price * 0.8 + "G", 7) + " | " +
                                           item.Desc);
@@ -738,8 +738,8 @@ namespace Sylphyr
                             else
                             {
                                 selectedItem.isEquip = false;
-                                player.EnhancedStat.CriticalDamage -= selectedItem.Value;
-                                player.EnhancedStat.Def -= selectedItem.Value;
+                                player.EnhancedStat.CriticalDamage -= (selectedItem.Value / 1000f);
+                                player.EnhancedStat.Def -= (selectedItem.Value / 10f);
                                 player.EnhancedStat.Dex -= selectedItem.Value;
                                 player.EnhancedStat.Luk -= selectedItem.Value;
                                 int getgold = (int)(selectedItem.Price * 0.8);

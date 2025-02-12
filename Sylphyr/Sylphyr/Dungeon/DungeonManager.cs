@@ -395,6 +395,7 @@ namespace Sylphyr.Dungeon
                         TotalExp += currentStageMonsters[selectMonster - 1].DropExp;
                         TotalGold += currentStageMonsters[selectMonster - 1].DropGold;
                         currentStageMonsters.RemoveAt(selectMonster - 1);
+                        i--;
 
                         if (currentStageMonsters.Count() <= 0)
                         {

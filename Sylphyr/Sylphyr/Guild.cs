@@ -86,7 +86,10 @@ namespace Guild
                 {
                     if (QuestList[i].Isclear && CompletedQuests.Count != 0)
                     {
-                        Console.Write($"{i + 1}. {CompletedQuests[i].Name}");
+                        foreach (var qqq in CompletedQuests)
+                        {
+                            if (qqq == QuestList[i]) Console.Write($"{i + 1}. {qqq.Name}");
+                        }
                     }
                     else if (!QuestList[i].Isclear)
                     {
@@ -113,35 +116,35 @@ namespace Guild
                                 {
                                     AcceptedQuests[0].Isclear = true;
                                     CompletedQuests.Add(AcceptedQuests[0]);
-                                    AcceptedQuests.RemoveAt(0);
+                                    
                                 }
                             }
                             else if ((AcceptedQuests[0].ID % 1000 == 5 && player.BestStage == 10) || (AcceptedQuests[0].ID % 1000 == 5 && player.BestStage == 40))
                             {
                                 AcceptedQuests[0].Isclear = true;
                                 CompletedQuests.Add(AcceptedQuests[0]);  // 퀘스트 완료
-                                AcceptedQuests.RemoveAt(0);
+                                
                             }
                             else if(AcceptedQuests[0].ID % 1000 == 1 || AcceptedQuests[0].ID % 1000 == 6 || AcceptedQuests[0].ID % 1000 == 7)
                             {
                                 Console.Write($"\t 진행도: {GameManager.Instance.quest.CurrentBuyItems} / {QuestList[i].RequiredBuyItems} \t");
-                                if (GameManager.Instance.quest.CurrentBuyItems == QuestList[i].RequiredBuyItems)
+                                if (GameManager.Instance.quest.CurrentBuyItems >= QuestList[i].RequiredBuyItems)
                                 {
                                     AcceptedQuests[0].Isclear = true;
                                     CompletedQuests.Add(AcceptedQuests[0]);
-                                    AcceptedQuests.RemoveAt(j);
-                                    GameManager.Instance.quest.CurrentBuyItems = 0;
+                                    
+                                    
                                 }
                             }
                             else if (AcceptedQuests[0].ID % 1000 == 2)
                             {
                                 Console.Write($"\t 진행도: {GameManager.Instance.quest.CurrentSellItems} / {QuestList[i].RequiredSellItems} \t");
-                                if (GameManager.Instance.quest.CurrentSellItems == QuestList[i].RequiredSellItems)
+                                if (GameManager.Instance.quest.CurrentSellItems >= QuestList[i].RequiredSellItems)
                                 {
                                     AcceptedQuests[0].Isclear = true;
                                     CompletedQuests.Add(AcceptedQuests[0]);
-                                    AcceptedQuests.RemoveAt(j);
-                                    GameManager.Instance.quest.CurrentSellItems = 0;
+                                    
+                                    
                                 }
                             }
                             else if (AcceptedQuests[0].ID % 1000 == 0 || AcceptedQuests[0].ID % 1000 == 3 || AcceptedQuests[0].ID % 1000 == 4)
@@ -164,7 +167,7 @@ namespace Guild
                                             AcceptedQuests[0].Isclear = true;
                                             DungeonManager.clearCount = new int[DungeonManager.clearCount.Length];
                                             CompletedQuests.Add(AcceptedQuests[0]);
-                                            AcceptedQuests.RemoveAt(j);
+                                            
                                         }
                                         break;
                                 }
@@ -211,6 +214,9 @@ namespace Guild
                     Console.WriteLine($"\n{selectedQuest.RewardGold}G , {selectedQuest.RewardExp} 경험치");
                     player.AddGold(selectedQuest.RewardGold);
                     player.AddExp(selectedQuest.RewardExp);
+                    GameManager.Instance.quest.CurrentBuyItems = 0;
+                    GameManager.Instance.quest.CurrentSellItems = 0;
+                    AcceptedQuests.RemoveAt(0);
                     QuestList.Remove(selectedQuest);
                     Console.ReadLine();
                     continue;

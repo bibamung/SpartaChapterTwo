@@ -85,8 +85,8 @@ public class Player
         statusSb.Clear();
         statusSb.AppendLine($" Lv.{Level}");
         statusSb.AppendLine($" {Name} ( {Class.GetClassName()} )");
-        statusSb.AppendLine($" HP: {CurrentHp}/{TotalStat.MaxHp}");
-        statusSb.AppendLine($" MP: {CurrentMp}/{TotalStat.MaxMp}");
+        statusSb.AppendLine($" HP: {CurrentHp:N2}/{TotalStat.MaxHp:N2}");
+        statusSb.AppendLine($" MP: {CurrentMp:N2}/{TotalStat.MaxMp:N2}");
         statusSb.AppendLine($" Exp: {Exp}/{LevelData.GetExp(Level)}");
         statusSb.AppendLine($" 골드: {Gold} G");
         statusSb.AppendLine();
@@ -152,7 +152,9 @@ public class Player
         int levelUpExp = LevelData.GetExp(Level);
         if (Exp >= levelUpExp)
         {
-            LevelUp(Exp - levelUpExp);
+            int remainExp = Exp - levelUpExp;
+            Exp = 0;
+            LevelUp(remainExp);
         }
     }
 

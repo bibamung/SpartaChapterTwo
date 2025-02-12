@@ -125,7 +125,7 @@ namespace Guild
                             else if(AcceptedQuests[0].ID % 1000 == 1 || AcceptedQuests[0].ID % 1000 == 6 || AcceptedQuests[0].ID % 1000 == 7)
                             {
                                 Console.Write($"\t 진행도: {GameManager.Instance.quest.CurrentBuyItems} / {QuestList[i].RequiredBuyItems} \t");
-                                if (GameManager.Instance.quest.CurrentBuyItems == QuestList[i].RequiredBuyItems)
+                                if (GameManager.Instance.quest.CurrentBuyItems >= QuestList[i].RequiredBuyItems)
                                 {
                                     AcceptedQuests[0].Isclear = true;
                                     CompletedQuests.Add(AcceptedQuests[0]);
@@ -136,7 +136,7 @@ namespace Guild
                             else if (AcceptedQuests[0].ID % 1000 == 2)
                             {
                                 Console.Write($"\t 진행도: {GameManager.Instance.quest.CurrentSellItems} / {QuestList[i].RequiredSellItems} \t");
-                                if (GameManager.Instance.quest.CurrentSellItems == QuestList[i].RequiredSellItems)
+                                if (GameManager.Instance.quest.CurrentSellItems >= QuestList[i].RequiredSellItems)
                                 {
                                     AcceptedQuests[0].Isclear = true;
                                     CompletedQuests.Add(AcceptedQuests[0]);

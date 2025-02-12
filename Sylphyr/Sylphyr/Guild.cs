@@ -107,7 +107,7 @@ namespace Guild
                             // 진행도 출력
                             if (AcceptedQuests[0].ID % 1000 == 8)
                             {
-                                Console.Write($"진행도: {DungeonManager.clearCount[6]} / {QuestList[i].RequiredFloors}");
+                                Console.Write($"\t 진행도: {DungeonManager.clearCount[6]} / {QuestList[i].RequiredFloors}");
                                 if (DungeonManager.clearCount[6] == QuestList[i].RequiredFloors)
                                 {
                                     AcceptedQuests[0].Isclear = true;
@@ -123,7 +123,25 @@ namespace Guild
                             }
                             else if(AcceptedQuests[0].ID % 1000 == 1 || AcceptedQuests[0].ID % 1000 == 6 || AcceptedQuests[0].ID % 1000 == 7)
                             {
-                                Console.Write($" 진행도: {QuestList[i].CurrentBuyItems} / {QuestList[i].RequiredBuyItems}\t");
+                                Console.Write($"\t 진행도: {GameManager.Instance.quest.CurrentBuyItems} / {QuestList[i].RequiredBuyItems}\t");
+                                if (GameManager.Instance.quest.CurrentBuyItems == QuestList[i].RequiredBuyItems)
+                                {
+                                    AcceptedQuests[0].Isclear = true;
+                                    CompletedQuests.Add(AcceptedQuests[0]);
+                                    AcceptedQuests.RemoveAt(j);
+                                    GameManager.Instance.quest.CurrentBuyItems = 0;
+                                }
+                            }
+                            else if (AcceptedQuests[0].ID % 1000 == 2)
+                            {
+                                Console.Write($"\t 진행도: {GameManager.Instance.quest.CurrentSellItems} / {QuestList[i].RequiredSellItems}\t");
+                                if (GameManager.Instance.quest.CurrentSellItems == QuestList[i].RequiredSellItems)
+                                {
+                                    AcceptedQuests[0].Isclear = true;
+                                    CompletedQuests.Add(AcceptedQuests[0]);
+                                    AcceptedQuests.RemoveAt(j);
+                                    GameManager.Instance.quest.CurrentSellItems = 0;
+                                }
                             }
                             else if (AcceptedQuests[0].ID % 1000 == 0 || AcceptedQuests[0].ID % 1000 == 3 || AcceptedQuests[0].ID % 1000 == 4)
                             {
@@ -132,7 +150,7 @@ namespace Guild
                                 {
                                     sum += DungeonManager.clearCount[n];
                                 }
-                                Console.Write($" 진행도: {sum} / {QuestList[i].RequiredFloors}\t");
+                                Console.Write($"\t 진행도: {sum} / {QuestList[i].RequiredFloors}\t");
 
                                 int questnum = AcceptedQuests[0].ID % 1000;
                                 switch (questnum)

@@ -183,7 +183,7 @@ namespace Sylphyr.Dungeon
         public void DisplayEvasion(Player player)
         {
             Random rand = new Random(DateTime.Now.Millisecond);
-            int text = rand.Next(1, 4);
+            int text = rand.Next(0, 4);
             switch (text)
             {
                 case 1:
@@ -195,6 +195,9 @@ namespace Sylphyr.Dungeon
                 case 3:
                     Console.WriteLine($"{player.Name}가 공격을 하다가 돌부리에 걸려 넘어져 공격에 실패했다.");
                     break;
+                default:
+                    Console.WriteLine($"적이 {player.Name}의 공격을 회피하였다.");
+                    break;
             }
             InputAnyKey();
         }
@@ -202,7 +205,7 @@ namespace Sylphyr.Dungeon
         public void DisplayEvasion(Monster monster)
         {
             Random rand = new Random(DateTime.Now.Millisecond);
-            int text = rand.Next(1, 4);
+            int text = rand.Next(0, 4);
             switch (text)
             {
                 case 1:
@@ -213,6 +216,9 @@ namespace Sylphyr.Dungeon
                     break;
                 case 3:
                     Console.WriteLine($"{monster.MonsterName}가 자고 있다.");
+                    break;
+                default:
+                    Console.WriteLine($"적이 {monster.MonsterName}의 공격을 회피하였다.");
                     break;
             }
             InputAnyKey();
@@ -387,6 +393,7 @@ namespace Sylphyr.Dungeon
 
             Console.WriteLine("\n====================================\n");
             GameManager.Instance.shop.isShop = true;
+            GameManager.Instance.quest.CurrentFloors++;
         }
 
         public void InputAnyKey()

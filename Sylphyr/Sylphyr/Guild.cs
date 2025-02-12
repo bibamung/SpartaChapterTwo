@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Design;
 using Sylphyr.YJH;
 using System.Xml.Serialization;
+using Sylphyr.Dungeon;
 
 namespace Guild
 {
@@ -27,9 +28,11 @@ namespace Guild
         public bool IsFloorsCompleted => CurrentFloors >= RequiredFloors;
         public bool IsBuyItemsCompleted => CurrentBuyItems >= RequiredBuyItems;
         public bool IsSellItemsCompleted => CurrentSellItems >= RequiredSellItems;
+        public bool Isclear { get; set; }
+        public bool Request { get; set; }
 
         public Quest(int id, string name, string desc, int rewardExp, int rewardGold, int requiredFloors, int requiredBuyItems,
-                     int requiredSellItems)
+                     int requiredSellItems, bool isclear, bool request)
         {
             ID = id;
             Name = name;
@@ -42,6 +45,8 @@ namespace Guild
             CurrentBuyItems = 0;
             RequiredSellItems = requiredSellItems;
             CurrentSellItems = 0;
+            Isclear = isclear;
+            Request = request;
         }
 
         public void ShowQuest() //퀘스트내용
@@ -59,116 +64,136 @@ namespace Guild
 
     public class Guild
     {
-        List<Quest> Quests = new List<Quest>();
+        //List<Quest> Quests = new List<Quest>();
         List<Quest> AcceptedQuests = new List<Quest>();
         List<Quest> CompletedQuests = new List<Quest>();
-        public Quest ActiveQuest { get; private set; }
+        DungeonManager dungeonManager = new DungeonManager();
+        List<Quest> QuestList = DataManager.Instance.quests;
 
-
-        public void CompleteQuest()
-        {
-            if (ActiveQuest.IsFloorsCompleted || ActiveQuest.IsBuyItemsCompleted || ActiveQuest.IsSellItemsCompleted)
-            {
-                Console.WriteLine($"{ActiveQuest.Name} 완료!");
-                Console.WriteLine($"{ActiveQuest.RewardGold} 골드 & {ActiveQuest.RewardExp} 경험치를 획득!\n");
-
-                GameManager.Instance.player.AddGold(ActiveQuest.RewardGold);
-                GameManager.Instance.player.AddExp(ActiveQuest.RewardExp);
-                CompletedQuests.Add(ActiveQuest);
-                ActiveQuest = null;
-            }
-            else
-            {
-                Console.WriteLine("진행 중인 퀘스트의 조건이 충족되지 않았습니다.");
-            }
-        }
-
-
-
-
-        public void ProgressQuest()
-        {
-            if (ActiveQuest == null)
-            {
-                Console.WriteLine("\n진행중인 퀘스트가 없습니다.");
-            }
-
-            else if (ActiveQuest.IsFloorsCompleted || ActiveQuest.IsBuyItemsCompleted || ActiveQuest.IsSellItemsCompleted)
-            {
-                Console.WriteLine("\n완료할 퀘스트가 있습니다.");
-            }
-            else 
-            { 
-                Console.WriteLine("\n진행중인 퀘스트가 있습니다.");
-                return;
-            }
-        }
-
-        public void Start()
-        {
-            Quests = DataManager.Instance.quests;
-        }
-
-        public void ShowFloorsProgress()
-        {
-            if (ActiveQuest == null) return;
-            Console.WriteLine($"현재 클리어한 횟수 {ActiveQuest.CurrentFloors} / {ActiveQuest.RequiredFloors - 1}");
-            if (ActiveQuest.CurrentFloors >= ActiveQuest.RequiredFloors - 1)
-            {
-                ActiveQuest.CurrentFloors = ActiveQuest.RequiredFloors;
-            }
-        }
-        public void ShowBuyItemsProgress()
-        {
-            if (ActiveQuest == null) return;
-            Console.WriteLine($"현재 구매한 횟수 {ActiveQuest.CurrentBuyItems} / {ActiveQuest.RequiredBuyItems - 1}");
-            if (ActiveQuest.CurrentBuyItems >= ActiveQuest.RequiredBuyItems - 1)
-            {
-                ActiveQuest.CurrentBuyItems = ActiveQuest.RequiredBuyItems;
-            }
-        }
-        public void ShowSellItemsProgress()
-        {
-            if (ActiveQuest == null) return;
-            Console.WriteLine($"현재 판매한 횟수 {ActiveQuest.CurrentSellItems} / {ActiveQuest.RequiredSellItems - 1}");
-            if (ActiveQuest.CurrentSellItems >= ActiveQuest.RequiredSellItems - 1)
-            {
-                ActiveQuest.CurrentSellItems = ActiveQuest.RequiredSellItems;
-            }
-        }
-
-        public void ShowMaxFloors()
-        {
-            if (ActiveQuest == null) return;
-            Console.WriteLine($"현재 최대 오른 층 {ActiveQuest.MaxFloors}");
-        }
-
+        
         public void GuildMain(Player player)
         {
-            List<Quest> questList = DataManager.Instance.quests;
 
             while (true)
             {
+                int j = 0;
                 Console.Clear();
-                Console.WriteLine("========= Quest =========\n");
-                Console.WriteLine("퀘스트를 선택할 수 있습니다.");
+                Console.WriteLine("========= Guild =========\n");
+                Console.WriteLine("길드에 오신것을 환영합니다.");
+                Console.WriteLine("퀘스트를 클리어하여 보상을 받아가세요!\n");
 
-                for (int i = 0; i < questList.Count; i++)
+                for (int i = 0; i < QuestList.Count; i++)
                 {
-                    Console.WriteLine($"{i + 1}. {questList[i].Name}");
-                    if (i < Quests.Count && AcceptedQuests.Contains(Quests[i]))
-                        Console.Write(" (수락 완료)");
-                    if (i < Quests.Count && CompletedQuests.Contains(Quests[i]))
-                        Console.Write(" (퀘스트 완료)");
-                    else Console.Write(" (미수락)");
+                    if (QuestList[i].Isclear && CompletedQuests.Count != 0)
+                    {
+                        Console.Write($"{i + 1}. {CompletedQuests[i].Name}");
+                    }
+                    else if (!QuestList[i].Isclear)
+                    {
+                        if (AcceptedQuests.Count != 0)
+                        {
+                            if (QuestList[i].ID == AcceptedQuests[0].ID) Console.Write($"{i + 1}. {AcceptedQuests[0].Name}");
+                            else Console.Write($"{i + 1}. {QuestList[i].Name}");
+                        }
+                        else
+                        {
+                            Console.Write($"{i + 1}. {QuestList[i].Name}");
+                        }
+                    }
+                    
+                    if (AcceptedQuests.Count > j)
+                    {
+                        if (AcceptedQuests[0].Request && AcceptedQuests[0].ID == QuestList[i].ID)
+                        {
+                            // 진행도 출력
+                            if (AcceptedQuests[0].ID % 1000 == 8)
+                            {
+                                Console.Write($"\t 진행도: {DungeonManager.clearCount[6]} / {QuestList[i].RequiredFloors}");
+                                if (DungeonManager.clearCount[6] == QuestList[i].RequiredFloors)
+                                {
+                                    AcceptedQuests[0].Isclear = true;
+                                    CompletedQuests.Add(AcceptedQuests[0]);
+                                    AcceptedQuests.RemoveAt(0);
+                                }
+                            }
+                            else if ((AcceptedQuests[0].ID % 1000 == 5 && player.BestStage == 10) || (AcceptedQuests[0].ID % 1000 == 5 && player.BestStage == 40))
+                            {
+                                AcceptedQuests[0].Isclear = true;
+                                CompletedQuests.Add(AcceptedQuests[0]);  // 퀘스트 완료
+                                AcceptedQuests.RemoveAt(0);
+                            }
+                            else if(AcceptedQuests[0].ID % 1000 == 1 || AcceptedQuests[0].ID % 1000 == 6 || AcceptedQuests[0].ID % 1000 == 7)
+                            {
+                                Console.Write($"\t 진행도: {GameManager.Instance.quest.CurrentBuyItems} / {QuestList[i].RequiredBuyItems} \t");
+                                if (GameManager.Instance.quest.CurrentBuyItems == QuestList[i].RequiredBuyItems)
+                                {
+                                    AcceptedQuests[0].Isclear = true;
+                                    CompletedQuests.Add(AcceptedQuests[0]);
+                                    AcceptedQuests.RemoveAt(j);
+                                    GameManager.Instance.quest.CurrentBuyItems = 0;
+                                }
+                            }
+                            else if (AcceptedQuests[0].ID % 1000 == 2)
+                            {
+                                Console.Write($"\t 진행도: {GameManager.Instance.quest.CurrentSellItems} / {QuestList[i].RequiredSellItems} \t");
+                                if (GameManager.Instance.quest.CurrentSellItems == QuestList[i].RequiredSellItems)
+                                {
+                                    AcceptedQuests[0].Isclear = true;
+                                    CompletedQuests.Add(AcceptedQuests[0]);
+                                    AcceptedQuests.RemoveAt(j);
+                                    GameManager.Instance.quest.CurrentSellItems = 0;
+                                }
+                            }
+                            else if (AcceptedQuests[0].ID % 1000 == 0 || AcceptedQuests[0].ID % 1000 == 3 || AcceptedQuests[0].ID % 1000 == 4)
+                            {
+                                int sum = 0;
+                                for (int n = 0; n < DungeonManager.clearCount.Length; n++)
+                                {
+                                    sum += DungeonManager.clearCount[n];
+                                }
+                                Console.Write($"\t 진행도: {sum} / {QuestList[i].RequiredFloors} 층 \t");
+
+                                int questnum = AcceptedQuests[0].ID % 1000;
+                                switch (questnum)
+                                {
+                                    case 0:
+                                    case 3:
+                                    case 4:
+                                        if (sum == QuestList[i].RequiredFloors)
+                                        {
+                                            AcceptedQuests[0].Isclear = true;
+                                            DungeonManager.clearCount = new int[DungeonManager.clearCount.Length];
+                                            CompletedQuests.Add(AcceptedQuests[0]);
+                                            AcceptedQuests.RemoveAt(j);
+                                        }
+                                        break;
+                                }
+                            }
+                            if (AcceptedQuests.Count != 0 && !AcceptedQuests[0].Isclear)
+                            {
+                                Console.Write(" (수락 완료) ");
+                            }
+                            else
+                            {
+                                Console.Write(" (퀘스트 완료) ");
+                            }
+                            j++;
+                        }
+                    }
+                    Console.WriteLine();
                 }
 
-                ProgressQuest();
+                Console.WriteLine("\n0. 나가기\n");
+                if (AcceptedQuests.Count > 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine($"{AcceptedQuests[0].Name} 진행중");
+                    Console.ResetColor();
+                }
 
-                Console.WriteLine("\n0. 나가기");
                 Console.Write("\n원하시는 퀘스트를 선택해주세요.\n>> ");
 
-                if (!int.TryParse(Console.ReadLine(), out int choice) || choice < 0 || choice > questList.Count)
+                if (!int.TryParse(Console.ReadLine(), out int choice) || choice < 0 || choice > QuestList.Count)
                 {
                     Console.WriteLine("잘못된 입력입니다.엔터를 눌러주세요.");
                     Console.ReadLine();
@@ -177,11 +202,16 @@ namespace Guild
 
                 if (choice == 0) return;
 
-                Quest selectedQuest = questList[choice - 1];
+                Quest selectedQuest = QuestList[choice - 1];
 
                 if (CompletedQuests.Contains(selectedQuest))
                 {
-                    Console.WriteLine("\n이미 완료한 퀘스트입니다.엔터를 눌러주세요.");
+                    selectedQuest.ShowQuest();
+                    Console.WriteLine("\n수고하셨습니다. 엔터를 눌러 보상을 받아가세요.");
+                    Console.WriteLine($"\n{selectedQuest.RewardGold}G , {selectedQuest.RewardExp} 경험치");
+                    player.AddGold(selectedQuest.RewardGold);
+                    player.AddExp(selectedQuest.RewardExp);
+                    QuestList.Remove(selectedQuest);
                     Console.ReadLine();
                     continue;
                 }
@@ -192,23 +222,34 @@ namespace Guild
                 Console.WriteLine("2. 거절");
 
                 string action = Console.ReadLine();
-
-                if (action == "1")
+                
+                bool isint = int.TryParse(action, out int choosenum);
+                if (choosenum != 1 && choosenum != 2) Console.WriteLine("1 또는 2를 입력해주세요.");
+                    
+                if (choosenum == 1)
                 {
-                    Console.Clear();
-                    ActiveQuest = selectedQuest;
-                    AcceptedQuests.Add(selectedQuest);
-                    Console.WriteLine($"\n {selectedQuest.Name} 퀘스트를 수락했습니다!");
+                    if (AcceptedQuests.Count == 0)
+                    {
+                        AcceptedQuests.Add(selectedQuest);
+                        selectedQuest.Request = true;
+                        Console.WriteLine($"\n {selectedQuest.Name} 퀘스트를 수락했습니다!");
+                    }
+                    else
+                    {
+                        Console.WriteLine("\n 이미 수령한 퀘스트가 있습니다.");
+                    }
                 }
-                else if (action == "2")
+                else if (choosenum == 2)
                 {
+                    selectedQuest.Request = false;
+                    AcceptedQuests.Remove(selectedQuest);
                     Console.WriteLine("\n 퀘스트를 거절했습니다.");
-                    ActiveQuest = null;
                 }
 
                 Console.WriteLine("\n엔터를 눌러주세요.");
                 Console.ReadLine();
 
+                /*
                 while (ActiveQuest != null)
                 {
                     Console.Clear();
@@ -261,7 +302,168 @@ namespace Guild
                     Console.WriteLine("\nEnter 키를 눌러 계속");
                     Console.ReadLine();
                 }
+                */
             }
         }
+        
+
+        //public void DungeonCountClearQuest()
+        //{
+        //    foreach (var select in QuestList)
+        //    {
+        //        switch (select.ID % 1000)
+        //        {
+        //            case 0:
+        //            case 3:
+        //            case 4:
+
+        //                break;
+        //            default:
+        //                break;
+        //        }
+        //    }
+        //}
+
+
+        //public void BestStageQuest()  // 층 도달 미션
+        //{
+        //    foreach (var select in QuestList)
+        //    {
+        //        switch (select.ID % 1000)
+        //        {
+        //            case 5:
+        //            case 9:
+
+        //                break;
+        //            default:
+        //                break;
+        //        }
+        //    }
+        //}
+
+
+
+        //public void ShopPurchaseQuest()
+        //{
+        //    foreach (var select in QuestList)
+        //    {
+        //        switch (select.ID % 1000)
+        //        {
+        //            case 1:
+        //            case 6:
+        //            case 7:
+
+        //                break;
+        //            default:
+        //                break;
+        //        }
+        //    }
+        //}
+
+
+        //public void SelectQuest(int selectQuest)
+        //{
+        //    if (selectQuest < 0 || selectQuest > QuestList.Count)
+        //    {
+        //        Console.WriteLine("잘못된 입력입니다.엔터를 눌러주세요.");
+        //        Console.ReadLine();
+        //    }
+
+        //    if (selectQuest == 0) return;
+
+        //    Quest selectedQuest = QuestList[selectQuest - 1];
+
+        //    if (CompletedQuests.Contains(selectedQuest))
+        //    {
+        //        Console.WriteLine("\n이미 완료한 퀘스트입니다.엔터를 눌러주세요.");
+        //        Console.ReadLine();
+        //    }
+
+        //    selectedQuest.ShowQuest();
+
+        //    Console.WriteLine("1. 수락");
+        //    Console.WriteLine("2. 거절");
+
+        //    int accept;
+        //    bool isint = int.TryParse(Console.ReadLine(), out accept);
+        //    if (!isint) Console.WriteLine("숫자를 입력해주세요.");
+
+        //    else
+        //    {
+        //        if (accept == 1)
+        //        {
+        //            if (AcceptedQuests.Count == 0)
+        //            {
+        //                Console.Clear();
+        //                AcceptedQuests.Add(selectedQuest);
+        //                selectedQuest.Request = true;
+        //                Console.WriteLine($"\n {selectedQuest.Name} 퀘스트를 수락했습니다!");
+        //            }
+        //            else
+        //            {
+        //                Console.Clear();
+        //                Console.WriteLine("이미 수령한 퀘스트가 있습니다.");
+        //            }
+        //        }
+        //        else if (accept == 2)
+        //        {
+        //            selectedQuest.Request = false;
+        //            AcceptedQuests.Remove(selectedQuest);
+        //            Console.WriteLine("\n 퀘스트를 거절했습니다.");
+        //        }
+        //    }
+            
+        //    Console.WriteLine("\n엔터를 눌러주세요.");
+        //    Console.ReadLine();
+        //}
+
+
+        //public void GuildMain(Player player)
+        //{
+        //    while (true)
+        //    {
+        //        Console.Clear();
+        //        Console.WriteLine("========= Quest =========\n");
+        //        Console.WriteLine("퀘스트를 선택할 수 있습니다.");
+        //        int count = 0;
+        //        foreach (var select in QuestList)
+        //        {
+        //            Console.Write($"{count + 1}. {select.Name}");
+        //            if (select.Isclear)
+        //            {
+        //                Console.WriteLine("\t(완료된 퀘스트)");
+        //            }
+        //            else if (AcceptedQuests.Contains(select))
+        //            {
+        //                Console.WriteLine("\t(수락한 퀘스트)");
+        //            }
+        //            else
+        //            {
+        //                Console.WriteLine();
+        //            }
+
+        //            count++;
+        //        }
+        //        Console.WriteLine("\n0. 나가기");
+        //        Console.Write("\n원하시는 퀘스트를 선택해주세요.\n>> ");
+
+        //        //퀘스트 수락, 거절
+        //        int selectQuest;
+        //        bool isVaildNum = int.TryParse(Console.ReadLine(), out selectQuest);
+        //        if (isVaildNum)
+        //        {
+        //            if (selectQuest == 0)
+        //            {
+        //                break;
+        //            }
+        //            else
+        //            {
+        //                SelectQuest(selectQuest);
+        //            }
+        //        }
+        //        else Console.WriteLine("Please press any key...");
+
+        //    }
+        //}
     }
 }

@@ -3,100 +3,100 @@
     "ID": "1000",
     "name": "첫 던전 클리어!",
     "desc": "던전클리어 1회.",
-    "rewardExp": "10",
+    "rewardExp": "100",
     "rewardGold": "500",
-    "requiredFloors": "2",
-    "requiredBuyItems": "1",
-    "requiredSellItems": "1"
+    "requiredFloors": "1",
+    "requiredBuyItems": "0",
+    "requiredSellItems": "0"
   },
   {
     "ID": "1001",
     "name": "첫 구매 이벤트!",
     "desc": "상점에서 아이템 구매하기 1회.",
-    "rewardExp": "10",
+    "rewardExp": "100",
     "rewardGold": "500",
-    "requiredFloors": "1",
-    "requiredBuyItems": "2",
-    "requiredSellItems": "1"
+    "requiredFloors": "0",
+    "requiredBuyItems": "1",
+    "requiredSellItems": "0"
   },
   {
     "ID": "1002",
     "name": "아이템을 판매해 보자!",
     "desc": "상점에서 아이템 판매하기 1회.",
-    "rewardExp": "10",
+    "rewardExp": "100",
     "rewardGold": "500",
-    "requiredFloors": "1",
-    "requiredBuyItems": "1",
-    "requiredSellItems": "2"
+    "requiredFloors": "0",
+    "requiredBuyItems": "0",
+    "requiredSellItems": "1"
   },
   {
     "ID": "1003",
     "name": "던전과 친해지기.",
     "desc": "던전 클리어 5회.",
-    "rewardExp": "30",
-    "rewardGold": "500",
-    "requiredFloors": "6",
-    "requiredBuyItems": "1",
-    "requiredSellItems": "1"
+    "rewardExp": "500",
+    "rewardGold": "2500",
+    "requiredFloors": "5",
+    "requiredBuyItems": "0",
+    "requiredSellItems": "0"
   },
   {
     "ID": "1004",
     "name": "던전은 익숙해!",
     "desc": "던전 클리어 10회.",
-    "rewardExp": "50",
-    "rewardGold": "500",
-    "requiredFloors": "11",
-    "requiredBuyItems": "1",
-    "requiredSellItems": "1"
+    "rewardExp": "1000",
+    "rewardGold": "5000",
+    "requiredFloors": "10",
+    "requiredBuyItems": "0",
+    "requiredSellItems": "0"
   },
   {
     "ID": "1005",
     "name": "10층 아래는 골목까지 전부 훤합니다.",
     "desc": "던전 10층 클리어.",
-    "rewardExp": "30",
-    "rewardGold": "500",
-    "requiredFloors": "1",
-    "requiredBuyItems": "1",
-    "requiredSellItems": "1"
+    "rewardExp": "2000",
+    "rewardGold": "10000",
+    "requiredFloors": "0",
+    "requiredBuyItems": "0",
+    "requiredSellItems": "0"
   },
   {
     "ID": "1006",
     "name": "빵과 복권.",
     "desc": "상점에서 아이템 구매 5회",
-    "rewardExp": "30",
-    "rewardGold": "500",
-    "requiredFloors": "1",
-    "requiredBuyItems": "6",
-    "requiredSellItems": "1"
+    "rewardExp": "500",
+    "rewardGold": "2500",
+    "requiredFloors": "0",
+    "requiredBuyItems": "5",
+    "requiredSellItems": "0"
   },
   {
     "ID": "1007",
     "name": "어이 탄삣삐 아이템을 사도록해",
     "desc": "상점에서 아이템 구매 10회.",
-    "rewardExp": "50",
-    "rewardGold": "500",
-    "requiredFloors": "1",
-    "requiredBuyItems": "11",
-    "requiredSellItems": "1"
+    "rewardExp": "1000",
+    "rewardGold": "5000",
+    "requiredFloors": "0",
+    "requiredBuyItems": "10",
+    "requiredSellItems": "0"
   },
   {
     "ID": "1008",
     "name": "chill층를 chill번 chill하게 chill리어하기",
     "desc": "던전 chill층 chill번 클리어.",
-    "rewardExp": "50",
-    "rewardGold": "500",
-    "requiredFloors": "1",
-    "requiredBuyItems": "1",
-    "requiredSellItems": "1"
+    "rewardExp": "777",
+    "rewardGold": "7777",
+    "requiredFloors": "0",
+    "requiredBuyItems": "0",
+    "requiredSellItems": "0"
   },
   {
     "ID": "1009",
     "name": "난 이 게임을! 해 봤어요! 이러다 정말 다 죽어요!",
     "desc": "던전 40층 클리어",
-    "rewardExp": "100",
-    "rewardGold": "500",
-    "requiredFloors": "1",
-    "requiredBuyItems": "1",
-    "requiredSellItems": "1"
+    "rewardExp": "99999",
+    "rewardGold": "99999",
+    "requiredFloors": "0",
+    "requiredBuyItems": "0",
+    "requiredSellItems": "0"
   }
 ]

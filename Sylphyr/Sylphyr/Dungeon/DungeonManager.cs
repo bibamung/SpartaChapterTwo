@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Sylphyr.Character;
 using Sylphyr.Scene;
@@ -47,6 +48,17 @@ namespace Sylphyr.Dungeon
 
             return m;
         }
+
+        public Monster GetMonster(string name)
+        {
+            Monster monster;
+            monster = monsterlist.SingleOrDefault(monster => monster.MonsterName == name)!;
+
+            Monster m = new Monster(monster.MonsterId, monster.MonsterName, monster.MaxHp, monster.CurrentHp, monster.Atk, monster.Def, monster.Dex, monster.CriticalChance, monster.CriticalDamage, monster.Speed, monster.DropGold, monster.DropExp);
+
+            return m;
+        }
+
         public DungeonManager()
         {
             // 1~10 스테이지 (초반 몬스터)
@@ -217,9 +229,54 @@ namespace Sylphyr.Dungeon
             {
                 Console.Clear();
                 Console.WriteLine("Sylphyr 던전에 오신것을 환영합니다.");
-                Console.WriteLine("스테이지는 1~50스테이지까지 제공되어 있습니다.");
+                Console.WriteLine($"현재 모험가님의 최고 도달 스테이지는 {player.BestStage} Stage 입니다.");
+                int count = 1;
+                for (int i = 0; i < 10; i++)
+                {
+                    for (int j = 0; j < 5; j++)
+                    {
+                        if (count <= player.BestStage)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            if (count <= 10)
+                            {
+                                Console.Write($"Stage {count++}\t\t");
+                            }
+                            else
+                            {
+                                Console.Write($"Stage {count++}\t");
+                            }
+                        }
+                        else if (count == player.BestStage + 1)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            if (count <= 10)
+                            {
+                                Console.Write($"Stage {count++}\t\t");
+                            }
+                            else
+                            {
+                                Console.Write($"Stage {count++}\t");
+                            }
+                        }
+                        else
+                        {
+                            Console.ResetColor();
+                            if (count <= 10)
+                            {
+                                Console.Write($"Stage {count++}\t\t");
+                            }
+                            else
+                            {
+                                Console.Write($"Stage {count++}\t");
+                            }
+                        }
+                    }
+                    Console.WriteLine();
+                    
+                }
                 Console.WriteLine("(※ 돌아가시려면 0을 누르십시오)");
-                Console.Write("원하시는 스테이지를 입력해주세요\n>>  ");
+                Console.Write("원하시는 스테이지를 입력해주세요(스테이지 번호만 입력하세요)\n>>  ");
                 int stage;
                 bool isValidNum = int.TryParse(Console.ReadLine(), out stage);
                 if (isValidNum)
@@ -379,46 +436,53 @@ namespace Sylphyr.Dungeon
         public void BasicAttackBattle(int stage, List<Monster> currentStageMonsters, Player player, int selectMonster, List<string> OrderByAttackChar)
         {
             Console.Clear();
-            int count = 0;
             scene.DisplayHealthBar(currentStageMonsters);
 
+            Monster monster;
 
-            for (int i = 0; i < currentStageMonsters.Count; i++)       //스테이지에 등장하는 몬스터의 배열을 한바퀴 돌림
+            for (int i = 0; i < OrderByAttackChar.Count; i++)       //스테이지에 등장하는 몬스터의 배열을 한바퀴 돌림
             {
-                
-                if (OrderByAttackChar[count] == player.Name)                       //이번에 공격할 캐릭터가 플레이어일 경우
+
+                if (OrderByAttackChar[i] == player.Name)
                 {
                     scene.BasicAttack(player, currentStageMonsters[selectMonster - 1]);
-                    Thread.Sleep(100);
+
                     if (currentStageMonsters[selectMonster - 1].CurrentHp <= 0)
                     {
                         TotalExp += currentStageMonsters[selectMonster - 1].DropExp;
                         TotalGold += currentStageMonsters[selectMonster - 1].DropGold;
+                        for (int j = 0; j < OrderByAttackChar.Count; j++)
+                        {
+                            if (OrderByAttackChar[j] == currentStageMonsters[selectMonster - 1].MonsterName)
+                            {
+                                OrderByAttackChar.RemoveAt(j);
+                            }
+                        }
                         currentStageMonsters.RemoveAt(selectMonster - 1);
-
+                        
                         if (currentStageMonsters.Count() <= 0)
                         {
                             scene.DisplayReward(player, TotalGold, TotalExp);
                             if (player.BestStage < stage) player.SetBestStage(stage);
                             clearCount[stage - 1]++;
-                            Console.WriteLine(clearCount[stage - 1]);
                             Console.WriteLine("press any key to continue...");
                             Console.ReadKey(true);
                             GameManager.Instance.main.Run();
                         }
 
                     }
-
-
                 }
-                //todo : 플레이어 피격
-                scene.MonsterAttack(currentStageMonsters[i], player);
-                Thread.Sleep(100);
-                if (player.CurrentHp <= 0)
+                else
                 {
-                    player.Dead();
+                    monster = GetMonster(OrderByAttackChar[i]);
+
+                    scene.MonsterAttack(monster, player);
+
+                    if (player.CurrentHp <= 0)
+                    {
+                        player.Dead();
+                    }
                 }
-                count++;
 
             }
 
@@ -426,6 +490,7 @@ namespace Sylphyr.Dungeon
 
         public void SkillAttackBattle(int stage, List<Monster> currentStageMonsters, Player player, List<string> OrderByAttackChar)
         {
+            Monster monster;
             while (true)
             {
                 Console.Clear();
@@ -455,10 +520,10 @@ namespace Sylphyr.Dungeon
                             #region 광역기 스킬 공격을 하였을때
                             if (player.learnedSkills[useSkill - 1].SkillType == (int)SkillType.WideArea)
                             {
-                                int count = 0;
-                                for (int i = 0; i < currentStageMonsters.Count; i++)       //스테이지에 등장하는 몬스터의 배열을 한바퀴 돌림
+
+                                for (int i = 0; i < OrderByAttackChar.Count; i++)       //스테이지에 등장하는 몬스터의 배열을 한바퀴 돌림
                                 {
-                                    if (OrderByAttackChar[count++] == player.Name)                       //이번에 공격할 캐릭터가 플레이어일 경우
+                                    if (OrderByAttackChar[i] == player.Name)                       //이번에 공격할 캐릭터가 플레이어일 경우
                                     {
                                         //모든 몬스터 데미지 출력
                                         for (int j = 0; j < currentStageMonsters.Count; j++)
@@ -468,8 +533,14 @@ namespace Sylphyr.Dungeon
                                             {
                                                 TotalExp += currentStageMonsters[j].DropExp;
                                                 TotalGold += currentStageMonsters[j].DropGold;
+                                                for (int n = 0; n < OrderByAttackChar.Count; n++)
+                                                {
+                                                    if (OrderByAttackChar[n] == currentStageMonsters[j].MonsterName)
+                                                    {
+                                                        OrderByAttackChar.RemoveAt(n);
+                                                    }
+                                                }
                                                 currentStageMonsters.RemoveAt(j);
-                                                j--;
                                             }
                                             if (currentStageMonsters.Count <= 0)
                                             {
@@ -482,13 +553,19 @@ namespace Sylphyr.Dungeon
                                             }
                                         }
                                     }
-
-                                    scene.MonsterAttack(currentStageMonsters[i], player);
-                                    if (player.CurrentHp <= 0)
+                                    else
                                     {
-                                        player.Dead();
-                                    }
+                                        monster = GetMonster(OrderByAttackChar[i]);
 
+                                        scene.MonsterAttack(monster, player);
+
+                                        if (player.CurrentHp <= 0)
+                                        {
+                                            player.Dead();
+                                        }
+
+                                    }
+                                    
                                 }
                                 break;
                             }
@@ -500,7 +577,6 @@ namespace Sylphyr.Dungeon
                             #region 단일 타겟팅 스킬을 사용한 경우
                             else if (player.learnedSkills[useSkill - 1].SkillType == (int)SkillType.OneTarget)
                             {
-                                int count = 0;
                                 while (true)
                                 {
                                     Console.Clear();
@@ -513,16 +589,23 @@ namespace Sylphyr.Dungeon
                                     {
                                         if (selectMonster > 0 && selectMonster <= stageMonsters.Count)      //선택한 몬스터의 번호가 0보다 크고 스테이지 내 몬스터의 수보다 작을경우 실행
                                         {
-                                            for (int i = 0; i < currentStageMonsters.Count; i++)       //스테이지에 등장하는 몬스터의 배열을 한바퀴 돌림
+                                            for (int i = 0; i < OrderByAttackChar.Count; i++)       //스테이지에 등장하는 몬스터의 배열을 한바퀴 돌림
                                             {
 
-                                                if (OrderByAttackChar[count] == player.Name)                       //이번에 공격할 캐릭터가 플레이어일 경우
+                                                if (OrderByAttackChar[i] == player.Name)                       //이번에 공격할 캐릭터가 플레이어일 경우
                                                 {
                                                     scene.SkillAttack(player, currentStageMonsters[selectMonster - 1], useSkill);
                                                     if (currentStageMonsters[selectMonster - 1].CurrentHp <= 0)
                                                     {
                                                         TotalExp += currentStageMonsters[selectMonster - 1].DropExp;
                                                         TotalGold += currentStageMonsters[selectMonster - 1].DropGold;
+                                                        for (int j = 0; j < OrderByAttackChar.Count; j++)
+                                                        {
+                                                            if (OrderByAttackChar[j] == currentStageMonsters[selectMonster - 1].MonsterName)
+                                                            {
+                                                                OrderByAttackChar.RemoveAt(j);
+                                                            }
+                                                        }
                                                         currentStageMonsters.RemoveAt(selectMonster - 1);
                                                     }
                                                     if (currentStageMonsters.Count <= 0)
@@ -535,12 +618,17 @@ namespace Sylphyr.Dungeon
                                                         GameManager.Instance.main.Run();
                                                     }
                                                 }
-                                                scene.MonsterAttack(currentStageMonsters[i], player);
-                                                if (player.CurrentHp <= 0)
+                                                else
                                                 {
-                                                    player.Dead();
+                                                    monster = GetMonster(OrderByAttackChar[i]);
+
+                                                    scene.MonsterAttack(monster, player);
+
+                                                    if (player.CurrentHp <= 0)
+                                                    {
+                                                        player.Dead();
+                                                    }
                                                 }
-                                                count++;
                                             }
                                             break;
 
@@ -563,7 +651,6 @@ namespace Sylphyr.Dungeon
                             #endregion
                             else
                             {
-                                int count = 0;
                                 while (true)
                                 {
                                     Console.Clear();
@@ -576,10 +663,10 @@ namespace Sylphyr.Dungeon
                                     {
                                         if (selectMonster > 0 && selectMonster <= stageMonsters.Count)      //선택한 몬스터의 번호가 0보다 크고 스테이지 내 몬스터의 수보다 작을경우 실행
                                         {
-                                            for (int i = 0; i < currentStageMonsters.Count; i++)       //스테이지에 등장하는 몬스터의 배열을 한바퀴 돌림
+                                            for (int i = 0; i < OrderByAttackChar.Count; i++)       //스테이지에 등장하는 몬스터의 배열을 한바퀴 돌림
                                             {
 
-                                                if (OrderByAttackChar[count++] == player.Name)                       //이번에 공격할 캐릭터가 플레이어일 경우
+                                                if (OrderByAttackChar[i] == player.Name)                       //이번에 공격할 캐릭터가 플레이어일 경우
                                                 {
                                                     scene.DefIgnoreSkillAttack(player, currentStageMonsters[selectMonster - 1], useSkill);
 
@@ -587,6 +674,13 @@ namespace Sylphyr.Dungeon
                                                     {
                                                         TotalExp += currentStageMonsters[selectMonster - 1].DropExp;
                                                         TotalGold += currentStageMonsters[selectMonster - 1].DropGold;
+                                                        for (int j = 0; j < OrderByAttackChar.Count; j++)
+                                                        {
+                                                            if (OrderByAttackChar[j] == currentStageMonsters[selectMonster - 1].MonsterName)
+                                                            {
+                                                                OrderByAttackChar.RemoveAt(j);
+                                                            }
+                                                        }
                                                         currentStageMonsters.RemoveAt(selectMonster - 1);
                                                     }
                                                     if (currentStageMonsters.Count <= 0)
@@ -600,12 +694,17 @@ namespace Sylphyr.Dungeon
                                                     }
 
                                                 }
-                                                scene.MonsterAttack(currentStageMonsters[i], player);
-                                                if (player.CurrentHp <= 0)
+                                                else
                                                 {
-                                                    player.Dead();
-                                                }
+                                                    monster = GetMonster(OrderByAttackChar[i]);
 
+                                                    scene.MonsterAttack(monster, player);
+
+                                                    if (player.CurrentHp <= 0)
+                                                    {
+                                                        player.Dead();
+                                                    }
+                                                }
 
                                             }
                                             break;

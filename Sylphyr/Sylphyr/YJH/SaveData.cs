@@ -37,9 +37,11 @@ public class SaveData
 
     public List<int> purChaseEquipmentItem { get; set; } // 구매한 방어구 정보
 
+    public List<int> purChasePotion { get; set; } // 구매한 방어구 정보
+
     public List<int> weaponEquip { get; set; } // 장비중인 무기
 
-    public List<int> itemsEquip { get; set; } // 장비중인 방어구
+    public List<int> itemsEquip { get; set; } // 장비중인 방어구    
 
     // 기본 저장 데이터 초기화
     public static SaveData CreateDefault()
@@ -62,10 +64,15 @@ public class SaveData
             Items = new List<ItemData>(),
             Weapons = new List<WeaponData>(),
             Potions = new List<PotionData>(),
-            purChaseweaponItem = new List<int>(),
+
+
+
+            /*purChaseweaponItem = new List<int>(),
             purChaseEquipmentItem = new List<int>(),
+            purChasePotion = new List<int>(),
+
             weaponEquip = new List<int>(),
-            itemsEquip = new List<int>()
+            itemsEquip = new List<int>()*/
         };
     }
 
@@ -95,15 +102,28 @@ public class SaveData
             //$"[Enhanced Stats] ATK: {EnhancedStat.Attack}, DEX: {EnhancedStat.Dex}, DEF: {EnhancedStat.Def}, LUK: {EnhancedStat.Luk}");
     }
 
-    public void SavepurchaseItem()
+    /*public void SavepurchaseItem()
     {
         purChaseweaponItem = GameManager.Instance.shop.ToPurChaseWeaponItem();
         purChaseEquipmentItem = GameManager.Instance.shop.ToPurChaseEquipmentItem();
+        purChasePotion = GameManager.Instance.shop.ToPurChasePotionItem();
+    }*/
+
+    public void SaveInvenItem()
+    {
+        Items = GameManager.Instance.inventory.ToItemData();
+        Weapons = GameManager.Instance.inventory.ToWeaponData();
+        Potions = GameManager.Instance.inventory.ToPotionData();
     }
 
     public void SaveEquipItem()
     {
         weaponEquip = GameManager.Instance.inventory.ToEquipWeapon();
+        itemsEquip = GameManager.Instance.inventory.ToEquipItem();
+    }
+
+    public void SavePotion()
+    {
         itemsEquip = GameManager.Instance.inventory.ToEquipItem();
     }
 }
@@ -166,8 +186,8 @@ public class WeaponData
     [JsonProperty] public string Slot { get; set;}
     [JsonProperty] public int Price { get; set;}
     [JsonProperty] public string Desc { get; set;}
-    [JsonProperty] public bool wIsEquip { get; set;}
-    [JsonProperty] public bool wPurChase { get; set;}
+    [JsonProperty] public bool WIsEquip { get; set;}
+    [JsonProperty] public bool WPurChase { get; set;}
 
     public WeaponData(int id, string name, int stat, int value, string slot, int price, string desc, bool wisEquip,
         bool wpurChase)
@@ -179,8 +199,8 @@ public class WeaponData
         Slot = slot;
         Price = price;
         Desc = desc;
-        wIsEquip = wisEquip;
-        wPurChase = wpurChase;
+        WIsEquip = wisEquip;
+        WPurChase = wpurChase;
     }
 }
 
@@ -192,8 +212,11 @@ public class PotionData
     [JsonProperty] public int Value { get; set;}
     [JsonProperty] public int Price { get; set;}
     [JsonProperty] public string Desc { get; set;}
+    [JsonProperty] public bool IsBuy { get; set; }
+    [JsonProperty] public bool IsUse { get; set; }
 
-    public PotionData(int id, string name, int stat, int value, int price, string desc)
+
+    public PotionData(int id, string name, int stat, int value, int price, string desc, bool isbuy, bool isuse)
     {
         Id = id;
         Name = name;
@@ -201,5 +224,7 @@ public class PotionData
         Value = value;
         Price = price;
         Desc = desc;
+        IsBuy = isbuy;
+        IsUse = isuse;
     }
 }

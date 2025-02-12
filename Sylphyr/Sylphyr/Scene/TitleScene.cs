@@ -102,12 +102,13 @@ public class TitleScene : SingleTon<TitleScene>
         }
         Console.WriteLine(LoadManager.Instance.gameDatas);
         Console.WriteLine(LoadManager.Instance.gameDatas.CharacterClass);
-
+        
+        GameManager.Instance.SetMain();
         GameManager.Instance.SetPlayer("", CharacterClass.Paladin);
 
         GameManager.Instance.player.InitializePlayer(LoadManager.Instance.gameDatas);
-
-        GameManager.Instance.Init();
+        GameManager.Instance.inventory.InitializeInventory(LoadManager.Instance.gameDatas);
+        
         GameManager.Instance.main.Run();    
     }
 

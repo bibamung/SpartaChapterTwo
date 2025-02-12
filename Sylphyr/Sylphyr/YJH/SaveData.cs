@@ -14,12 +14,21 @@ public class SaveData
     public float CurrentMp { get; set; } // 현재 MP
     public int Exp { get; set; } // 경험치
     public int Gold { get; set; } // 소지금
-    public CharacterStatData BaseStat { get; set; } // 기본 스탯
-    public CharacterStatData BaseStatattack {get;set;}
+
+
+    public float Atk { get; set; }
+    public float Dex { get; set; }
+
+    public float Def { get; set; }
+    public float Luk { get; set; }
+
+
+    public static CharacterStatData BaseStat = new CharacterStatData(10, 10, 10, 10); // 기본 스탯
+    /*public CharacterStatData BaseStatattack {get;set;}
     public CharacterStatData BaseStatdex {get;set;}
     public CharacterStatData BaseStatdef{get;set;}
-    public CharacterStatData BaseStatluk{get;set;}
-    public CharacterStatData EnhancedStat { get; set; } // 강화된 스탯
+    public CharacterStatData BaseStatluk{get;set;}*/
+    //public CharacterStatData EnhancedStat { get; set; } // 강화된 스탯
     public List<ItemData> Items { get; set; } // 인벤토리에 저장된 방어구
     public List<WeaponData> Weapons { get; set; } // 저장된 무기
     public List<PotionData> Potions { get; set; } // 저장된 포션
@@ -44,12 +53,12 @@ public class SaveData
             CurrentMp = 50.0f,
             Exp = 0,
             Gold = 0,
-            //BaseStat = new CharacterStatData (10, 10, 10, 10),
-            BaseStatattack = new CharacterStatData(),
-            BaseStatdex = new CharacterStatData(),
-            BaseStatdef = new CharacterStatData(),
-            BaseStatluk = new CharacterStatData(),
-            //EnhancedStat = new CharacterStatData (10, 10, 10, 10),
+
+            Atk = BaseStat.Attack,
+            Dex = BaseStat.Dex,
+            Def = BaseStat.Def,
+            Luk = BaseStat.Luk,
+
             Items = new List<ItemData>(),
             Weapons = new List<WeaponData>(),
             Potions = new List<PotionData>(),
@@ -82,8 +91,8 @@ public class SaveData
         Console.WriteLine($"[HP: {CurrentHp}, MP: {CurrentMp}, Exp: {Exp}, Gold: {Gold}]");
         Console.WriteLine(
             $"[Base Stats] ATK: {BaseStat.Attack}, DEX: {BaseStat.Dex}, DEF: {BaseStat.Def}, LUK: {BaseStat.Luk}");
-        Console.WriteLine(
-            $"[Enhanced Stats] ATK: {EnhancedStat.Attack}, DEX: {EnhancedStat.Dex}, DEF: {EnhancedStat.Def}, LUK: {EnhancedStat.Luk}");
+        //Console.WriteLine(
+            //$"[Enhanced Stats] ATK: {EnhancedStat.Attack}, DEX: {EnhancedStat.Dex}, DEF: {EnhancedStat.Def}, LUK: {EnhancedStat.Luk}");
     }
 
     public void SavepurchaseItem()
@@ -102,7 +111,7 @@ public class SaveData
 // CharacterStat 데이터를 변환하기 위한 데이터 구조
 public class CharacterStatData
 {
-    [JsonProperty] public float Attack { get; set; }
+    [JsonProperty]public float Attack { get; set; }
     [JsonProperty]public float Dex{ get; set; }
     [JsonProperty]public float Def{ get; set; }
     [JsonProperty]public float Luk{ get; set; }
@@ -114,10 +123,10 @@ public class CharacterStatData
         Def = def;
         Luk = luk;   
     }
-
-    public CharacterStatData()
+    
+    public float GetAtk()
     {
-        
+        return Attack;
     }
 }
 

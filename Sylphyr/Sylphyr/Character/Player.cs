@@ -34,7 +34,7 @@ public class Player
 
     private CharacterStat totalStat = new CharacterStat();
     public CharacterStat TotalStat
-    {
+    {   
         get
         {
             totalStat.MaxHp = BaseStat.MaxHp + EnhancedStat.MaxHp;
@@ -303,8 +303,12 @@ public class Player
             CurrentMp = CurrentMp,
             Exp = Exp,
             Gold = Gold,
-            BaseStat = new YJH.CharacterStatData(BaseStat.Atk, BaseStat.Dex, BaseStat.Def, BaseStat.Luk),
-            EnhancedStat = new YJH.CharacterStatData (EnhancedStat.Atk, EnhancedStat.Dex, EnhancedStat.Def, EnhancedStat.Luk),
+            Atk = BaseStat.Atk,
+            Dex = BaseStat.Dex,
+            Def = BaseStat.Def,
+            Luk = BaseStat.Luk,
+            //BaseStat = new CharacterStatData(BaseStat.Atk, BaseStat.Dex, BaseStat.Def, BaseStat.Luk),
+            //EnhancedStat = new YJH.CharacterStatData (EnhancedStat.Atk, EnhancedStat.Dex, EnhancedStat.Def, EnhancedStat.Luk),
         };
     }
 }

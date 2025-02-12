@@ -40,7 +40,7 @@ public class LoadManager : SingleTon<LoadManager>
             Console.WriteLine("JSON 파일 내용:\n" + jsonString);
 
             // JSON 역직렬화 시도
-            gameDatas = JsonConvert.DeserializeObject<List<GameData>>(jsonString);
+            //gameDatas = JsonConvert.DeserializeObject<List<GameData>>(jsonString);
             gameDatas = JsonConvert.DeserializeObject<List<GameData>>(File.ReadAllText(dataPath));
 
             // 로드 성공 메시지

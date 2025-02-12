@@ -1,23 +1,15 @@
 {
-  "Name": "",
+  "Name": "dsaf",
   "CharacterClass": "Warrior",
   "Level": 1,
   "CurrentHp": 200,
   "CurrentMp": 150,
   "Exp": 0,
   "Gold": 30000,
-  "BaseStat": {
-    "Attack": 45,
-    "Dex": 7,
-    "Def": 31,
-    "Luk": 5
-  },
-  "EnhancedStat": {
-    "Attack": 0,
-    "Dex": 0,
-    "Def": 0,
-    "Luk": 0
-  },
+  "Atk": 45,
+  "Dex": 7,
+  "Def": 31,
+  "Luk": 5,
   "Items": [],
   "Weapons": [],
   "Potions": [],

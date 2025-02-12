@@ -4,7 +4,7 @@ namespace Sylphyr.Utils;
 
 public static class Util
 {
-    public static int GetInput(int min, int max)
+    public static int GetInput(int min, int max, int HiddenInput = -1)
     {
         int input = 0;
         while (true)
@@ -12,6 +12,11 @@ public static class Util
             Console.Write(">> ");
             if (int.TryParse(Console.ReadLine(), out input))
             {
+                if (HiddenInput != -1 && input == HiddenInput)
+                {
+                    return input;
+                }
+
                 if (input >= min && input <= max)
                 {
                     return input;

@@ -3,11 +3,11 @@
     "ID": "1000",
     "name": "첫 던전 클리어!",
     "desc": "던전클리어 1회.",
-    "rewardExp": "10",
-    "rewardGold": "500",
-    "requiredFloors": "2",
-    "requiredBuyItems": "1",
-    "requiredSellItems": "1"
+    "rewardExp": "99999",
+    "rewardGold": "99999",
+    "requiredFloors": "1",
+    "requiredBuyItems": "0",
+    "requiredSellItems": "0"
   },
   {
     "ID": "1001",
@@ -15,9 +15,9 @@
     "desc": "상점에서 아이템 구매하기 1회.",
     "rewardExp": "10",
     "rewardGold": "500",
-    "requiredFloors": "1",
-    "requiredBuyItems": "2",
-    "requiredSellItems": "1"
+    "requiredFloors": "0",
+    "requiredBuyItems": "1",
+    "requiredSellItems": "0"
   },
   {
     "ID": "1002",
@@ -25,9 +25,9 @@
     "desc": "상점에서 아이템 판매하기 1회.",
     "rewardExp": "10",
     "rewardGold": "500",
-    "requiredFloors": "1",
-    "requiredBuyItems": "1",
-    "requiredSellItems": "2"
+    "requiredFloors": "0",
+    "requiredBuyItems": "0",
+    "requiredSellItems": "1"
   },
   {
     "ID": "1003",
@@ -35,9 +35,9 @@
     "desc": "던전 클리어 5회.",
     "rewardExp": "30",
     "rewardGold": "500",
-    "requiredFloors": "6",
-    "requiredBuyItems": "1",
-    "requiredSellItems": "1"
+    "requiredFloors": "5",
+    "requiredBuyItems": "0",
+    "requiredSellItems": "0"
   },
   {
     "ID": "1004",
@@ -45,9 +45,9 @@
     "desc": "던전 클리어 10회.",
     "rewardExp": "50",
     "rewardGold": "500",
-    "requiredFloors": "11",
-    "requiredBuyItems": "1",
-    "requiredSellItems": "1"
+    "requiredFloors": "10",
+    "requiredBuyItems": "0",
+    "requiredSellItems": "0"
   },
   {
     "ID": "1005",
@@ -55,9 +55,9 @@
     "desc": "던전 10층 클리어.",
     "rewardExp": "30",
     "rewardGold": "500",
-    "requiredFloors": "1",
-    "requiredBuyItems": "1",
-    "requiredSellItems": "1"
+    "requiredFloors": "0",
+    "requiredBuyItems": "0",
+    "requiredSellItems": "0"
   },
   {
     "ID": "1006",
@@ -65,9 +65,9 @@
     "desc": "상점에서 아이템 구매 5회",
     "rewardExp": "30",
     "rewardGold": "500",
-    "requiredFloors": "1",
-    "requiredBuyItems": "6",
-    "requiredSellItems": "1"
+    "requiredFloors": "0",
+    "requiredBuyItems": "5",
+    "requiredSellItems": "0"
   },
   {
     "ID": "1007",
@@ -75,9 +75,9 @@
     "desc": "상점에서 아이템 구매 10회.",
     "rewardExp": "50",
     "rewardGold": "500",
-    "requiredFloors": "1",
-    "requiredBuyItems": "11",
-    "requiredSellItems": "1"
+    "requiredFloors": "0",
+    "requiredBuyItems": "10",
+    "requiredSellItems": "0"
   },
   {
     "ID": "1008",
@@ -85,9 +85,9 @@
     "desc": "던전 chill층 chill번 클리어.",
     "rewardExp": "50",
     "rewardGold": "500",
-    "requiredFloors": "1",
-    "requiredBuyItems": "1",
-    "requiredSellItems": "1"
+    "requiredFloors": "0",
+    "requiredBuyItems": "0",
+    "requiredSellItems": "0"
   },
   {
     "ID": "1009",
@@ -95,8 +95,8 @@
     "desc": "던전 40층 클리어",
     "rewardExp": "100",
     "rewardGold": "500",
-    "requiredFloors": "1",
-    "requiredBuyItems": "1",
-    "requiredSellItems": "1"
+    "requiredFloors": "0",
+    "requiredBuyItems": "0",
+    "requiredSellItems": "0"
   }
 ]

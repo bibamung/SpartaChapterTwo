@@ -89,8 +89,8 @@ public class Player
         statusSb.Clear();
         statusSb.AppendLine($" Lv.{Level}");
         statusSb.AppendLine($" {Name} ( {Class.GetClassName()} )");
-        statusSb.AppendLine($" HP: {CurrentHp}/{TotalStat.MaxHp}");
-        statusSb.AppendLine($" MP: {CurrentMp}/{TotalStat.MaxMp}");
+        statusSb.AppendLine($" HP: {CurrentHp:N2}/{TotalStat.MaxHp:N2}");
+        statusSb.AppendLine($" MP: {CurrentMp:N2}/{TotalStat.MaxMp:N2}");
         statusSb.AppendLine($" Exp: {Exp}/{LevelData.GetExp(Level)}");
         statusSb.AppendLine($" 골드: {Gold} G");
         statusSb.AppendLine();
@@ -100,8 +100,8 @@ public class Player
         statusSb.AppendLine($" 민첩: {TotalStat.Dex}");
         statusSb.AppendLine($" 운: {TotalStat.Luk}");
         statusSb.AppendLine();
-        statusSb.AppendLine($" 치명타 확률: {TotalStat.CriticalChance * 100}%");
-        statusSb.AppendLine($" 치명타 대미지: {TotalStat.CriticalDamage * 10}%");
+        statusSb.AppendLine($" 치명타 확률: {TotalStat.CriticalChance * 100:N1}%");
+        statusSb.AppendLine($" 치명타 대미지: {TotalStat.CriticalDamage * 10:N1}%");
         statusSb.AppendLine();
         statusSb.AppendLine("[ 보유 스킬 ]");
         foreach (var skill in learnedSkills)
@@ -156,7 +156,9 @@ public class Player
         int levelUpExp = LevelData.GetExp(Level);
         if (Exp >= levelUpExp)
         {
-            LevelUp(Exp - levelUpExp);
+            int remainExp = Exp - levelUpExp;
+            Exp = 0;
+            LevelUp(remainExp);
         }
     }
 

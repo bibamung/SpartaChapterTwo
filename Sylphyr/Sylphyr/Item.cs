@@ -462,7 +462,7 @@ namespace Sylphyr
                             else if (selectedWeapon.wpurChase) ispurChase = true;
                             else if (player.Gold < selectedWeapon.Price) needGold = true;
                         }
-
+                        GameManager.Instance.quest.CurrentBuyItems++;
                         break;
                     case 4:
                     case 5:
@@ -478,7 +478,7 @@ namespace Sylphyr
                             else if (selectedItem.purChase) ispurChase = true;
                             else if (player.Gold < selectedItem.Price) needGold = true;
                         }
-
+                        GameManager.Instance.quest.CurrentBuyItems++;
                         break;
                     case 7:
                     case 8:
@@ -494,7 +494,7 @@ namespace Sylphyr
                             else if (selectedPotion.isBuy) ispurChase = true;
                             else if (player.Gold < selectedPotion.Price) needGold = true;
                         }
-
+                        GameManager.Instance.quest.CurrentBuyItems++;
                         break;
                     default:
                         isfail = true;
@@ -767,8 +767,7 @@ namespace Sylphyr
                             inventory.RemovePotion(selectedPotion);
                             selectedPotion.isBuy = false;
                         }
-                        else isEquipMesege = true;
-
+                        GameManager.Instance.quest.CurrentSellItems++;
                         break;
                 }
             }

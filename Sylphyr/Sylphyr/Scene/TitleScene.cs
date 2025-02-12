@@ -29,7 +29,6 @@ public class TitleScene : SingleTon<TitleScene>
         Sb.AppendLine("  \t\t1. 게임 시작");
         Sb.AppendLine("  \t\t2. 이어 하기");
         Sb.AppendLine("  \t\t3. 게임 종료");
-        Sb.AppendLine("  \t\t4. 디버그");
         Sb.AppendLine();
         
         Console.Clear();
@@ -45,15 +44,7 @@ public class TitleScene : SingleTon<TitleScene>
                 break;
             case 3: ExitGame();
                 break;
-            case 4: Debug();
-                break;
         }
-    }
-
-    private void Debug()
-    {
-        DebugScene.Instance.Init();
-        DebugScene.Instance.Run();
     }
 
     private void StartNewGame()

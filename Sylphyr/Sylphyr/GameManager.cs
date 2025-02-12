@@ -14,6 +14,7 @@ namespace Sylphyr
         public Player player { get; private set; }
         public Item shop { get; private set; }
         public Inventory inventory { get; private set; }
+        public Guild.Guild guild { get; private set; }
 
         public void Init()
         {
@@ -21,6 +22,7 @@ namespace Sylphyr
             main = new MainScene();
             shop = new Item(10, "qwr", 1, 1, "2", 10, "12", false, false);
             inventory = new Inventory();
+            guild = new Guild.Guild();
         }
         
         public void SetPlayer(string name, CharacterClass characterClass)

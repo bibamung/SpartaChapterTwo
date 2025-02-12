@@ -14,7 +14,7 @@ namespace Guild
         //퀘스트이름 내용 보상 1수락 2거절
         public int ID;
         public string Name;
-        public string Description;
+        public string Desc;
         public int RewardExp;
         public int RewardGold;
         public int RequiredFloors;//목표
@@ -28,12 +28,12 @@ namespace Guild
         public bool IsBuyItemsCompleted => CurrentBuyItems >= RequiredBuyItems;
         public bool IsSellItemsCompleted => CurrentSellItems >= RequiredSellItems;
 
-        public Quest(int id, string name, string description, int rewardExp, int rewardGold, int requiredFloors, int requiredBuyItems,
+        public Quest(int id, string name, string desc, int rewardExp, int rewardGold, int requiredFloors, int requiredBuyItems,
                      int requiredSellItems)
         {
             ID = id;
             Name = name;
-            Description = description;
+            Desc = desc;
             RewardExp = rewardExp;
             RewardGold = rewardGold;
             RequiredFloors = requiredFloors;
@@ -49,7 +49,8 @@ namespace Guild
             Console.Clear();
             Console.WriteLine("===== Quest!! =====\n");
             Console.WriteLine(Name);
-            Console.WriteLine(Description);
+            Console.WriteLine();
+            Console.WriteLine(Desc);
             Console.WriteLine("\n- 보상 -");
             Console.WriteLine($"  Gold: {RewardGold}");
             Console.WriteLine($"  Exp: {RewardExp}\n");
@@ -63,43 +64,44 @@ namespace Guild
         List<Quest> CompletedQuests = new List<Quest>();
         public Quest ActiveQuest { get; private set; }
 
+
         public void CompleteQuest()
         {
-            if (ActiveQuest == null) return;
-
             if (ActiveQuest.IsFloorsCompleted || ActiveQuest.IsBuyItemsCompleted || ActiveQuest.IsSellItemsCompleted)
             {
-                Console.Clear();
-                Console.WriteLine($" {ActiveQuest.Name} 완료!");
-                Console.WriteLine($" {ActiveQuest.RewardGold} Gold & {ActiveQuest.RewardExp} Exp 획득!\n");
+                Console.WriteLine($"{ActiveQuest.Name} 완료!");
+                Console.WriteLine($"{ActiveQuest.RewardGold} 골드 & {ActiveQuest.RewardExp} 경험치를 획득!\n");
 
                 GameManager.Instance.player.AddGold(ActiveQuest.RewardGold);
                 GameManager.Instance.player.AddExp(ActiveQuest.RewardExp);
-
                 CompletedQuests.Add(ActiveQuest);
-                AcceptedQuests.Remove(ActiveQuest);
                 ActiveQuest = null;
             }
-
             else
             {
-                Console.WriteLine("퀘스트 완료 조건을 충족하지 않았습니다.");
+                Console.WriteLine("진행 중인 퀘스트의 조건이 충족되지 않았습니다.");
             }
         }
+
+
+
 
         public void ProgressQuest()
         {
             if (ActiveQuest == null)
             {
-                Console.WriteLine("진행중인 퀘스트가 없습니다.");
+                Console.WriteLine("\n진행중인 퀘스트가 없습니다.");
             }
 
             else if (ActiveQuest.IsFloorsCompleted || ActiveQuest.IsBuyItemsCompleted || ActiveQuest.IsSellItemsCompleted)
             {
-                Console.WriteLine("완료할 퀘스트가 있습니다.");
+                Console.WriteLine("\n완료할 퀘스트가 있습니다.");
             }
-            else
+            else 
+            { 
+                Console.WriteLine("\n진행중인 퀘스트가 있습니다.");
                 return;
+            }
         }
 
         public void Start()
@@ -110,8 +112,8 @@ namespace Guild
         public void ShowFloorsProgress()
         {
             if (ActiveQuest == null) return;
-            Console.WriteLine($"현재 클리어한 횟수 {ActiveQuest.CurrentFloors} / {ActiveQuest.RequiredFloors}");
-            if (ActiveQuest.CurrentFloors > ActiveQuest.RequiredFloors)
+            Console.WriteLine($"현재 클리어한 횟수 {ActiveQuest.CurrentFloors} / {ActiveQuest.RequiredFloors - 1}");
+            if (ActiveQuest.CurrentFloors >= ActiveQuest.RequiredFloors - 1)
             {
                 ActiveQuest.CurrentFloors = ActiveQuest.RequiredFloors;
             }
@@ -119,8 +121,8 @@ namespace Guild
         public void ShowBuyItemsProgress()
         {
             if (ActiveQuest == null) return;
-            Console.WriteLine($"현재 구매한 횟수 {ActiveQuest.CurrentBuyItems} / {ActiveQuest.RequiredBuyItems}");
-            if (ActiveQuest.CurrentBuyItems > ActiveQuest.RequiredBuyItems)
+            Console.WriteLine($"현재 구매한 횟수 {ActiveQuest.CurrentBuyItems} / {ActiveQuest.RequiredBuyItems - 1}");
+            if (ActiveQuest.CurrentBuyItems >= ActiveQuest.RequiredBuyItems - 1)
             {
                 ActiveQuest.CurrentBuyItems = ActiveQuest.RequiredBuyItems;
             }
@@ -128,8 +130,8 @@ namespace Guild
         public void ShowSellItemsProgress()
         {
             if (ActiveQuest == null) return;
-            Console.WriteLine($"현재 판매한 횟수 {ActiveQuest.CurrentSellItems} / {ActiveQuest.RequiredSellItems}");
-            if (ActiveQuest.CurrentSellItems > ActiveQuest.RequiredSellItems)
+            Console.WriteLine($"현재 판매한 횟수 {ActiveQuest.CurrentSellItems} / {ActiveQuest.RequiredSellItems - 1}");
+            if (ActiveQuest.CurrentSellItems >= ActiveQuest.RequiredSellItems - 1)
             {
                 ActiveQuest.CurrentSellItems = ActiveQuest.RequiredSellItems;
             }
@@ -154,13 +156,15 @@ namespace Guild
                 for (int i = 0; i < questList.Count; i++)
                 {
                     Console.WriteLine($"{i + 1}. {questList[i].Name}");
-                    if (AcceptedQuests.Contains(Quests[i]))
+                    if (i < Quests.Count && AcceptedQuests.Contains(Quests[i]))
                         Console.Write(" (수락 완료)");
-                    if (CompletedQuests.Contains(Quests[i]))
+                    if (i < Quests.Count && CompletedQuests.Contains(Quests[i]))
                         Console.Write(" (퀘스트 완료)");
+                    else Console.Write(" (미수락)");
                 }
 
                 ProgressQuest();
+
                 Console.WriteLine("\n0. 나가기");
                 Console.Write("\n원하시는 퀘스트를 선택해주세요.\n>> ");
 
@@ -171,7 +175,7 @@ namespace Guild
                     continue;
                 }
 
-                if (choice == 0) break;
+                if (choice == 0) return;
 
                 Quest selectedQuest = questList[choice - 1];
 
@@ -186,6 +190,7 @@ namespace Guild
 
                 Console.WriteLine("1. 수락");
                 Console.WriteLine("2. 거절");
+
                 string action = Console.ReadLine();
 
                 if (action == "1")
@@ -247,7 +252,6 @@ namespace Guild
                     else if (questAction == "4")
                     {
                         CompleteQuest();
-                        choice = 0;
                     }
                     else if (questAction == "0")
                     {

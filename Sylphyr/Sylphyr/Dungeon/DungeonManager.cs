@@ -229,9 +229,31 @@ namespace Sylphyr.Dungeon
             {
                 Console.Clear();
                 Console.WriteLine("Sylphyr 던전에 오신것을 환영합니다.");
-                Console.WriteLine("스테이지는 1~50스테이지까지 제공되어 있습니다.");
+                Console.WriteLine($"현재 모험가님의 최고 도달 스테이지는 {player.BestStage}Stage 입니다.");
+                for (int i = 0; i < 10; i++)
+                {
+                    for (int j = 0; j < 10; j++)
+                    {
+                        if (j < player.BestStage)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.Write($"Stage {j}\t");
+                        }
+                        else if (j == player.BestStage)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.Write($"Stage {j}\t");
+                        }
+                        else
+                        {
+                            Console.ResetColor();
+                            Console.Write($"Stage {j}\t");
+                        }
+                    }
+                    Console.WriteLine();
+                }
                 Console.WriteLine("(※ 돌아가시려면 0을 누르십시오)");
-                Console.Write("원하시는 스테이지를 입력해주세요\n>>  ");
+                Console.Write("원하시는 스테이지를 입력해주세요(스테이지 번호만 입력하세요)\n>>  ");
                 int stage;
                 bool isValidNum = int.TryParse(Console.ReadLine(), out stage);
                 if (isValidNum)

@@ -248,22 +248,19 @@ namespace Sylphyr.Dungeon
         {
             Random rand = new Random(DateTime.Now.Millisecond);
             bool isCritical = false;
-            float evasionRate = (monster.Dex / (monster.Dex + 50.0f));
+            float evasionRate = (monster.Dex / (monster.Dex + 70.0f));
             float monsterDef = (monster.Def / (monster.Def + 50.0f)) * 100.0f;
             if (rand.NextSingle() > evasionRate)
             {
                 if (rand.NextSingle() < player.TotalStat.CriticalChance)
                 {
+                    isCritical = true;
                     float finalDamage = player.TotalStat.Atk * player.TotalStat.CriticalDamage - monsterDef;
-                    
-
                     DisplayHit(player, monster, isCritical, finalDamage);
                 }
                 else
                 {
                     float finalDamage = player.TotalStat.Atk - monsterDef;
-
-                    
                     DisplayHit(player, monster, isCritical, finalDamage);
                 }
             }
@@ -278,12 +275,13 @@ namespace Sylphyr.Dungeon
         {
             bool isCritical = false;
             Random rand = new Random(DateTime.Now.Millisecond);
-            float evasionRate = (monster.Dex / (monster.Dex + 50.0f));
+            float evasionRate = (monster.Dex / (monster.Dex + 70.0f));
             float monsterDef = (monster.Def / (monster.Def + 50.0f)) * 100.0f;
             if (rand.NextSingle() > evasionRate)
             {
                 if (rand.NextSingle() < player.TotalStat.CriticalChance)
                 {
+                    isCritical = true;
                     float finalDamage = player.TotalStat.Atk * player.TotalStat.CriticalDamage * player.learnedSkills[useSkill - 1].Damage
                         - monsterDef;
 
@@ -307,19 +305,18 @@ namespace Sylphyr.Dungeon
         {
             bool isCritical = false;
             Random rand = new Random(DateTime.Now.Millisecond);
-            float evasionRate = (monster.Dex / (monster.Dex + 50.0f));
+            float evasionRate = (monster.Dex / (monster.Dex + 70.0f));
             if (rand.NextSingle() > evasionRate)
             {
                 if (rand.NextSingle() < player.TotalStat.CriticalChance)
                 {
-                    float finalDamage = player.TotalStat.Atk * player.TotalStat.CriticalDamage * player.TotalStat.CriticalDamage * player.learnedSkills[useSkill - 1].Damage;
-
+                    isCritical = true;
+                    float finalDamage = player.TotalStat.Atk * player.TotalStat.CriticalDamage * player.learnedSkills[useSkill - 1].Damage;
                     DisplayHit(player, monster, isCritical, finalDamage);
                 }
                 else
                 {
                     float finalDamage = player.TotalStat.Atk * player.TotalStat.CriticalDamage * player.learnedSkills[useSkill - 1].Damage;
-
                     DisplayHit(player, monster, isCritical, finalDamage);
                 }
             }
@@ -348,7 +345,6 @@ namespace Sylphyr.Dungeon
                 }
                 else
                 {
-                    isCritical = false;
                     float finalDamage = monster.Atk;
                     player.TakeDamage(finalDamage);
                     DisplayHit(monster, player, isCritical, finalDamage);

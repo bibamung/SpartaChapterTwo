@@ -22,18 +22,22 @@ namespace Sylphyr.Dungeon
     class DungeonManager
     {
         int TotalGold = 0, TotalExp = 0;
-        int GainGold = 0;
         Random rand = new Random(DateTime.Now.Millisecond);
         List<Monster> currentStageMonsters = new List<Monster>();
         DungeonScene scene = new DungeonScene();
-
         Dictionary<int, List<Monster>> stageMonsters = new Dictionary<int, List<Monster>>();
-
         public Player player = GameManager.Instance.player;
-
         List<Monster> monsterlist = DataManager.Instance.monsters;
-        Inventory Inventory = new Inventory();
-
+        
+        static public int[] clearCount =
+        {
+            0,0,0,0,0,0,0,0,0,0,
+            0,0,0,0,0,0,0,0,0,0,
+            0,0,0,0,0,0,0,0,0,0,
+            0,0,0,0,0,0,0,0,0,0,
+            0,0,0,0,0,0,0,0,0,0
+        };
+        
         public Monster GetMonster(int id)
         {
             Monster monster;
@@ -43,7 +47,6 @@ namespace Sylphyr.Dungeon
 
             return m;
         }
-
         public DungeonManager()
         {
             // 1~10 스테이지 (초반 몬스터)
@@ -110,7 +113,6 @@ namespace Sylphyr.Dungeon
                     monsterlist.SingleOrDefault(monster => monster.MonsterId == 1018)!
                 };
         }
-
         public List<Monster> GetMonstersForStage(int stage)
         {
             List<Monster> selectedMonsters = new List<Monster>();
@@ -320,7 +322,7 @@ namespace Sylphyr.Dungeon
                         }
                         else if (behavior == 3)
                         {
-                            Inventory.ConsumeDisplay(player);
+                            GameManager.Instance.inventory.ConsumeDisplay(player);
                         }
                         else
                         {
@@ -337,10 +339,7 @@ namespace Sylphyr.Dungeon
 
             //보상 설정
             player.AddExp(TotalExp);
-            player.AddRewardGold(TotalGold, out GainGold);
-
-
-
+            player.AddRewardGold(TotalGold, out TotalGold);
             scene.DisplayReward(player, TotalGold, TotalExp);
         }
 
@@ -377,7 +376,6 @@ namespace Sylphyr.Dungeon
             return result;
         }
 
-
         public void BasicAttackBattle(int stage, List<Monster> currentStageMonsters, Player player, int selectMonster, List<string> OrderByAttackChar)
         {
             Console.Clear();
@@ -402,6 +400,8 @@ namespace Sylphyr.Dungeon
                         {
                             scene.DisplayReward(player, TotalGold, TotalExp);
                             if (player.BestStage < stage) player.SetBestStage(stage);
+                            clearCount[stage - 1]++;
+                            Console.WriteLine(clearCount[stage - 1]);
                             Console.WriteLine("press any key to continue...");
                             Console.ReadKey(true);
                             GameManager.Instance.main.Run();
@@ -423,7 +423,6 @@ namespace Sylphyr.Dungeon
             }
 
         }
-
 
         public void SkillAttackBattle(int stage, List<Monster> currentStageMonsters, Player player, List<string> OrderByAttackChar)
         {
@@ -476,6 +475,7 @@ namespace Sylphyr.Dungeon
                                             {
                                                 scene.DisplayReward(player, TotalGold, TotalExp);
                                                 if (player.BestStage < stage) player.SetBestStage(stage);
+                                                clearCount[stage - 1]++;
                                                 Console.WriteLine("press any key to continue...");
                                                 Console.ReadKey(true);
                                                 GameManager.Instance.main.Run();
@@ -529,6 +529,7 @@ namespace Sylphyr.Dungeon
                                                     {
                                                         scene.DisplayReward(player, TotalGold, TotalExp);
                                                         if (player.BestStage < stage) player.SetBestStage(stage);
+                                                        clearCount[stage - 1]++;
                                                         Console.WriteLine("press any key to continue...");
                                                         Console.ReadKey(true);
                                                         GameManager.Instance.main.Run();
@@ -592,6 +593,7 @@ namespace Sylphyr.Dungeon
                                                     {
                                                         scene.DisplayReward(player, TotalGold, TotalExp);
                                                         if (player.BestStage < stage) player.SetBestStage(stage);
+                                                        clearCount[stage - 1]++;
                                                         Console.WriteLine("press any key to continue...");
                                                         Console.ReadKey(true);
                                                         GameManager.Instance.main.Run();

@@ -61,14 +61,15 @@ namespace Sylphyr
             var weaponList = DataManager.Instance.weaponItem;
             var ItemsList = DataManager.Instance.equipmentItems;
             var potionList = DataManager.Instance.consumeItems;
-
-            var randomWeapons = weaponList.OrderBy(x => rand.Next()).Take(3).ToList();
+            
+            // 랜덤한 무기 / 방어구 3개 선택
+            var randomWeapons = weaponList.OrderBy(x => rand.Next()).Take(weaponct).ToList();
             var randomarmorItems = ItemsList
                       .Where(item => item.Slot == "0" || item.Slot == "1" || item.Slot == "2" || item.Slot == "3")
-                      .OrderBy(x => rand.Next()).Take(3).ToList();
+                      .OrderBy(x => rand.Next()).Take(itemct).ToList();
 
             // 랜덤한 포션 2개 선택
-            var randomPotions = potionList.OrderBy(x => rand.Next()).Take(2).ToList();
+            var randomPotions = potionList.OrderBy(x => rand.Next()).Take(potionct).ToList();
 
 
             while (true)  // 상점 출력

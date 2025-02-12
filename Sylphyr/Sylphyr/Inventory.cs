@@ -186,7 +186,7 @@ namespace Sylphyr
                         Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine($"- [{AlignText(equippedText, 1)}] " + AlignText(item.Name, 24) + " | " +
                                               AlignText(statname, 10) + "   " +
-                                              AlignText("+" + (statname == "크리데미지" ? ((float)item.Value / 100) + "%" : item.Value), 5) + " | " +
+                                              AlignText("+" + (statname == "크리데미지" ? ((float)item.Value / 10) + "%" : item.Value), 5) + " | " +
                                               AlignText(slotname, 8) + " | " +
                                               item.Desc);
                         Console.ResetColor();
@@ -196,7 +196,7 @@ namespace Sylphyr
                     {
                         Console.WriteLine($"- " + AlignText(item.Name, 28) + " | " +
                                               AlignText(statname, 10) + "   " +
-                                              AlignText("+" + (statname == "크리데미지" ? ((float)item.Value / 100) + "%" : item.Value), 5) + " | " +
+                                              AlignText("+" + (statname == "크리데미지" ? ((float)item.Value / 10) + "%" : item.Value), 5) + " | " +
                                               AlignText(slotname, 8) + " | " +
                                               item.Desc);
                     }
@@ -390,7 +390,7 @@ namespace Sylphyr
                         Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine($"- {i}. [{AlignText(equippedText, 1)}] " + AlignText(item.Name, 25) + " | " +
                                               AlignText(statname, 10) + "   " +
-                                              AlignText("+" + (statname == "크리데미지" ? ((float)item.Value / 100) + "%" : item.Value), 5) + " | " +
+                                              AlignText("+" + (statname == "크리데미지" ? ((float)item.Value / 10) + "%" : item.Value), 5) + " | " +
                                               AlignText(slotname, 7) + " | " +
                                               item.Desc);
                         Console.ResetColor();
@@ -399,7 +399,7 @@ namespace Sylphyr
                     {
                         Console.WriteLine($"- {i}. " + AlignText(item.Name, 29) + " | " +
                                               AlignText(statname, 10) + "   " +
-                                              AlignText("+" + (statname == "크리데미지" ? ((float)item.Value / 100) + "%" : item.Value), 5) + " | " +
+                                              AlignText("+" + (statname == "크리데미지" ? ((float)item.Value / 10) + "%" : item.Value), 5) + " | " +
                                               AlignText(slotname, 7) + " | " +
                                               item.Desc);
                     }
@@ -506,8 +506,8 @@ namespace Sylphyr
                                             selectedItem.isEquip = true;
 
                                             // 기존 아이템 스텟 감소
-                                            if (equippedItem.Stat == 0) player.EnhancedStat.CriticalDamage -= (equippedItem.Value / 100);
-                                            else if (equippedItem.Stat == 1) player.EnhancedStat.Dex -= (equippedItem.Value / 10);
+                                            if (equippedItem.Stat == 0) player.EnhancedStat.CriticalDamage -= (equippedItem.Value / 1000f);
+                                            else if (equippedItem.Stat == 1) player.EnhancedStat.Dex -= (equippedItem.Value / 10f);
                                             else if (equippedItem.Stat == 2) player.EnhancedStat.Luk -= equippedItem.Value;
                                             else if (equippedItem.Stat == 3) player.EnhancedStat.Def -= equippedItem.Value;
 
@@ -516,8 +516,8 @@ namespace Sylphyr
                                             selectedItem.isEquip = true;   // 새 아이템 장착
 
                                             // 새 아이템 스텟 증가
-                                            if (selectedItem.Stat == 0) player.EnhancedStat.CriticalDamage += (selectedItem.Value / 100);
-                                            else if (selectedItem.Stat == 1) player.EnhancedStat.Dex += (selectedItem.Value / 10);
+                                            if (selectedItem.Stat == 0) player.EnhancedStat.CriticalDamage += (selectedItem.Value / 1000f);
+                                            else if (selectedItem.Stat == 1) player.EnhancedStat.Dex += (selectedItem.Value / 10f);
                                             else if (selectedItem.Stat == 2) player.EnhancedStat.Luk += selectedItem.Value;
                                             else if (selectedItem.Stat == 3) player.EnhancedStat.Def += selectedItem.Value;
 
@@ -532,8 +532,8 @@ namespace Sylphyr
                                     else
                                     {
                                         selectedItem.isEquip = false;
-                                        if (equippedItem.Stat == 0) player.EnhancedStat.CriticalDamage -= (selectedItem.Value / 100);
-                                        else if (equippedItem.Stat == 1) player.EnhancedStat.Dex -= (selectedItem.Value / 10);
+                                        if (equippedItem.Stat == 0) player.EnhancedStat.CriticalDamage -= (selectedItem.Value / 1000f);
+                                        else if (equippedItem.Stat == 1) player.EnhancedStat.Dex -= (selectedItem.Value / 10f);
                                         else if (equippedItem.Stat == 2) player.EnhancedStat.Luk -= selectedItem.Value;
                                         else if (equippedItem.Stat == 3) player.EnhancedStat.Def -= selectedItem.Value;
                                         itemsEquip.Remove(equippedItem);
@@ -551,12 +551,12 @@ namespace Sylphyr
                                 if (selectedItem.Stat == 0)
                                 {
                                     itemsEquip.Add(selectedItem);
-                                    player.EnhancedStat.CriticalDamage += (selectedItem.Value / 100);
+                                    player.EnhancedStat.CriticalDamage += (selectedItem.Value / 1000f);
                                 }
                                 else if (selectedItem.Stat == 1)
                                 {
                                     itemsEquip.Add(selectedItem);
-                                    player.EnhancedStat.Dex += selectedItem.Value;
+                                    player.EnhancedStat.Dex += (selectedItem.Value / 10f);
                                 }
                                 else if (selectedItem.Stat == 2)
                                 {

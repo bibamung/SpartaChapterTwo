@@ -689,5 +689,6 @@ namespace Sylphyr
                 purChase = item.purChase
             }).ToList();
         }
+        //보유중인 아이템 리스트 세이브로 보내기. 
     }
 }

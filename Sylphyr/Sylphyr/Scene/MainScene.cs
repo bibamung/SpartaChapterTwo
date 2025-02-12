@@ -119,6 +119,7 @@ public class MainScene
             // 플레이어 데이터를 SaveData로 변환
             var player = GameManager.Instance.player; // 현재 플레이어 정보
             SaveData data = player.ToSaveData();
+            data.SavepurchaseItem();
 
             // 세이브 폴더 없으면 생성
             DirectoryInfo projectDir = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory); // net8.0
@@ -139,6 +140,8 @@ public class MainScene
             saveSystem.SaveGame(data);
 
             Console.WriteLine("게임이 성공적으로 저장되었습니다!");
+          
+
 
             // 저장 후 메뉴 출력
             ShowMenu();

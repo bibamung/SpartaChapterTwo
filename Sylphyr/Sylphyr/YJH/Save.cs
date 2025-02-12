@@ -41,9 +41,18 @@ public class Save
     //게임 세이브
     public void SaveGame(SaveData data)
     {
-        string jsonString = JsonSerializer.Serialize(data);
-        File.WriteAllText(filePath, jsonString);
-        Console.WriteLine("생성된 JSON 데이터:\n" + jsonString);
+        if (data != null)
+        {
+            // JSON 데이터 변환 및 저장
+            string jsonString = JsonSerializer.Serialize(data);
+            File.WriteAllText(filePath, jsonString);
+            Console.WriteLine("생성된 JSON 데이터:\n" + jsonString);
+        }
+        else
+        {
+            Console.WriteLine("저장할 데이터가 없습니다.");
+        }
+
     }
 
     //세이브 파일 불러오기
@@ -60,22 +69,25 @@ public class Save
             return null;
         }
     }
+    
+    // JSON 저장 파일 삭제 (Debug용)
+    public static void DeleteFile()
+    {
+        try
+        {
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+                Console.WriteLine("저장 파일이 삭제되었습니다.");
+            }
+            else
+            {
+                Console.WriteLine("저장 파일이 존재하지 않습니다.");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"파일 삭제 중 오류 발생: {ex.Message}");
+        }
+    }
 }
-
-/*
-// Data 객체를 JSON 문자열로 변환
-string jsonString = JsonSerializer.Serialize(data);
-
-// JSON 문자열을 파일에 저장
-File.WriteAllText(filePath, jsonString);
-
-//저장 하기
-GameData loadedData = SaveSystem.LoadGame(saveFilePath);
-
-//불러오기
-SaveSystem.SaveData(Data, saveFilePath);
-
-
-//Save 폴더 안에 json 파일 만들기
-File.WriteAllText(filePath, Save.ToString());
-*/

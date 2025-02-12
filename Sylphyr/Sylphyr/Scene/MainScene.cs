@@ -34,31 +34,6 @@ public class MainScene
 
         if (!GameManager.Instance.shop.isShop)
         {
-            switch ((Behavior)select)
-            {
-                case Behavior.PlayerInfo:
-                    PrintPlayerInfo();
-                    break;
-                case Behavior.Inventory:
-                    OpenInventory();
-                    break;
-                case Behavior.Store:
-                    EnterStore();
-                    break;
-                case Behavior.DungeonEnter:
-                    EnterDungeon();
-                    break;
-                case Behavior.GuildEnter:
-                    EnterGuild();
-                    break;
-                case Behavior.Save:
-                    break;
-                case Behavior.Exit:
-                    TitleScene.Instance.ExitGame();
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("상점이 닫혔습니다.");
             Console.ResetColor();

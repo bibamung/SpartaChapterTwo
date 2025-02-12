@@ -1,6 +1,8 @@
 using System.Text;
+using System.Xml.Linq;
 using Sylphyr.Character;
 using Sylphyr.Utils;
+using Sylphyr.YJH;
 
 namespace Sylphyr.Scene;
 
@@ -91,10 +93,27 @@ public class TitleScene : SingleTon<TitleScene>
 
     private void LoadGame()
     {
-        // TODO: Implement LoadGame
-        
+        LoadManager.Instance.loadgame();
+
+        if (LoadManager.Instance.gameDatas == null)
+        {
+            Console.WriteLine("로드된 게임 데이터가 없습니다. 게임을 시작할 수 없습니다.");
+            return;
+        }
+        Console.WriteLine(LoadManager.Instance.gameDatas);
+        Console.WriteLine(LoadManager.Instance.gameDatas.CharacterClass);
+
+        GameManager.Instance.SetPlayer("", CharacterClass.Paladin);
+
+        GameManager.Instance.player.InitializePlayer(LoadManager.Instance.gameDatas);
+
+        GameManager.Instance.Init();
+        GameManager.Instance.main.Run();    
     }
-    
+
+    public GameData GameData { get; }
+
+
     public void ExitGame()
     {
         Environment.Exit(0);

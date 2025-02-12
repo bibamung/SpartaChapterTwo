@@ -10,7 +10,7 @@ public class Player
     private StringBuilder statusSb { get; } = new();
     
     // Player Stat
-    public CharacterClass Class { get; }
+    public CharacterClass Class { get; set; }
     public CharacterStat BaseStat { get; }
     public CharacterStat EnhancedStat { get; }
 
@@ -22,7 +22,7 @@ public class Player
     public List<CharacterSkillData> learnedSkills { get; } = new();
 
     // Player Info
-    public string Name { get; }
+    public string Name { get; set; }
     public int Level { get; private set; }
     public float CurrentHp { get; private set; }
     public float CurrentMp { get; private set; }
@@ -34,7 +34,7 @@ public class Player
 
     private CharacterStat totalStat = new CharacterStat();
     public CharacterStat TotalStat
-    {
+    {   
         get
         {
             totalStat.MaxHp = BaseStat.MaxHp + EnhancedStat.MaxHp;
@@ -86,20 +86,35 @@ public class Player
         statusSb.Clear();
         statusSb.AppendLine($" Lv.{Level}");
         statusSb.AppendLine($" {Name} ( {Class.GetClassName()} )");
-        statusSb.AppendLine($" HP: {CurrentHp:N2}/{TotalStat.MaxHp:N2}");
-        statusSb.AppendLine($" MP: {CurrentMp:N2}/{TotalStat.MaxMp:N2}");
-        statusSb.AppendLine($" Exp: {Exp}/{LevelData.GetExp(Level)}");
+        
+        statusSb.AppendLine($" HP: {CurrentHp:N2} / {TotalStat.MaxHp:N2}");
+        statusSb.AppendLine($" MP: {CurrentMp:N2} / {TotalStat.MaxMp:N2}");
+        
+        statusSb.AppendLine($" Exp: {Exp} / {LevelData.GetExp(Level)}");
         statusSb.AppendLine($" 골드: {Gold} G");
         statusSb.AppendLine();
-        statusSb.AppendLine($" 공격력: {TotalStat.Atk}");
-        statusSb.AppendLine($" 방어력: {TotalStat.Def}");
-        statusSb.AppendLine($" 속도: {TotalStat.Speed}");
-        statusSb.AppendLine($" 민첩: {TotalStat.Dex}");
-        statusSb.AppendLine($" 운: {TotalStat.Luk}");
+        
+        statusSb.Append($" 공격력: {TotalStat.Atk}");
+        if (EnhancedStat.Atk > 0) statusSb.Append($" (+{EnhancedStat.Atk})");
         statusSb.AppendLine();
+        statusSb.Append($" 방어력: {TotalStat.Def}");
+        if (EnhancedStat.Def > 0) statusSb.Append($" (+{EnhancedStat.Def})");
+        statusSb.AppendLine();
+        statusSb.Append($" 속도: {TotalStat.Speed}");
+        if (EnhancedStat.Speed > 0) statusSb.Append($" (+{EnhancedStat.Speed})");
+        statusSb.AppendLine();
+        statusSb.Append($" 민첩: {TotalStat.Dex}");
+        if (EnhancedStat.Dex > 0) statusSb.Append($" (+{EnhancedStat.Dex})");
+        statusSb.AppendLine();
+        statusSb.Append($" 행운: {TotalStat.Luk}");
+        if (EnhancedStat.Luk > 0) statusSb.Append($" (+{EnhancedStat.Luk})");
+        statusSb.AppendLine();
+        
         statusSb.AppendLine($" 치명타 확률: {TotalStat.CriticalChance * 100:N1}%");
-        statusSb.AppendLine($" 치명타 대미지: {TotalStat.CriticalDamage * 10:N1}%");
+        statusSb.Append($" 치명타 대미지: {TotalStat.CriticalDamage * 100:N1}%");
+        if (EnhancedStat.CriticalDamage > 0) statusSb.Append($" (+{EnhancedStat.CriticalDamage * 100:N1}%)");
         statusSb.AppendLine();
+        
         statusSb.AppendLine("[ 보유 스킬 ]");
         foreach (var skill in learnedSkills)
         {
@@ -277,7 +292,42 @@ public class Player
     {
         BestStage = stage;
     }
-    
+
+
+    public void InitializePlayer(GameData gameData)
+    {
+        Console.WriteLine("InitializePlayer 진입");
+        if (gameData == null)
+        {
+            Console.WriteLine("GameData가 없습니다. 초기화에 실패했습니다.");
+            return;
+        }
+        Console.WriteLine("if 스킵 성공");
+        // GameData 데이터를 Player에 적용
+        
+        Name = gameData.Name;
+        Class = Enum.Parse<CharacterClass>(gameData.CharacterClass);
+        Level = gameData.Level;
+        CurrentHp = gameData.CurrentHp;
+        CurrentMp = gameData.CurrentMp;
+        Exp = gameData.Exp;
+        Gold = gameData.Gold;
+
+        BaseStat.Atk = gameData.Atk;
+        BaseStat.Dex = gameData.Dex;
+        BaseStat.Def = gameData.Def;
+        BaseStat.Luk = gameData.Luk;
+
+
+        /*BaseStat = new CharacterStat();
+        EnhancedStat = new CharacterStat();*/
+
+        Console.WriteLine("Player가 GameData를 사용하여 성공적으로 초기화되었습니다.");
+    }
+
+
+
+
     public SaveData ToSaveData() {
         return new SaveData 
         {
@@ -288,8 +338,12 @@ public class Player
             CurrentMp = CurrentMp,
             Exp = Exp,
             Gold = Gold,
-            BaseStat = new YJH.CharacterStatData(BaseStat.Atk, BaseStat.Dex, BaseStat.Def, BaseStat.Luk),
-            EnhancedStat = new YJH.CharacterStatData (EnhancedStat.Atk, EnhancedStat.Dex, EnhancedStat.Def, EnhancedStat.Luk),
+            Atk = BaseStat.Atk,
+            Dex = BaseStat.Dex,
+            Def = BaseStat.Def,
+            Luk = BaseStat.Luk,
+            //BaseStat = new CharacterStatData(BaseStat.Atk, BaseStat.Dex, BaseStat.Def, BaseStat.Luk),
+            //EnhancedStat = new YJH.CharacterStatData (EnhancedStat.Atk, EnhancedStat.Dex, EnhancedStat.Def, EnhancedStat.Luk),
         };
     }
 }

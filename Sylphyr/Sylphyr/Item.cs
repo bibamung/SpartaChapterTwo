@@ -111,7 +111,7 @@ namespace Sylphyr
                     // 정렬된 텍스트 출력
                     if (!weaponItem.wpurChase)
                         Console.WriteLine("- " + AlignText(weaponItem.Name, 25) + " | " +
-                                          AlignText(statname, 10) + "   " +
+                                          AlignText(statname, 15) + "   " +
                                           AlignText("+" + weaponItem.Value, 5) + " | " +
                                           AlignText(weaponslot, 7) + " | " +
                                           AlignText(weaponItem.Price + "G", 7) + " | " +
@@ -120,7 +120,7 @@ namespace Sylphyr
                     {
                         Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine("- " + AlignText(weaponItem.Name, 25) + " | " +
-                                          AlignText(statname, 10) + "   " +
+                                          AlignText(statname, 15) + "   " +
                                           AlignText("+" + weaponItem.Value, 5) + " | " +
                                           AlignText(weaponslot, 7) + " | " +
                                           AlignText(weaponItem.Price + "G", 7) + " | " +
@@ -160,8 +160,8 @@ namespace Sylphyr
                     if (!item.purChase)
                     {
                         Console.WriteLine("- " + AlignText(item.Name, 25) + " | " +
-                                          AlignText(statname, 10) + "   " +
-                                          AlignText("+" + item.Value, 5) + " | " +
+                                          AlignText(statname, 15) + "   " +
+                                          AlignText("+" + (statname == "크리데미지" ? ((float)item.Value / 10) + "%" : item.Value), 5) + " | " +
                                           AlignText(slotname, 7) + " | " +
                                           AlignText(item.Price + "G", 7) + " | " +
                                           item.Desc);
@@ -170,8 +170,8 @@ namespace Sylphyr
                     {
                         Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine("- " + AlignText(item.Name, 25) + " | " +
-                                          AlignText(statname, 10) + "   " +
-                                          AlignText("+" + item.Value, 5) + " | " +
+                                          AlignText(statname, 15) + "   " +
+                                          AlignText("+" + (statname == "크리데미지" ? ((float)item.Value / 10) + "%" : item.Value), 5) + " | " +
                                           AlignText(slotname, 7) + " | " +
                                           AlignText(item.Price + "G", 7) + " | " +
                                           item.Desc + "구매 완료");
@@ -199,7 +199,7 @@ namespace Sylphyr
                     if (!potion1.isBuy)
                     {
                         Console.WriteLine("- " + AlignText(potion1.Name, 25) + " | " +
-                                          AlignText(hpmp, 10) + "   " +
+                                          AlignText(hpmp, 15) + "   " +
                                           AlignText("+" + potion1.Value, 5) + " | " +
                                           AlignText(potion1.Price + "G", 7) + " | " +
                                           potion1.Desc);
@@ -208,7 +208,7 @@ namespace Sylphyr
                     {
                         Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine("- " + AlignText(potion1.Name, 25) + " | " +
-                                          AlignText(hpmp, 10) + "   " +
+                                          AlignText(hpmp, 15) + "   " +
                                           AlignText("+" + potion1.Value, 5) + " | " +
                                           AlignText(potion1.Price + "G", 7) + " | " +
                                           potion1.Desc + "구매 완료");
@@ -339,7 +339,7 @@ namespace Sylphyr
                         Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine("- " + index + ". " + AlignText(item.Name, 25) + " | " +
                                           AlignText(statname, 10) + "   " +
-                                          AlignText("+" + item.Value, 5) + " | " +
+                                          AlignText("+" + (statname == "크리데미지" ? ((float)item.Value / 10) + "%" : item.Value), 5) + " | " +
                                           AlignText(slotname, 7) + " | " +
                                           AlignText(item.Price + "G", 7) + " | " +
                                           item.Desc + " 구매 완료");
@@ -350,7 +350,7 @@ namespace Sylphyr
                         // 정렬된 텍스트 출력
                         Console.WriteLine("- " + index + ". " + AlignText(item.Name, 25) + " | " +
                                           AlignText(statname, 10) + "   " +
-                                          AlignText("+" + item.Value, 5) + " | " +
+                                          AlignText("+" + (statname == "크리데미지" ? ((float)item.Value / 10) + "%" : item.Value), 5) + " | " +
                                           AlignText(slotname, 7) + " | " +
                                           AlignText(item.Price + "G", 7) + " | " +
                                           item.Desc);
@@ -558,11 +558,11 @@ namespace Sylphyr
                     {
                         // 정렬된 텍스트 출력
                         Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine($"- {i}. [{AlignText(equippedText1, 1)}] " + AlignText(weaponItem.Name, 25) +
+                        Console.WriteLine($"- {i}. [{AlignText(equippedText1, 1)}] " + AlignText(weaponItem.Name, 28) +
                                           " | " +
-                                          AlignText(statname, 10) + "   " +
+                                          AlignText(statname, 17) +
                                           AlignText("+" + weaponItem.Value, 5) + " | " +
-                                          AlignText(weaponslot, 7) + " | " +
+                                          AlignText(weaponslot, 8) + " | " +
                                           AlignText(weaponItem.Price * 0.8 + "G", 7) + " | " +
                                           weaponItem.Desc);
                         Console.ResetColor();
@@ -570,11 +570,11 @@ namespace Sylphyr
                     else
                     {
                         // 정렬된 텍스트 출력
-                        Console.WriteLine($"- {i}." + AlignText(weaponItem.Name, 30) + " | " +
-                                          AlignText(statname, 10) + "   " +
+                        Console.WriteLine("- " + i + ". " + AlignText(weaponItem.Name, 32) + " | " +
+                                          AlignText(statname, 17) +
                                           AlignText("+" + weaponItem.Value, 5) + " | " +
-                                          AlignText(weaponslot, 7) + " | " +
-                                          AlignText(weaponItem.Price * 0.8 + "G", 7) + " | " +
+                                          AlignText(weaponslot, 8) + " | " +
+                                          AlignText(weaponItem.Price + "G", 7) + " | " +
                                           weaponItem.Desc);
                     }
 
@@ -615,21 +615,21 @@ namespace Sylphyr
                     {
                         Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine($"- {i}. {equippedText}" +
-                                          AlignText(item.Name, 25) + " | " +
-                                          AlignText(statname, 10) + "   " +
-                                          AlignText("+" + item.Value, 5) + " | " +
-                                          AlignText(slotname, 10) + " | " +
+                                          AlignText(item.Name, 28) + " | " +
+                                          AlignText(statname, 14) + "   " +
+                                          AlignText("+" + (statname == "크리데미지" ? ((float)item.Value / 10) + "%" : item.Value), 5) + " | " +
+                                          AlignText(slotname, 8) + " | " +
                                           AlignText(item.Price * 0.8 + "G", 7) + " | " +
                                           item.Desc);
                         Console.ResetColor();
                     }
                     else
                     {
-                        Console.WriteLine($"- {i}. {equippedText}" +
-                                          AlignText(item.Name, 25) + " | " +
-                                          AlignText(statname, 10) + "   " +
-                                          AlignText("+" + item.Value, 5) + " | " +
-                                          AlignText(slotname, 10) + " | " +
+                        Console.WriteLine($"- {i}. " +
+                                          AlignText(item.Name, 32) + " | " +
+                                          AlignText(statname, 15) +
+                                          AlignText("+" + (statname == "크리데미지" ? ((float)item.Value / 10) + "%" : item.Value), 7) + " | " +
+                                          AlignText(slotname, 8) + " | " +
                                           AlignText(item.Price * 0.8 + "G", 7) + " | " +
                                           item.Desc);
                     }
@@ -654,24 +654,13 @@ namespace Sylphyr
                     if (potionItem.Stat == 0) hpmp = "HP";
                     else hpmp = "MP";
 
-                    if (!potionItem.isBuy)
-                    {
-                        // 정렬된 텍스트 출력
-                        Console.WriteLine($"- {i}. " + AlignText(potionItem.Name, 25) + " | " +
-                                          AlignText(hpmp, 10) + "   " +
-                                          AlignText("+" + potionItem.Value, 5) + " | " +
-                                          AlignText(potionItem.Price * 0.8 + "G", 7) + " | " +
-                                          potionItem.Desc);
-                    }
-                    else
-                    {
-                        // 정렬된 텍스트 출력
-                        Console.WriteLine($"- {i}. " + AlignText(potionItem.Name, 25) + " | " +
-                                          AlignText(hpmp, 10) + "   " +
-                                          AlignText("+" + potionItem.Value, 5) + " | " +
-                                          AlignText(potionItem.Price * 0.8 + "G", 7) + " | " +
-                                          potionItem.Desc);
-                    }
+                    
+                    // 정렬된 텍스트 출력
+                    Console.WriteLine($"- {i}. " + AlignText(potionItem.Name, 32) + " | " +
+                                        AlignText(hpmp, 17) +
+                                        AlignText("+" + potionItem.Value, 5) + " | " +
+                                        AlignText(potionItem.Price * 0.8 + "G", 8) + " | " +
+                                        potionItem.Desc);
 
                     i++;
                 }
@@ -749,8 +738,8 @@ namespace Sylphyr
                             else
                             {
                                 selectedItem.isEquip = false;
-                                player.EnhancedStat.CriticalDamage -= selectedItem.Value;
-                                player.EnhancedStat.Def -= selectedItem.Value;
+                                player.EnhancedStat.CriticalDamage -= (selectedItem.Value / 1000f);
+                                player.EnhancedStat.Def -= (selectedItem.Value / 10f);
                                 player.EnhancedStat.Dex -= selectedItem.Value;
                                 player.EnhancedStat.Luk -= selectedItem.Value;
                                 int getgold = (int)(selectedItem.Price * 0.8);

@@ -401,6 +401,7 @@ namespace Sylphyr.Dungeon
 
             Console.WriteLine("\n====================================\n");
             GameManager.Instance.shop.isShop = true;
+            GameManager.Instance.quest.CurrentFloors++;
         }
 
     }

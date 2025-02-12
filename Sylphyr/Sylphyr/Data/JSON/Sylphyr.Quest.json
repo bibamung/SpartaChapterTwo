@@ -5,7 +5,7 @@
     "desc": "던전클리어 1회.",
     "rewardExp": "10",
     "rewardGold": "500",
-    "requiredFloors": "2",
+    "requiredFloors": "1",
     "requiredBuyItems": "1",
     "requiredSellItems": "1"
   },

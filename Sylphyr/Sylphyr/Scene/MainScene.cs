@@ -111,6 +111,7 @@ public class MainScene
     {
         var player = GameManager.Instance.player;
         GameManager.Instance.guild.GuildMain(player);
+        Run();
     }
 
     private void EnterDungeon()

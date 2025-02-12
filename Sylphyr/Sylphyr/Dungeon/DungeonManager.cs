@@ -381,7 +381,7 @@ namespace Sylphyr.Dungeon
         public void BasicAttackBattle(int stage, List<Monster> currentStageMonsters, Player player, int selectMonster, List<string> OrderByAttackChar)
         {
             Console.Clear();
-            int count = 0, repeat = 1;
+            int count = 0;
             scene.DisplayHealthBar(currentStageMonsters);
 
 
@@ -404,7 +404,6 @@ namespace Sylphyr.Dungeon
                             if (player.BestStage < stage) player.SetBestStage(stage);
                             Console.WriteLine("press any key to continue...");
                             Console.ReadKey(true);
-                            Thread.Sleep(100);
                             GameManager.Instance.main.Run();
                         }
 
@@ -477,8 +476,8 @@ namespace Sylphyr.Dungeon
                                             {
                                                 scene.DisplayReward(player, TotalGold, TotalExp);
                                                 if (player.BestStage < stage) player.SetBestStage(stage);
-                                                Console.WriteLine("계속 진행하시려면 Enter키를 눌러주세요...");
-                                                Console.ReadLine();
+                                                Console.WriteLine("press any key to continue...");
+                                                Console.ReadKey(true);
                                                 GameManager.Instance.main.Run();
                                             }
                                         }
@@ -530,8 +529,8 @@ namespace Sylphyr.Dungeon
                                                     {
                                                         scene.DisplayReward(player, TotalGold, TotalExp);
                                                         if (player.BestStage < stage) player.SetBestStage(stage);
-                                                        Console.WriteLine("계속 진행하시려면 Enter키를 눌러주세요...");
-                                                        Console.ReadLine();
+                                                        Console.WriteLine("press any key to continue...");
+                                                        Console.ReadKey(true);
                                                         GameManager.Instance.main.Run();
                                                     }
                                                 }
@@ -593,8 +592,8 @@ namespace Sylphyr.Dungeon
                                                     {
                                                         scene.DisplayReward(player, TotalGold, TotalExp);
                                                         if (player.BestStage < stage) player.SetBestStage(stage);
-                                                        Console.WriteLine("계속 진행하시려면 Enter키를 눌러주세요...");
-                                                        Console.ReadLine();
+                                                        Console.WriteLine("press any key to continue...");
+                                                        Console.ReadKey(true);
                                                         GameManager.Instance.main.Run();
                                                     }
 
@@ -630,8 +629,8 @@ namespace Sylphyr.Dungeon
                         else
                         {
                             Console.WriteLine("스킬을 사용하기 위한 마나가 부족합니다.");
-                            Console.WriteLine("계속 하시려면 Enter를 눌러주세요");
-                            Console.ReadLine();
+                            Console.WriteLine("press any key to continue...");
+                            Console.ReadKey(true);
                         }
 
                     }

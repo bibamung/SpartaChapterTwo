@@ -124,20 +124,14 @@ namespace Sylphyr.Dungeon
                 Console.WriteLine($"효과는 굉장했다.");
                 Console.WriteLine($"{player.Name}에게 {(finalDamage - playerDef > 0 ? (finalDamage - playerDef).ToString("F2") : 0)}만큼 피해를 입혔다.");
                 DisplayPlayerHpBar(player);
-
-                Console.WriteLine("press any key to continue...");
-                Console.ReadKey(true);
-                Thread.Sleep(100);
+                InputAnyKey();
             }
             else            //크리티컬이 안 터졌습니다.
             {
                 Console.WriteLine($"{monster.MonsterName}이/가 {player.Name}을 공격했다.");
                 Console.WriteLine($"{player.Name}에게 {(finalDamage - playerDef > 0 ? (finalDamage - playerDef).ToString("F2") : 0)}만큼 피해를 입혔다.");
                 DisplayPlayerHpBar(player);
-
-                Console.WriteLine("press any key to continue...");
-                Console.ReadKey(true);
-                Thread.Sleep(100);
+                InputAnyKey();
             }
         }
 
@@ -151,10 +145,7 @@ namespace Sylphyr.Dungeon
                 Console.WriteLine($"{monster.MonsterName}에게 {(finalDamage > 0 ? finalDamage.ToString("F2") : 0)}만큼 피해를 입혔다.");
                 monster.CurrentHp -= finalDamage;
                 DisplayHealthBar(monster);
-
-                Console.WriteLine("press any key to continue...");
-                Console.ReadKey(true);
-                Thread.Sleep(100);
+                InputAnyKey();
             }
             else            //크리티컬이 안 터졌습니다.
             {
@@ -162,10 +153,7 @@ namespace Sylphyr.Dungeon
                 Console.WriteLine($"{monster.MonsterName}에게 {(finalDamage > 0 ? finalDamage.ToString("F2") : 0)}만큼 피해를 입혔다.");
                 monster.CurrentHp -= finalDamage;
                 DisplayHealthBar(monster);
-
-                Console.WriteLine("press any key to continue...");
-                Console.ReadKey(true);
-                Thread.Sleep(100);
+                InputAnyKey();
             }
         }
         //플레이어가 때렸을 때 (스킬공격)
@@ -178,10 +166,7 @@ namespace Sylphyr.Dungeon
                 Console.WriteLine($"{monster.MonsterName}에게 {finalDamage.ToString("F2")}만큼 피해를 입혔다.");
                 monster.CurrentHp -= finalDamage;
                 DisplayHealthBar(monster);
-
-                Console.WriteLine("press any key to continue...");
-                Console.ReadKey(true);
-                Thread.Sleep(100);
+                InputAnyKey();
             }
             else            //크리티컬이 안 터졌습니다.
             {
@@ -189,10 +174,7 @@ namespace Sylphyr.Dungeon
                 Console.WriteLine($"{monster.MonsterName}에게 {finalDamage.ToString("F2")}만큼 피해를 입혔다.");
                 monster.CurrentHp -= finalDamage;
                 DisplayHealthBar(monster);
-
-                Console.WriteLine("press any key to continue...");
-                Console.ReadKey(true);
-                Thread.Sleep(100);
+                InputAnyKey();
             }
         }
 
@@ -201,7 +183,7 @@ namespace Sylphyr.Dungeon
         public void DisplayEvasion(Player player)
         {
             Random rand = new Random(DateTime.Now.Millisecond);
-            int text = rand.Next(0, 4);
+            int text = rand.Next(1, 4);
             switch (text)
             {
                 case 1:
@@ -214,16 +196,13 @@ namespace Sylphyr.Dungeon
                     Console.WriteLine($"{player.Name}가 공격을 하다가 돌부리에 걸려 넘어져 공격에 실패했다.");
                     break;
             }
-
-            Console.WriteLine("press any key to continue...");
-            Console.ReadKey(true);
-            Thread.Sleep(100);
+            InputAnyKey();
         }
 
         public void DisplayEvasion(Monster monster)
         {
             Random rand = new Random(DateTime.Now.Millisecond);
-            int text = rand.Next(0, 4);
+            int text = rand.Next(1, 4);
             switch (text)
             {
                 case 1:
@@ -236,10 +215,7 @@ namespace Sylphyr.Dungeon
                     Console.WriteLine($"{monster.MonsterName}가 자고 있다.");
                     break;
             }
-
-            Console.WriteLine("press any key to continue...");
-            Console.ReadKey(true);
-            Thread.Sleep(100);
+            InputAnyKey();
         }
 
         // 체력 상태에 따라 색상 변경 (콘솔용)
@@ -411,6 +387,14 @@ namespace Sylphyr.Dungeon
 
             Console.WriteLine("\n====================================\n");
             GameManager.Instance.shop.isShop = true;
+        }
+
+        public void InputAnyKey()
+        {
+            Console.WriteLine("press any key to continue...");
+            Console.WriteLine($"====================================================================================================\n");
+            Console.ReadKey(true);
+            Thread.Sleep(50);
         }
 
     }

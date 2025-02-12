@@ -12,7 +12,7 @@ public class Player
     public StringBuilder statusSb { get; } = new();
     
     // Player Stat
-    public CharacterClass Class { get; }
+    public CharacterClass Class { get; set; }
     public CharacterStat BaseStat { get; set; }
     public CharacterStat EnhancedStat { get; set; }
 
@@ -24,7 +24,7 @@ public class Player
     public List<CharacterSkillData> learnedSkills { get; } = new();
 
     // Player Info
-    public string Name { get; }
+    public string Name { get; set; }
     public int Level { get; set; }
     public float CurrentHp { get; set; }
     public float CurrentMp { get; set; }
@@ -69,6 +69,32 @@ public class Player
         Exp = 0;
         Gold = 30000;
     }
+    
+    public void InitializePlayer(GameData gameData)
+    {
+        if (gameData == null)
+        {
+            Console.WriteLine("GameData가 없습니다. 초기화에 실패했습니다.");
+            return;
+        }
+
+        // GameData 데이터를 Player에 적용
+        Name = gameData.Name;
+        Class = Enum.Parse<CharacterClass>(gameData.CharacterClass);
+        Level = gameData.Level;
+        CurrentHp = gameData.CurrentHp;
+        CurrentMp = gameData.CurrentMp;
+        Exp = gameData.Exp;
+        Gold = gameData.Gold;
+        BaseStat = new CharacterStat();
+        EnhancedStat = new CharacterStat();
+
+
+        Console.WriteLine("Player가 GameData를 사용하여 성공적으로 초기화되었습니다.");
+    }
+
+
+    
 
     private CharacterStat? GetCharacterStat(CharacterClass charClass)
     {
@@ -281,7 +307,8 @@ public class Player
         BestStage = stage;
     }
     
-    public SaveData ToSaveData() {
+    public SaveData ToSaveData() 
+    {
         return new SaveData 
         {
             Name = Name,
@@ -291,8 +318,12 @@ public class Player
             CurrentMp = CurrentMp,
             Exp = Exp,
             Gold = Gold,
-            BaseStat = new YJH.CharacterStatData(BaseStat.Atk, BaseStat.Dex, BaseStat.Def, BaseStat.Luk),
-            EnhancedStat = new YJH.CharacterStatData (EnhancedStat.Atk, EnhancedStat.Dex, EnhancedStat.Def, EnhancedStat.Luk),
+            //BaseStat = new YJH.CharacterStatData(BaseStat.Atk, BaseStat.Dex, BaseStat.Def, BaseStat.Luk),
+            BaseStatattack = new CharacterStatData(),
+            BaseStatdex = new CharacterStatData(),
+            BaseStatdef = new CharacterStatData(),
+            BaseStatluk = new CharacterStatData(),
+            //EnhancedStat = new YJH.CharacterStatData (EnhancedStat.Atk, EnhancedStat.Dex, EnhancedStat.Def, EnhancedStat.Luk),
         };
     }
 }

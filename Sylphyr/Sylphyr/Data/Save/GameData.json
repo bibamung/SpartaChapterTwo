@@ -1,11 +1,11 @@
 {
-  "Name": "yun",
+  "Name": "",
   "CharacterClass": "Warrior",
   "Level": 1,
   "CurrentHp": 200,
   "CurrentMp": 150,
   "Exp": 0,
-  "Gold": 6500,
+  "Gold": 30000,
   "BaseStat": {
     "Attack": 45,
     "Dex": 7,
@@ -13,113 +13,16 @@
     "Luk": 5
   },
   "EnhancedStat": {
-    "Attack": 50,
+    "Attack": 0,
     "Dex": 0,
     "Def": 0,
-    "Luk": 50
+    "Luk": 0
   },
-  "Items": [
-    {
-      "Id": 1008,
-      "Name": "\uCD5C\uACE0\uAE09 \uACBD\uAC11",
-      "Stat": 1,
-      "Value": 40,
-      "Slot": "0",
-      "Price": 3000,
-      "Desc": "\uCD5C\uACE0\uAE09 \uACAC\uAC11 \uBD84\uC218\uC5D0 \uB9DE\uC9C0 \uC54A\uC544 \uBCF4\uC778\uB2E4.",
-      "IsEquip": false,
-      "PurChase": true
-    },
-    {
-      "Id": 1011,
-      "Name": "\uD3C9\uBC94\uD55C \uC911\uAC11",
-      "Stat": 0,
-      "Value": 20,
-      "Slot": "0",
-      "Price": 1000,
-      "Desc": "\uC9C0\uADF9\uD788 \uC911\uAC11 \uBC14\uAC00\uC9C0 \uC4F4 \uAE30\uBD84\uC774\uB2E4.",
-      "IsEquip": false,
-      "PurChase": true
-    },
-    {
-      "Id": 1004,
-      "Name": "\uD654\uB824\uD55C \uB85C\uBE0C",
-      "Stat": 2,
-      "Value": 50,
-      "Slot": "0",
-      "Price": 6000,
-      "Desc": "\uBA4B\uC9C4! \uB85C\uBE0C!",
-      "IsEquip": true,
-      "PurChase": true
-    }
-  ],
-  "Weapons": [
-    {
-      "Id": 1013,
-      "Name": "\uCD5C\uACE0\uAE09 \uD65C",
-      "Stat": 4,
-      "Value": 40,
-      "Slot": "4",
-      "Price": 3000,
-      "Desc": "\uC2E4\uB825\uC5D0 \uBE44\uD574 \uBE44\uC2FC \uD65C.",
-      "wIsEquip": false,
-      "wPurChase": true
-    },
-    {
-      "Id": 1002,
-      "Name": "\uACE0\uAE09 \uAC80",
-      "Stat": 4,
-      "Value": 30,
-      "Slot": "4",
-      "Price": 2000,
-      "Desc": "\uD2BC\uD2BC\uD55C \uAC80.",
-      "wIsEquip": false,
-      "wPurChase": true
-    },
-    {
-      "Id": 1009,
-      "Name": "\uD654\uB824\uD55C \uB2E8\uAC80",
-      "Stat": 4,
-      "Value": 50,
-      "Slot": "4",
-      "Price": 6000,
-      "Desc": "\uB2E8\uAC80\uC774 \uD654\uB824\uD558\uB2E4\uACE0 \uC131\uB2A5\uC774 \uC88B\uC740\uAC74 \uC544\uB2D8.",
-      "wIsEquip": true,
-      "wPurChase": true
-    }
-  ],
-  "Potions": [
-    {
-      "Id": 1008,
-      "Name": "\uCD5C\uACE0\uAE09 MP\uD3EC\uC158",
-      "Stat": 1,
-      "Value": 50,
-      "Price": 2000,
-      "Desc": "\uB9DB\uC788\uB294 \uD3EC\uC158 \uC131\uB2A5\uC774 \uC88B\uC740\uB370 \uC65C \uB9DB\uC788\uC74C?"
-    },
-    {
-      "Id": 1001,
-      "Name": "\uC77C\uBC18 HP\uD3EC\uC158",
-      "Stat": 0,
-      "Value": 20,
-      "Price": 500,
-      "Desc": "\uB9DB\uC5C6\uB294 \uD3EC\uC158."
-    }
-  ],
-  "purChaseweaponItem": [
-    1002,
-    1009,
-    1013
-  ],
-  "purChaseEquipmentItem": [
-    1004,
-    1008,
-    1011
-  ],
-  "weaponEquip": [
-    1009
-  ],
-  "itemsEquip": [
-    1004
-  ]
+  "Items": [],
+  "Weapons": [],
+  "Potions": [],
+  "purChaseweaponItem": [],
+  "purChaseEquipmentItem": [],
+  "weaponEquip": [],
+  "itemsEquip": []
 }

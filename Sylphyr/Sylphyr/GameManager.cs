@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Sylphyr.Character;
 using Sylphyr.Scene;
+using Sylphyr.YJH;
 
 namespace Sylphyr
 {

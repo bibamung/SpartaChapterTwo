@@ -1,8 +1,6 @@
 using Newtonsoft.Json;
 using Sylphyr.Character;
-
 namespace Sylphyr.YJH;
-
 using System.Linq;
 using System.Collections.Generic;
 using CharacterStat = Sylphyr.Character.CharacterStat;
@@ -17,6 +15,10 @@ public class SaveData
     public int Exp { get; set; } // 경험치
     public int Gold { get; set; } // 소지금
     public CharacterStatData BaseStat { get; set; } // 기본 스탯
+    public CharacterStatData BaseStatattack {get;set;}
+    public CharacterStatData BaseStatdex {get;set;}
+    public CharacterStatData BaseStatdef{get;set;}
+    public CharacterStatData BaseStatluk{get;set;}
     public CharacterStatData EnhancedStat { get; set; } // 강화된 스탯
     public List<ItemData> Items { get; set; } // 인벤토리에 저장된 방어구
     public List<WeaponData> Weapons { get; set; } // 저장된 무기
@@ -42,8 +44,12 @@ public class SaveData
             CurrentMp = 50.0f,
             Exp = 0,
             Gold = 0,
-            BaseStat = new CharacterStatData (10, 10, 10, 10),
-            EnhancedStat = new CharacterStatData (10, 10, 10, 10),
+            //BaseStat = new CharacterStatData (10, 10, 10, 10),
+            BaseStatattack = new CharacterStatData(),
+            BaseStatdex = new CharacterStatData(),
+            BaseStatdef = new CharacterStatData(),
+            BaseStatluk = new CharacterStatData(),
+            //EnhancedStat = new CharacterStatData (10, 10, 10, 10),
             Items = new List<ItemData>(),
             Weapons = new List<WeaponData>(),
             Potions = new List<PotionData>(),
@@ -68,8 +74,7 @@ public class SaveData
     {
         Potions = GameManager.Instance.inventory.ToPotionData();
     }
-
-
+    
     // Debug 용 데이터 출력
     public void PrintData()
     {
@@ -108,6 +113,11 @@ public class CharacterStatData
         Dex = dex;
         Def = def;
         Luk = luk;   
+    }
+
+    public CharacterStatData()
+    {
+        
     }
 }
 

@@ -86,20 +86,35 @@ public class Player
         statusSb.Clear();
         statusSb.AppendLine($" Lv.{Level}");
         statusSb.AppendLine($" {Name} ( {Class.GetClassName()} )");
-        statusSb.AppendLine($" HP: {CurrentHp:N2}/{TotalStat.MaxHp:N2}");
-        statusSb.AppendLine($" MP: {CurrentMp:N2}/{TotalStat.MaxMp:N2}");
-        statusSb.AppendLine($" Exp: {Exp}/{LevelData.GetExp(Level)}");
+        
+        statusSb.AppendLine($" HP: {CurrentHp:N2} / {TotalStat.MaxHp:N2}");
+        statusSb.AppendLine($" MP: {CurrentMp:N2} / {TotalStat.MaxMp:N2}");
+        
+        statusSb.AppendLine($" Exp: {Exp} / {LevelData.GetExp(Level)}");
         statusSb.AppendLine($" 골드: {Gold} G");
         statusSb.AppendLine();
-        statusSb.AppendLine($" 공격력: {TotalStat.Atk}");
-        statusSb.AppendLine($" 방어력: {TotalStat.Def}");
-        statusSb.AppendLine($" 속도: {TotalStat.Speed}");
-        statusSb.AppendLine($" 민첩: {TotalStat.Dex}");
-        statusSb.AppendLine($" 운: {TotalStat.Luk}");
+        
+        statusSb.Append($" 공격력: {TotalStat.Atk}");
+        if (EnhancedStat.Atk > 0) statusSb.Append($" (+{EnhancedStat.Atk})");
         statusSb.AppendLine();
+        statusSb.Append($" 방어력: {TotalStat.Def}");
+        if (EnhancedStat.Def > 0) statusSb.Append($" (+{EnhancedStat.Def})");
+        statusSb.AppendLine();
+        statusSb.Append($" 속도: {TotalStat.Speed}");
+        if (EnhancedStat.Speed > 0) statusSb.Append($" (+{EnhancedStat.Speed})");
+        statusSb.AppendLine();
+        statusSb.Append($" 민첩: {TotalStat.Dex}");
+        if (EnhancedStat.Dex > 0) statusSb.Append($" (+{EnhancedStat.Dex})");
+        statusSb.AppendLine();
+        statusSb.Append($" 행운: {TotalStat.Luk}");
+        if (EnhancedStat.Luk > 0) statusSb.Append($" (+{EnhancedStat.Luk})");
+        statusSb.AppendLine();
+        
         statusSb.AppendLine($" 치명타 확률: {TotalStat.CriticalChance * 100:N1}%");
-        statusSb.AppendLine($" 치명타 대미지: {TotalStat.CriticalDamage * 10:N1}%");
+        statusSb.Append($" 치명타 대미지: {TotalStat.CriticalDamage * 100:N1}%");
+        if (EnhancedStat.CriticalDamage > 0) statusSb.Append($" (+{EnhancedStat.CriticalDamage * 100:N1}%)");
         statusSb.AppendLine();
+        
         statusSb.AppendLine("[ 보유 스킬 ]");
         foreach (var skill in learnedSkills)
         {

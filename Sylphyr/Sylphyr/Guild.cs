@@ -70,7 +70,7 @@ namespace Guild
         DungeonManager dungeonManager = new DungeonManager();
         List<Quest> QuestList = DataManager.Instance.quests;
 
-        /*
+        
         public void GuildMain(Player player)
         {
 
@@ -91,11 +91,8 @@ namespace Guild
                     {
                         if (AcceptedQuests.Count != 0)
                         {
-                            foreach (var accetQuest in AcceptedQuests)
-                            {
-                                if (QuestList[i].ID == accetQuest.ID) Console.Write($"{i + 1}. {accetQuest.Name}");
-                            }
-                            Console.Write($"{i + 1}. {QuestList[i].Name}");
+                            if (QuestList[i].ID == AcceptedQuests[0].ID) Console.Write($"{i + 1}. {AcceptedQuests[0].Name}");
+                            else Console.Write($"{i + 1}. {QuestList[i].Name}");
                         }
                         else
                         {
@@ -105,50 +102,51 @@ namespace Guild
                     
                     if (AcceptedQuests.Count > j)
                     {
-                        if (AcceptedQuests[j].Request && AcceptedQuests[j].ID == QuestList[i].ID)
+                        if (AcceptedQuests[0].Request && AcceptedQuests[0].ID == QuestList[i].ID)
                         {
                             // 진행도 출력
-                            if (AcceptedQuests[j].ID % 1000 == 8)
+                            if (AcceptedQuests[0].ID % 1000 == 8)
                             {
-                                Console.Write($"진행도: {DungeonManager.clearCount[6]} / {QuestList[j].RequiredFloors}");
-                                if (DungeonManager.clearCount[6] == QuestList[j].RequiredFloors)
+                                Console.Write($"진행도: {DungeonManager.clearCount[6]} / {QuestList[i].RequiredFloors}");
+                                if (DungeonManager.clearCount[6] == QuestList[i].RequiredFloors)
                                 {
-                                    AcceptedQuests[j].Isclear = true;
-                                    CompletedQuests.Add(AcceptedQuests[j]);
-                                    AcceptedQuests.RemoveAt(j);
+                                    AcceptedQuests[0].Isclear = true;
+                                    CompletedQuests.Add(AcceptedQuests[0]);
+                                    AcceptedQuests.RemoveAt(0);
                                 }
                             }
-                            else if ((AcceptedQuests[j].ID % 1000 == 5 && player.BestStage == 10) || (AcceptedQuests[j].ID % 1000 == 5 && player.BestStage == 40))
+                            else if ((AcceptedQuests[0].ID % 1000 == 5 && player.BestStage == 10) || (AcceptedQuests[0].ID % 1000 == 5 && player.BestStage == 40))
                             {
-                                AcceptedQuests[j].Isclear = true;
-                                CompletedQuests.Add(AcceptedQuests[j]);  // 퀘스트 완료
-                                AcceptedQuests.RemoveAt(j);
+                                AcceptedQuests[0].Isclear = true;
+                                CompletedQuests.Add(AcceptedQuests[0]);  // 퀘스트 완료
+                                AcceptedQuests.RemoveAt(0);
                             }
-                            else if (AcceptedQuests[j].ID % 1000 == 0 || AcceptedQuests[j].ID % 1000 == 3 || AcceptedQuests[j].ID % 1000 == 4)
+                            else if (AcceptedQuests[0].ID % 1000 == 0 || AcceptedQuests[0].ID % 1000 == 3 || AcceptedQuests[0].ID % 1000 == 4)
                             {
                                 int sum = 0;
                                 for (int n = 0; n < DungeonManager.clearCount.Length; n++)
                                 {
                                     sum += DungeonManager.clearCount[n];
                                 }
-                                Console.Write($" 진행도: {sum} / {QuestList[j].RequiredFloors}\t");
+                                Console.Write($" 진행도: {sum} / {QuestList[i].RequiredFloors}\t");
 
-                                int questnum = AcceptedQuests[j].ID % 1000;
+                                int questnum = AcceptedQuests[0].ID % 1000;
                                 switch (questnum)
                                 {
                                     case 0:
                                     case 3:
                                     case 4:
-                                        if (sum == QuestList[j].RequiredFloors)
+                                        if (sum == QuestList[i].RequiredFloors)
                                         {
-                                            AcceptedQuests[j].Isclear = true;
-                                            CompletedQuests.Add(AcceptedQuests[j]);
+                                            AcceptedQuests[0].Isclear = true;
+                                            DungeonManager.clearCount = new int[DungeonManager.clearCount.Length];
+                                            CompletedQuests.Add(AcceptedQuests[0]);
                                             AcceptedQuests.RemoveAt(j);
                                         }
                                         break;
                                 }
                             }
-                            if (AcceptedQuests.Count != 0 && !AcceptedQuests[j].Isclear)
+                            if (AcceptedQuests.Count != 0 && !AcceptedQuests[0].Isclear)
                             {
                                 Console.Write(" (수락 완료) ");
                             }
@@ -218,7 +216,7 @@ namespace Guild
                 Console.WriteLine("\n엔터를 눌러주세요.");
                 Console.ReadLine();
 
-                
+                /*
                 while (ActiveQuest != null)
                 {
                     Console.Clear();
@@ -271,10 +269,10 @@ namespace Guild
                     Console.WriteLine("\nEnter 키를 눌러 계속");
                     Console.ReadLine();
                 }
-                
+                */
             }
         }
-        */
+        
 
         public void DungeonCountClearQuest()
         {

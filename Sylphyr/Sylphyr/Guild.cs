@@ -330,20 +330,17 @@ namespace Guild
         }
 
 
-        public void SelectQuest()
+        public void SelectQuest(int selectQuest)
         {
-            Console.WriteLine("\n0. 나가기");
-            Console.Write("\n원하시는 퀘스트를 선택해주세요.\n>> ");
-
-            if (!int.TryParse(Console.ReadLine(), out int choice) || choice < 0 || choice > QuestList.Count)
+            if (selectQuest < 0 || selectQuest > QuestList.Count)
             {
                 Console.WriteLine("잘못된 입력입니다.엔터를 눌러주세요.");
                 Console.ReadLine();
             }
 
-            if (choice == 0) return;
+            if (selectQuest == 0) return;
 
-            Quest selectedQuest = QuestList[choice - 1];
+            Quest selectedQuest = QuestList[selectQuest - 1];
 
             if (CompletedQuests.Contains(selectedQuest))
             {
@@ -356,62 +353,86 @@ namespace Guild
             Console.WriteLine("1. 수락");
             Console.WriteLine("2. 거절");
 
-            string action = Console.ReadLine();
-
-            bool isint = int.TryParse(action, out int choosenum);
+            int accept;
+            bool isint = int.TryParse(Console.ReadLine(), out accept);
             if (!isint) Console.WriteLine("숫자를 입력해주세요.");
 
-            if (choosenum == 1)
+            else
             {
-                if (AcceptedQuests.Count == 0)
+                if (accept == 1)
                 {
-                    Console.Clear();
-                    AcceptedQuests.Add(selectedQuest);
-                    selectedQuest.Request = true;
-                    Console.WriteLine($"\n {selectedQuest.Name} 퀘스트를 수락했습니다!");
+                    if (AcceptedQuests.Count == 0)
+                    {
+                        Console.Clear();
+                        AcceptedQuests.Add(selectedQuest);
+                        selectedQuest.Request = true;
+                        Console.WriteLine($"\n {selectedQuest.Name} 퀘스트를 수락했습니다!");
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        Console.WriteLine("이미 수령한 퀘스트가 있습니다.");
+                    }
                 }
-                else
+                else if (accept == 2)
                 {
-                    Console.Clear();
-                    Console.WriteLine("이미 수령한 퀘스트가 있습니다.");
+                    selectedQuest.Request = false;
+                    AcceptedQuests.Remove(selectedQuest);
+                    Console.WriteLine("\n 퀘스트를 거절했습니다.");
                 }
             }
-            else if (choosenum == 2)
-            {
-                selectedQuest.Request = false;
-                AcceptedQuests.Remove(selectedQuest);
-                Console.WriteLine("\n 퀘스트를 거절했습니다.");
-            }
-
+            
             Console.WriteLine("\n엔터를 눌러주세요.");
             Console.ReadLine();
         }
 
 
-        public void GuildMain()
+        public void GuildMain(Player player)
         {
-            int count = 0;
-            foreach (var select in QuestList)
+            while (true)
             {
                 Console.Clear();
                 Console.WriteLine("========= Quest =========\n");
                 Console.WriteLine("퀘스트를 선택할 수 있습니다.");
-                Console.Write($"{count + 1}. {QuestList[count].Name}");
+                int count = 0;
+                foreach (var select in QuestList)
+                {
+                    Console.Write($"{count + 1}. {select.Name}");
+                    if (select.Isclear)
+                    {
+                        Console.WriteLine("\t(완료된 퀘스트)");
+                    }
+                    else if (AcceptedQuests.Contains(select))
+                    {
+                        Console.WriteLine("\t(수락한 퀘스트)");
+                    }
+                    else
+                    {
+                        Console.WriteLine();
+                    }
 
-                //TODO :: 퀘스트 완료된거 퀘스트 완료 출력
-                //TODO :: 수락 한거 수락 완료 출력
+                    count++;
+                }
+                Console.WriteLine("\n0. 나가기");
+                Console.Write("\n원하시는 퀘스트를 선택해주세요.\n>> ");
 
                 //퀘스트 수락, 거절
-                SelectQuest();
+                int selectQuest;
+                bool isVaildNum = int.TryParse(Console.ReadLine(), out selectQuest);
+                if (isVaildNum)
+                {
+                    if (selectQuest == 0)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        SelectQuest(selectQuest);
+                    }
+                }
+                else Console.WriteLine("Please press any key...");
 
-
-
-
-
-
-
-                count++;
             }
         }
-     }
+    }
 }

@@ -65,6 +65,9 @@ public class MainScene
             case Behavior.Save:
                 GameSave();
                 break;
+            case Behavior.GuildEnter:
+                EnterGuild();
+                break;
             case Behavior.Exit:
                 TitleScene.Instance.ExitGame();
                 break;

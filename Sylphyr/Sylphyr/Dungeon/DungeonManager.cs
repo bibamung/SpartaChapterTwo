@@ -229,28 +229,51 @@ namespace Sylphyr.Dungeon
             {
                 Console.Clear();
                 Console.WriteLine("Sylphyr 던전에 오신것을 환영합니다.");
-                Console.WriteLine($"현재 모험가님의 최고 도달 스테이지는 {player.BestStage}Stage 입니다.");
+                Console.WriteLine($"현재 모험가님의 최고 도달 스테이지는 {player.BestStage} Stage 입니다.");
+                int count = 1;
                 for (int i = 0; i < 10; i++)
                 {
-                    for (int j = 0; j < 10; j++)
+                    for (int j = 0; j < 5; j++)
                     {
-                        if (j < player.BestStage)
+                        if (count <= player.BestStage)
                         {
                             Console.ForegroundColor = ConsoleColor.Green;
-                            Console.Write($"Stage {i}\t");
+                            if (count <= 10)
+                            {
+                                Console.Write($"Stage {count++}\t\t");
+                            }
+                            else
+                            {
+                                Console.Write($"Stage {count++}\t");
+                            }
                         }
-                        else if (j == player.BestStage)
+                        else if (count == player.BestStage + 1)
                         {
                             Console.ForegroundColor = ConsoleColor.Yellow;
-                            Console.Write($"Stage {i}\t");
+                            if (count <= 10)
+                            {
+                                Console.Write($"Stage {count++}\t\t");
+                            }
+                            else
+                            {
+                                Console.Write($"Stage {count++}\t");
+                            }
                         }
                         else
                         {
                             Console.ResetColor();
-                            Console.Write($"Stage {i}\t");
+                            if (count <= 10)
+                            {
+                                Console.Write($"Stage {count++}\t\t");
+                            }
+                            else
+                            {
+                                Console.Write($"Stage {count++}\t");
+                            }
                         }
                     }
                     Console.WriteLine();
+                    
                 }
                 Console.WriteLine("(※ 돌아가시려면 0을 누르십시오)");
                 Console.Write("원하시는 스테이지를 입력해주세요(스테이지 번호만 입력하세요)\n>>  ");

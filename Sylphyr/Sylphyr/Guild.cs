@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Design;
 using Sylphyr.YJH;
 using System.Xml.Serialization;
+using Sylphyr.Dungeon;
 
 namespace Guild
 {
@@ -66,7 +67,7 @@ namespace Guild
         List<Quest> Quests = new List<Quest>();
         List<Quest> AcceptedQuests = new List<Quest>();
         List<Quest> CompletedQuests = new List<Quest>();
-        
+        DungeonManager dungeonManager = new DungeonManager();
 
 
 
@@ -88,9 +89,55 @@ namespace Guild
                     {
                         if (AcceptedQuests[j].Request && AcceptedQuests[j].ID == questList[i].ID)
                         {
-                            Console.Write(" (수락 완료) ");
                             // 진행도 출력
-                            Console.Write($"진행도: {AcceptedQuests[j].CurrentFloors} / {questList[j].RequiredFloors}");
+                            if (AcceptedQuests[j].ID % 1000 == 8)
+                            {
+                                Console.Write($"진행도: {DungeonManager.clearCount[6]} / {questList[j].RequiredFloors}");
+                                if (DungeonManager.clearCount[6] == questList[j].RequiredFloors)
+                                {
+                                    AcceptedQuests[j].Isclear = true;
+                                    CompletedQuests.Add(AcceptedQuests[j]);
+                                    AcceptedQuests.RemoveAt(j);
+                                }
+                            }
+                            else if ((AcceptedQuests[j].ID % 1000 == 5 && player.BestStage == 10) || (AcceptedQuests[j].ID % 1000 == 5 && player.BestStage == 40))
+                            {
+                                AcceptedQuests[j].Isclear = true;
+                                CompletedQuests.Add(AcceptedQuests[j]);  // 퀘스트 완료
+                                AcceptedQuests.RemoveAt(j);
+                            }
+                            else if (AcceptedQuests[j].ID % 1000 == 0 || AcceptedQuests[j].ID % 1000 == 3 || AcceptedQuests[j].ID % 1000 == 4)
+                            {
+                                int sum = 0;
+                                for (int n = 0; n < DungeonManager.clearCount.Length; n++)
+                                {
+                                    sum += DungeonManager.clearCount[n];
+                                }
+                                Console.Write($" 진행도: {sum} / {questList[j].RequiredFloors}\t");
+
+                                int questnum = AcceptedQuests[j].ID % 1000;
+                                switch (questnum)
+                                {
+                                    case 0:
+                                    case 3:
+                                    case 4:
+                                        if (sum == questList[j].RequiredFloors)
+                                        {
+                                            AcceptedQuests[j].Isclear = true;
+                                            CompletedQuests.Add(AcceptedQuests[j]);
+                                            AcceptedQuests.RemoveAt(j);
+                                        }
+                                        break;
+                                }
+                            }
+                            if (AcceptedQuests.Count != 0 && !AcceptedQuests[j].Isclear)
+                            {
+                                Console.Write(" (수락 완료) ");
+                            }
+                            else
+                            {
+                                Console.Write(" (퀘스트 완료)");
+                            }
                             j++;
                         }
                     }

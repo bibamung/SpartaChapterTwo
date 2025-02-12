@@ -14,12 +14,21 @@ public class SaveData
     public float CurrentMp { get; set; } // 현재 MP
     public int Exp { get; set; } // 경험치
     public int Gold { get; set; } // 소지금
-    public CharacterStatData BaseStat { get; set; } // 기본 스탯
-    public CharacterStatData BaseStatattack {get;set;}
+
+
+    public float Atk { get; set; }
+    public float Dex { get; set; }
+
+    public float Def { get; set; }
+    public float Luk { get; set; }
+
+
+    public static CharacterStatData BaseStat = new CharacterStatData(10, 10, 10, 10); // 기본 스탯
+    /*public CharacterStatData BaseStatattack {get;set;}
     public CharacterStatData BaseStatdex {get;set;}
     public CharacterStatData BaseStatdef{get;set;}
-    public CharacterStatData BaseStatluk{get;set;}
-    public CharacterStatData EnhancedStat { get; set; } // 강화된 스탯
+    public CharacterStatData BaseStatluk{get;set;}*/
+    //public CharacterStatData EnhancedStat { get; set; } // 강화된 스탯
     public List<ItemData> Items { get; set; } // 인벤토리에 저장된 방어구
     public List<WeaponData> Weapons { get; set; } // 저장된 무기
     public List<PotionData> Potions { get; set; } // 저장된 포션
@@ -28,9 +37,11 @@ public class SaveData
 
     public List<int> purChaseEquipmentItem { get; set; } // 구매한 방어구 정보
 
+    public List<int> purChasePotion { get; set; } // 구매한 방어구 정보
+
     public List<int> weaponEquip { get; set; } // 장비중인 무기
 
-    public List<int> itemsEquip { get; set; } // 장비중인 방어구
+    public List<int> itemsEquip { get; set; } // 장비중인 방어구    
 
     // 기본 저장 데이터 초기화
     public static SaveData CreateDefault()
@@ -44,19 +55,24 @@ public class SaveData
             CurrentMp = 50.0f,
             Exp = 0,
             Gold = 0,
-            //BaseStat = new CharacterStatData (10, 10, 10, 10),
-            BaseStatattack = new CharacterStatData(),
-            BaseStatdex = new CharacterStatData(),
-            BaseStatdef = new CharacterStatData(),
-            BaseStatluk = new CharacterStatData(),
-            //EnhancedStat = new CharacterStatData (10, 10, 10, 10),
+
+            Atk = BaseStat.Attack,
+            Dex = BaseStat.Dex,
+            Def = BaseStat.Def,
+            Luk = BaseStat.Luk,
+
             Items = new List<ItemData>(),
             Weapons = new List<WeaponData>(),
             Potions = new List<PotionData>(),
-            purChaseweaponItem = new List<int>(),
+
+
+
+            /*purChaseweaponItem = new List<int>(),
             purChaseEquipmentItem = new List<int>(),
+            purChasePotion = new List<int>(),
+
             weaponEquip = new List<int>(),
-            itemsEquip = new List<int>()
+            itemsEquip = new List<int>()*/
         };
     }
 
@@ -82,14 +98,22 @@ public class SaveData
         Console.WriteLine($"[HP: {CurrentHp}, MP: {CurrentMp}, Exp: {Exp}, Gold: {Gold}]");
         Console.WriteLine(
             $"[Base Stats] ATK: {BaseStat.Attack}, DEX: {BaseStat.Dex}, DEF: {BaseStat.Def}, LUK: {BaseStat.Luk}");
-        Console.WriteLine(
-            $"[Enhanced Stats] ATK: {EnhancedStat.Attack}, DEX: {EnhancedStat.Dex}, DEF: {EnhancedStat.Def}, LUK: {EnhancedStat.Luk}");
+        //Console.WriteLine(
+            //$"[Enhanced Stats] ATK: {EnhancedStat.Attack}, DEX: {EnhancedStat.Dex}, DEF: {EnhancedStat.Def}, LUK: {EnhancedStat.Luk}");
     }
 
-    public void SavepurchaseItem()
+    /*public void SavepurchaseItem()
     {
         purChaseweaponItem = GameManager.Instance.shop.ToPurChaseWeaponItem();
         purChaseEquipmentItem = GameManager.Instance.shop.ToPurChaseEquipmentItem();
+        purChasePotion = GameManager.Instance.shop.ToPurChasePotionItem();
+    }*/
+
+    public void SaveInvenItem()
+    {
+        Items = GameManager.Instance.inventory.ToItemData();
+        Weapons = GameManager.Instance.inventory.ToWeaponData();
+        Potions = GameManager.Instance.inventory.ToPotionData();
     }
 
     public void SaveEquipItem()
@@ -97,12 +121,17 @@ public class SaveData
         weaponEquip = GameManager.Instance.inventory.ToEquipWeapon();
         itemsEquip = GameManager.Instance.inventory.ToEquipItem();
     }
+
+    public void SavePotion()
+    {
+        itemsEquip = GameManager.Instance.inventory.ToEquipItem();
+    }
 }
 
 // CharacterStat 데이터를 변환하기 위한 데이터 구조
 public class CharacterStatData
 {
-    [JsonProperty] public float Attack { get; set; }
+    [JsonProperty]public float Attack { get; set; }
     [JsonProperty]public float Dex{ get; set; }
     [JsonProperty]public float Def{ get; set; }
     [JsonProperty]public float Luk{ get; set; }
@@ -114,10 +143,10 @@ public class CharacterStatData
         Def = def;
         Luk = luk;   
     }
-
-    public CharacterStatData()
+    
+    public float GetAtk()
     {
-        
+        return Attack;
     }
 }
 
@@ -157,8 +186,8 @@ public class WeaponData
     [JsonProperty] public string Slot { get; set;}
     [JsonProperty] public int Price { get; set;}
     [JsonProperty] public string Desc { get; set;}
-    [JsonProperty] public bool wIsEquip { get; set;}
-    [JsonProperty] public bool wPurChase { get; set;}
+    [JsonProperty] public bool WIsEquip { get; set;}
+    [JsonProperty] public bool WPurChase { get; set;}
 
     public WeaponData(int id, string name, int stat, int value, string slot, int price, string desc, bool wisEquip,
         bool wpurChase)
@@ -170,8 +199,8 @@ public class WeaponData
         Slot = slot;
         Price = price;
         Desc = desc;
-        wIsEquip = wisEquip;
-        wPurChase = wpurChase;
+        WIsEquip = wisEquip;
+        WPurChase = wpurChase;
     }
 }
 
@@ -183,8 +212,11 @@ public class PotionData
     [JsonProperty] public int Value { get; set;}
     [JsonProperty] public int Price { get; set;}
     [JsonProperty] public string Desc { get; set;}
+    [JsonProperty] public bool IsBuy { get; set; }
+    [JsonProperty] public bool IsUse { get; set; }
 
-    public PotionData(int id, string name, int stat, int value, int price, string desc)
+
+    public PotionData(int id, string name, int stat, int value, int price, string desc, bool isbuy, bool isuse)
     {
         Id = id;
         Name = name;
@@ -192,5 +224,7 @@ public class PotionData
         Value = value;
         Price = price;
         Desc = desc;
+        IsBuy = isbuy;
+        IsUse = isuse;
     }
 }

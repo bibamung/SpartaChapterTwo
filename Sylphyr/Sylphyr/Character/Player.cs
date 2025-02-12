@@ -10,7 +10,7 @@ public class Player
     private StringBuilder statusSb { get; } = new();
     
     // Player Stat
-    public CharacterClass Class { get; }
+    public CharacterClass Class { get; set; }
     public CharacterStat BaseStat { get; }
     public CharacterStat EnhancedStat { get; }
 
@@ -22,7 +22,7 @@ public class Player
     public List<CharacterSkillData> learnedSkills { get; } = new();
 
     // Player Info
-    public string Name { get; }
+    public string Name { get; set; }
     public int Level { get; private set; }
     public float CurrentHp { get; private set; }
     public float CurrentMp { get; private set; }
@@ -34,7 +34,7 @@ public class Player
 
     private CharacterStat totalStat = new CharacterStat();
     public CharacterStat TotalStat
-    {
+    {   
         get
         {
             totalStat.MaxHp = BaseStat.MaxHp + EnhancedStat.MaxHp;
@@ -292,7 +292,42 @@ public class Player
     {
         BestStage = stage;
     }
-    
+
+
+    public void InitializePlayer(GameData gameData)
+    {
+        Console.WriteLine("InitializePlayer 진입");
+        if (gameData == null)
+        {
+            Console.WriteLine("GameData가 없습니다. 초기화에 실패했습니다.");
+            return;
+        }
+        Console.WriteLine("if 스킵 성공");
+        // GameData 데이터를 Player에 적용
+        
+        Name = gameData.Name;
+        Class = Enum.Parse<CharacterClass>(gameData.CharacterClass);
+        Level = gameData.Level;
+        CurrentHp = gameData.CurrentHp;
+        CurrentMp = gameData.CurrentMp;
+        Exp = gameData.Exp;
+        Gold = gameData.Gold;
+
+        BaseStat.Atk = gameData.Atk;
+        BaseStat.Dex = gameData.Dex;
+        BaseStat.Def = gameData.Def;
+        BaseStat.Luk = gameData.Luk;
+
+
+        /*BaseStat = new CharacterStat();
+        EnhancedStat = new CharacterStat();*/
+
+        Console.WriteLine("Player가 GameData를 사용하여 성공적으로 초기화되었습니다.");
+    }
+
+
+
+
     public SaveData ToSaveData() {
         return new SaveData 
         {
@@ -303,8 +338,12 @@ public class Player
             CurrentMp = CurrentMp,
             Exp = Exp,
             Gold = Gold,
-            BaseStat = new YJH.CharacterStatData(BaseStat.Atk, BaseStat.Dex, BaseStat.Def, BaseStat.Luk),
-            EnhancedStat = new YJH.CharacterStatData (EnhancedStat.Atk, EnhancedStat.Dex, EnhancedStat.Def, EnhancedStat.Luk),
+            Atk = BaseStat.Atk,
+            Dex = BaseStat.Dex,
+            Def = BaseStat.Def,
+            Luk = BaseStat.Luk,
+            //BaseStat = new CharacterStatData(BaseStat.Atk, BaseStat.Dex, BaseStat.Def, BaseStat.Luk),
+            //EnhancedStat = new YJH.CharacterStatData (EnhancedStat.Atk, EnhancedStat.Dex, EnhancedStat.Def, EnhancedStat.Luk),
         };
     }
 }

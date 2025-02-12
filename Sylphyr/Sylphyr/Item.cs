@@ -28,7 +28,7 @@ namespace Sylphyr
         private List<Potion> randomPotion = new List<Potion>(); // 랜덤 포션
         private List<Weapon> randomWeapon = new List<Weapon>(); // 랜덤 무기
 
-
+        
         // 한글과 영문의 너비를 맞춰주는 함수
         static string AlignText(string text, int totalWidth)
         {
@@ -109,7 +109,7 @@ namespace Sylphyr
                     string weaponslot = "무기";
 
                     // 정렬된 텍스트 출력
-                    if (!weaponItem.wpurChase)
+                    if (!weaponItem.WpurChase)
                         Console.WriteLine("- " + AlignText(weaponItem.Name, 25) + " | " +
                                           AlignText(statname, 15) + "   " +
                                           AlignText("+" + weaponItem.Value, 5) + " | " +
@@ -196,7 +196,7 @@ namespace Sylphyr
                     else hpmp = "MP";
 
                     // 정렬된 텍스트 출력
-                    if (!potion1.isBuy)
+                    if (!potion1.IsBuy)
                     {
                         Console.WriteLine("- " + AlignText(potion1.Name, 25) + " | " +
                                           AlignText(hpmp, 15) + "   " +
@@ -243,7 +243,7 @@ namespace Sylphyr
                     case 0:
                         foreach (var item in inventory.invenpotions)
                         {
-                            item.isBuy = false;
+                            item.IsBuy = false;
                         }
 
                         isShop = false;
@@ -285,7 +285,7 @@ namespace Sylphyr
                     string statname = "공격력";
                     string weaponslot = "무기";
 
-                    if (!weaponItem.wpurChase)
+                    if (!weaponItem.WpurChase)
                     {
                         // 정렬된 텍스트 출력
                         Console.WriteLine("- " + index + ". " + AlignText(weaponItem.Name, 25) + " | " +
@@ -370,7 +370,7 @@ namespace Sylphyr
                     if (potionItem.Stat == 0) hpmp = "HP";
                     else hpmp = "MP";
 
-                    if (!potionItem.isBuy)
+                    if (!potionItem.IsBuy)
                     {
                         // 정렬된 텍스트 출력
                         Console.WriteLine("- " + index + ". " + AlignText(potionItem.Name, 25) + " | " +
@@ -453,13 +453,13 @@ namespace Sylphyr
                     case 3:
                         if (selectedWeapon != null)
                         {
-                            if (player.Gold >= selectedWeapon.Price && !selectedWeapon.wpurChase)
+                            if (player.Gold >= selectedWeapon.Price && !selectedWeapon.WpurChase)
                             {
                                 player.RemoveGold(selectedWeapon.Price);
                                 inventory.AddWeapon(selectedWeapon);
-                                selectedWeapon.wpurChase = true;
+                                selectedWeapon.WpurChase = true;
                             }
-                            else if (selectedWeapon.wpurChase) ispurChase = true;
+                            else if (selectedWeapon.WpurChase) ispurChase = true;
                             else if (player.Gold < selectedWeapon.Price) needGold = true;
                         }
                         GameManager.Instance.quest.CurrentBuyItems++;
@@ -482,16 +482,16 @@ namespace Sylphyr
                         break;
                     case 7:
                     case 8:
-                    case 9:
                         if (selectedPotion != null)
                         {
-                            if (player.Gold >= selectedPotion.Price && !selectedPotion.isBuy)
+                            if (player.Gold >= selectedPotion.Price && !selectedPotion.IsBuy)
                             {
                                 player.RemoveGold(selectedPotion.Price);
                                 inventory.AddPotion(selectedPotion);
-                                selectedPotion.isBuy = true;
+                                selectedPotion.IsBuy = true;
+                                selectedPotion.count++;
                             }
-                            else if (selectedPotion.isBuy) ispurChase = true;
+                            else if (selectedPotion.IsBuy) ispurChase = true;
                             else if (player.Gold < selectedPotion.Price) needGold = true;
                         }
                         GameManager.Instance.quest.CurrentBuyItems++;
@@ -540,7 +540,7 @@ namespace Sylphyr
                     string statname = "공격력";
                     string weaponslot = "무기";
 
-                    if (inventory.weaponEquip.Count > 0 && inventory.weaponEquip[0].wisEquip)
+                    if (inventory.weaponEquip.Count > 0 && inventory.weaponEquip[0].WisEquip)
                     {
                         if (weaponItem.Desc == inventory.weaponEquip[0].Desc)
                         {
@@ -549,7 +549,7 @@ namespace Sylphyr
                         }
                         else
                         {
-                            weaponItem.wisEquip = false;
+                            weaponItem.WisEquip = false;
                             isWeponEquip = false;
                         }
                     }
@@ -710,7 +710,7 @@ namespace Sylphyr
                     default:
                         if (selectedWeapon != null)
                         {
-                            if (!selectedWeapon.wisEquip)
+                            if (!selectedWeapon.WisEquip)
                             {
                                 int getgold = (int)(selectedWeapon.Price * 0.8);
                                 player.AddGold(getgold);
@@ -718,14 +718,14 @@ namespace Sylphyr
                             }
                             else
                             {
-                                selectedWeapon.wisEquip = false;
+                                selectedWeapon.WisEquip = false;
                                 player.EnhancedStat.Atk -= selectedWeapon.Value;
                                 int getgold = (int)(selectedWeapon.Price * 0.8);
                                 player.AddGold(getgold);
                                 inventory.RemoveWeapon(selectedWeapon);
                             }
 
-                            selectedWeapon.wpurChase = false;
+                            selectedWeapon.WpurChase = false;
                         }
                         else if (selectedItem != null)
                         {
@@ -754,7 +754,7 @@ namespace Sylphyr
                             int getgold = (int)(selectedPotion.Price * 0.8);
                             player.AddGold(getgold);
                             inventory.RemovePotion(selectedPotion);
-                            selectedPotion.isBuy = false;
+                            selectedPotion.IsBuy = false;
                         }
                         GameManager.Instance.quest.CurrentSellItems++;
                         break;
@@ -773,6 +773,21 @@ namespace Sylphyr
             else return -1;
         }
 
+        /*public List<Item> ToInvetoryItem()
+        {
+            List<Item> EquipmentItem = ;
+            List<Item> result = new List<Item>();
+
+            for (int i = 0; i < EquipmentItem.Count; i++)
+            {
+                if ()
+            }
+            return result;
+        }*/
+
+
+
+
         //상점 구매 데이터 Save로 보내기.
         public List<int> ToPurChaseWeaponItem()
         {
@@ -781,7 +796,7 @@ namespace Sylphyr
 
             for (int i = 0; i < weaponList.Count; i++)
             {
-                if (weaponList[i].wpurChase == true)
+                if (weaponList[i].WpurChase == true)
                 {
                     purChaseweaponItem.Add(weaponList[i].Id);
                 }
@@ -800,6 +815,21 @@ namespace Sylphyr
                 if (EquipmentItem[i].purChase == true)
                 {
                     purChaseEquipmentItem.Add(EquipmentItem[i].ID);
+                }
+            }
+
+            return purChaseEquipmentItem;
+        }
+        public List<int> ToPurChasePotionItem()
+        {
+            List<Potion> EquipmentItem = DataManager.Instance.consumeItems;
+            List<int> purChaseEquipmentItem = new List<int>();
+            Console.ReadLine();
+            for (int i = 0; i < EquipmentItem.Count; i++)
+            {
+                if (EquipmentItem[i].count != 0)
+                {
+                    purChaseEquipmentItem.Add(EquipmentItem[i].Id);
                 }
             }
 

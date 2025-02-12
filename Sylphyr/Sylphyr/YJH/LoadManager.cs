@@ -12,7 +12,7 @@ namespace Sylphyr.YJH;
 
 public class LoadManager : SingleTon<LoadManager>
 {
-    public List<GameData> gameDatas;
+    public GameData gameDatas;
     
     public readonly string baseDirectory = AppDomain.CurrentDomain.BaseDirectory; //.exe파일위치 상대경로 지정을 위해사용
 
@@ -40,9 +40,10 @@ public class LoadManager : SingleTon<LoadManager>
             Console.WriteLine("JSON 파일 내용:\n" + jsonString);
 
             // JSON 역직렬화 시도
-            gameDatas = JsonConvert.DeserializeObject<List<GameData>>(jsonString);
-            gameDatas = JsonConvert.DeserializeObject<List<GameData>>(File.ReadAllText(dataPath));
+            gameDatas = JsonConvert.DeserializeObject<GameData>(jsonString);
+            gameDatas = JsonConvert.DeserializeObject<GameData>(File.ReadAllText(dataPath));
 
+            
             // 로드 성공 메시지
             Console.WriteLine("데이터 로드 성공!");
         }
@@ -79,6 +80,13 @@ public class GameData
     public int CurrentMp { get; set; } // 현재 MP (JSON과 일치)
     public int Exp { get; set; } // 경험치
     public int Gold { get; set; } // 소지금
+
+
+    public float Atk {  get; set; }   
+    public float Dex {  get; set; }   
+    public float Def {  get; set; }   
+    public float Luk {  get; set; }   
+
     public CharacterStatData BaseStat { get; set; } // 기본 스탯
     public CharacterStatData EnhancedStat { get; set; } // 강화된 스탯
     public List<ItemData> Items { get; set; } = new List<ItemData>(); // 빈 리스트 초기화
@@ -86,6 +94,7 @@ public class GameData
     public List<PotionData> Potions { get; set; } = new List<PotionData>(); // 빈 리스트 초기화
     public List<int> purChaseweaponItem { get; set; } = new List<int>(); // 구매한 무기 정보
     public List<int> purChaseEquipmentItem { get; set; } = new List<int>(); // 구매한 방어구 정보
+    public List<int> purChasePotion { get; set; } = new List<int>(); // 구매한 방어구 정보
     public List<int> weaponEquip { get; set; } = new List<int>(); // 장비중인 무기
     public List<int> itemsEquip { get; set; } = new List<int>(); // 장비중인 방어구
 }

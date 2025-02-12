@@ -3,6 +3,7 @@ using Sylphyr.Dungeon;
 using System.Text;
 using Sylphyr.Utils;
 using Sylphyr.YJH;
+using Sylphyr.Character;
 
 namespace Sylphyr.Scene;
 
@@ -19,15 +20,14 @@ public class MainScene
         sb.AppendLine("2. 인벤토리");
         sb.AppendLine("3. 상점");
         sb.AppendLine("4. 던전 입장");
-        sb.AppendLine("5. 길드 입장");
-        sb.AppendLine("6. 저장하기");
+        sb.AppendLine("5. 저장하기");
         sb.AppendLine("0. 게임 종료");
 
         sb.AppendLine();
     }
 
     public void Run()
-    { 
+    {
         Console.Clear();
         Console.Write(sb.ToString());
 
@@ -46,7 +46,7 @@ public class MainScene
 
         Console.Write("원하시는 행동을 입력해주세요.");
 
-        int input = Util.GetInput(0, 5);
+        int input = Util.GetInput(0, 5, 1313);
         switch ((Behavior)input)
         {
             case Behavior.PlayerInfo:
@@ -64,11 +64,11 @@ public class MainScene
             case Behavior.Save:
                 GameSave();
                 break;
-            case Behavior.GuildEnter:
-                EnterGuild();
-                break;
             case Behavior.Exit:
                 TitleScene.Instance.ExitGame();
+                break;
+            case Behavior.Debug:
+                Debug();
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
@@ -103,6 +103,7 @@ public class MainScene
         {
             GameManager.Instance.shop.shopScene(player, inventory);
         }
+
         Run();
     }
 
@@ -122,19 +123,23 @@ public class MainScene
     {
         try
         {
-            //Save 클래스의 인스턴스 생성
-            Save saveSystem = new Save();
-
+            // Save 클래스의 인스턴스 생성
+            SaveManager saveManagerSystem = new SaveManager();
 
             // 플레이어 데이터를 SaveData로 변환
             var player = GameManager.Instance.player; // 현재 플레이어 정보
             SaveData data = player.ToSaveData();
+            data.CreateSaveItemData();
+            data.CreateSaveWeponData();
+            data.CreateSavePotionData();
+            data.SavepurchaseItem();
+            data.SaveEquipItem();
 
             // 세이브 폴더 없으면 생성
             DirectoryInfo projectDir = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory); // net8.0
-            projectDir = projectDir.Parent; // Debug
-            projectDir = projectDir.Parent; // bin
-            projectDir = projectDir.Parent; // Sylphyr
+            projectDir = projectDir.Parent;                                                        // Debug
+            projectDir = projectDir.Parent;                                                        // bin
+            projectDir = projectDir.Parent;                                                        // Sylphyr
 
             string folderPath = Path.Combine(projectDir.FullName, "Data", "Save");
             if (!Directory.Exists(folderPath))
@@ -142,11 +147,10 @@ public class MainScene
                 Directory.CreateDirectory(folderPath);
             }
 
-            Save.filePath = Path.Combine(folderPath, "GameData.json"); // 최종 저장 파일 경로 설정
-
+            SaveManager.filePath = Path.Combine(folderPath, "GameData.json"); // 최종 저장 파일 경로 설정
 
             // 데이터 저장
-            saveSystem.SaveGame(data);
+            saveManagerSystem.SaveGame(data);
 
             Console.WriteLine("게임이 성공적으로 저장되었습니다!");
 
@@ -189,15 +193,20 @@ public class MainScene
             }
         }
     }
-}
 
-public enum Behavior
-{
-    PlayerInfo = 1,
-    Inventory = 2,
-    Store = 3,
-    DungeonEnter = 4,
-    GuildEnter = 5,
-    Save = 6,
-    Exit = 0
+    private void Debug()
+    {
+        DebugScene.Instance.Run();
+    }
+
+    public enum Behavior
+    {
+        PlayerInfo = 1,
+        Inventory = 2,
+        Store = 3,
+        DungeonEnter = 4,
+        Save = 5,
+        Debug = 1313,
+        Exit = 0
+    }
 }

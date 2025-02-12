@@ -13,9 +13,9 @@ public class Player
     
     // Player Stat
     public CharacterClass Class { get; }
-    public CharacterStat BaseStat { get; }
-    public CharacterStat EnhancedStat { get; }
-    
+    public CharacterStat BaseStat { get; set; }
+    public CharacterStat EnhancedStat { get; set; }
+
     // Player Level
     public CharacterLevelData LevelData { get; }
     
@@ -25,16 +25,17 @@ public class Player
 
     // Player Info
     public string Name { get; }
-    public int Level { get; private set; }
-    public float CurrentHp { get; private set; }
-    public float CurrentMp { get; private set; }
-    public int Exp { get; private set; }
-    public int Gold { get; private set; } = 0;
+    public int Level { get; set; }
+    public float CurrentHp { get; set; }
+    public float CurrentMp { get; set; }
+    public int Exp { get; set; }
+    public int Gold { get; set; } = 0;
     
     //Player Best Stage
     public int BestStage { get; private set; }
 
     private CharacterStat totalStat = new CharacterStat();
+    
     public CharacterStat TotalStat
     {
         get
@@ -66,7 +67,7 @@ public class Player
         CurrentHp = BaseStat.MaxHp;
         CurrentMp = BaseStat.MaxMp;
         Exp = 0;
-        Gold = 2000;
+        Gold = 30000;
     }
 
     private CharacterStat? GetCharacterStat(CharacterClass charClass)
@@ -281,7 +282,8 @@ public class Player
     }
     
     public SaveData ToSaveData() {
-        return new SaveData {
+        return new SaveData 
+        {
             Name = Name,
             CharacterClass = Class.ToString(),
             Level = Level,
@@ -289,18 +291,9 @@ public class Player
             CurrentMp = CurrentMp,
             Exp = Exp,
             Gold = Gold,
-            BaseStat = new CharacterStatData {
-                Strength = BaseStat.Atk,
-                Dexterity = BaseStat.Dex,
-                Intelligence = BaseStat.Luk,
-                Vitality = BaseStat.Def
-            },
-            EnhancedStat = new CharacterStatData {
-                Strength = EnhancedStat.Atk,
-                Dexterity = EnhancedStat.Dex,
-                Intelligence = EnhancedStat.Luk,
-                Vitality = EnhancedStat.Def
-            }
+            BaseStat = new YJH.CharacterStatData(BaseStat.Atk, BaseStat.Dex, BaseStat.Def, BaseStat.Luk),
+            EnhancedStat = new YJH.CharacterStatData (EnhancedStat.Atk, EnhancedStat.Dex, EnhancedStat.Def, EnhancedStat.Luk),
         };
     }
 }
+

@@ -674,20 +674,43 @@ namespace Sylphyr
             if(int.TryParse(Console.ReadLine(), out int input) && input >= min && input <= max) return input;
             else return -1;
         }
-        
-        public List<ItemData> ConvertToItemData()
+
+        public List<WeaponData> ToWeaponData()
         {
-            return invenitems.Select(item => new ItemData
+            return invenweapons.Select(item => new WeaponData(item.Id, item.Name, item.Stat,item.Value, item.Slot, item.Price, item.Desc, item.wisEquip, item.wpurChase)).ToList();
+        }
+        
+        public List<ItemData> ToItemData()
+        {
+            return invenitems.Select(item => new ItemData(item.ID, item.Name, item.Stat,item.Value, item.Slot, item.Price, item.Desc, item.isEquip, item.purChase)).ToList();
+        }
+
+        public List<PotionData> ToPotionData()
+        {
+            return invenpotions.Select(item => new PotionData(item.Id, item.Name, item.Stat, item.Value, item.Price, item.Desc)).ToList();
+        }
+        
+        public List<int> ToEquipWeapon()
+        {
+            List<int>equippedWeapon = new List<int>();
+            
+            foreach (var waepon in weaponEquip )
             {
-                Id = item.ID,
-                Name = item.Name,
-                Stat = item.Stat,
-                Slot = item.Slot,
-                Price = item.Price,
-                Desc = item.Desc,
-                isEquip = item.isEquip,
-                purChase = item.purChase
-            }).ToList();
+                equippedWeapon.Add(waepon.Id);
+            }
+
+            return equippedWeapon;
+        }
+
+        public List<int> ToEquipItem()
+        {
+            List<int>equippedItem = new List<int>();
+
+            foreach (var item in itemsEquip)
+            {
+                equippedItem.Add(item.ID);
+            }
+            return equippedItem;
         }
     }
 }

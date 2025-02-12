@@ -551,7 +551,7 @@ namespace Sylphyr
                                 if (selectedItem.Stat == 0)
                                 {
                                     itemsEquip.Add(selectedItem);
-                                    player.EnhancedStat.CriticalDamage += selectedItem.Value;
+                                    player.EnhancedStat.CriticalDamage += (selectedItem.Value / 100);
                                 }
                                 else if (selectedItem.Stat == 1)
                                 {

@@ -113,6 +113,7 @@ public class DebugScene : SingleTon<DebugScene>
         Console.WriteLine($"현재 보유 골드 : {GameManager.Instance.player.Gold}G");
         Console.WriteLine("press any key to continue...");
         Console.ReadKey();
+        Run();
     }
 
     private void AddItem()

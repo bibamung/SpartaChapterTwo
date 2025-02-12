@@ -415,7 +415,7 @@ namespace Sylphyr.Dungeon
             Console.Clear();
             scene.DisplayHealthBar(currentStageMonsters);
 
-            Monster monster = null;
+            Monster monster;
 
             for (int i = 0; i < OrderByAttackChar.Count; i++)       //스테이지에 등장하는 몬스터의 배열을 한바퀴 돌림
             {
@@ -542,9 +542,9 @@ namespace Sylphyr.Dungeon
                                         }
 
                                     }
-                                    break;
+                                    
                                 }
-
+                                break;
                             }
 
                             #endregion

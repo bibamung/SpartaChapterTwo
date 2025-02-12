@@ -237,17 +237,17 @@ namespace Sylphyr.Dungeon
                         if (j < player.BestStage)
                         {
                             Console.ForegroundColor = ConsoleColor.Green;
-                            Console.Write($"Stage {j}\t");
+                            Console.Write($"Stage {i}\t");
                         }
                         else if (j == player.BestStage)
                         {
                             Console.ForegroundColor = ConsoleColor.Yellow;
-                            Console.Write($"Stage {j}\t");
+                            Console.Write($"Stage {i}\t");
                         }
                         else
                         {
                             Console.ResetColor();
-                            Console.Write($"Stage {j}\t");
+                            Console.Write($"Stage {i}\t");
                         }
                     }
                     Console.WriteLine();

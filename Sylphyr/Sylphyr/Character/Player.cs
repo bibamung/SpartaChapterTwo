@@ -1,20 +1,18 @@
 using System.Text;
-using Sylphyr.Dungeon;
 using Sylphyr.Scene;
 using Sylphyr.Utils;
 using Sylphyr.YJH;
-using static Sylphyr.Character.CharacterStat;
 
 namespace Sylphyr.Character;
 
 public class Player
 {
-    public StringBuilder statusSb { get; } = new();
+    private StringBuilder statusSb { get; } = new();
     
     // Player Stat
     public CharacterClass Class { get; }
-    public CharacterStat BaseStat { get; set; }
-    public CharacterStat EnhancedStat { get; set; }
+    public CharacterStat BaseStat { get; }
+    public CharacterStat EnhancedStat { get; }
 
     // Player Level
     public CharacterLevelData LevelData { get; }
@@ -25,17 +23,16 @@ public class Player
 
     // Player Info
     public string Name { get; }
-    public int Level { get; set; }
-    public float CurrentHp { get; set; }
-    public float CurrentMp { get; set; }
-    public int Exp { get; set; }
-    public int Gold { get; set; } = 0;
+    public int Level { get; private set; }
+    public float CurrentHp { get; private set; }
+    public float CurrentMp { get; private set; }
+    public int Exp { get; private set; }
+    public int Gold { get; private set; } = 0;
     
-    //Player Best Stage
+    // Dungeon Clear Info
     public int BestStage { get; private set; }
 
     private CharacterStat totalStat = new CharacterStat();
-    
     public CharacterStat TotalStat
     {
         get
@@ -116,12 +113,12 @@ public class Player
         Gold += gold;
     }
 
+    // 던전에서 사용 할 보상용 골드 추가 메서드
     public void AddRewardGold(int gold, out int totalGold)
     {
         totalGold = gold;
 
-        // 보상 1000G , Luk 3
-        // 추가보상 = 1000 * 0.06 = 60G
+        // 도적의 경우 Luk 수치에 따라 추가 골드 획득
         if (Class == CharacterClass.Thief)
         {
             float addGoldRate = BaseStat.Luk * 2 / 100;
@@ -152,24 +149,23 @@ public class Player
     {
         Exp += exp;
         
-        // 레벨업 체크
+        // 레벨업 가능한 경험치가 아니라면 리턴
         int levelUpExp = LevelData.GetExp(Level);
-        if (Exp >= levelUpExp)
-        {
-            int remainExp = Exp - levelUpExp;
-            Exp = 0;
-            LevelUp(remainExp);
-        }
+        if (Exp < levelUpExp) return;
+        
+        int remainExp = Exp - levelUpExp;
+        Exp = 0;
+        LevelUp(remainExp);
     }
 
     private void LevelUp(int remainExp)
     {
+        Level++;
         Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.WriteLine($"레벨이 올랐습니다! Lv.{Level + 1}이 되었습니다.");
+        Console.WriteLine($"레벨이 올랐습니다! Lv.{Level}이 되었습니다.");
         Console.ResetColor();
         
-        Level++;
-        
+        // 직업별로 다른 스탯 증가
         switch (Class)
         {
             case CharacterClass.Thief:
@@ -187,27 +183,27 @@ public class Player
             default:
                 throw new ArgumentOutOfRangeException(nameof(Class), Class, null);
         }
+        
+        CurrentHp = TotalStat.MaxHp;
+        CurrentMp = TotalStat.MaxMp;
 
         foreach (var skill in Skills)
         {
-            if (skill.AcquisitionLevel == Level)
-            {
-                learnedSkills.Add(skill);
-                Console.ForegroundColor = ConsoleColor.DarkCyan;
-                Console.WriteLine($"스킬을 배웠습니다! {skill.SkillName} 습득!");
-                Console.ResetColor();
-            }
+            if (skill.AcquisitionLevel != Level) continue;
+            
+            learnedSkills.Add(skill);
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.WriteLine($"스킬을 배웠습니다! {skill.SkillName} 습득!");
+            Console.ResetColor();
         }
         
+        // 남은 경험치가 있다면 재귀적으로 레벨업
         if (remainExp > 0)
-        {
             AddExp(remainExp);
-        }
 
         return;
 
-        void AddStat(float hp, int mp, float atk, float def, float luk, float dex, int speed, float criticalChance,
-                     float criticalDamage)
+        void AddStat(float hp, int mp, float atk, float def, float luk, float dex, int speed, float criticalChance, float criticalDamage)
         {
             EnhancedStat.MaxHp += hp;
             EnhancedStat.MaxMp += mp;
@@ -221,7 +217,8 @@ public class Player
         }
     }
 
-    public CharacterSkillData[] GetSkills()
+    // 데이터 매니저에서 직업에 맞는 스킬을 가져옴
+    private CharacterSkillData[] GetSkills()
     {
         var skillDatas = DataManager.Instance.characterSkills;
         var skills = new CharacterSkillData[4];
@@ -237,9 +234,10 @@ public class Player
         return skills;
     }
     
-    public void UseItem(bool isHealth, float value)
+    // 소비아이템(포션) 사용
+    public void UseItem(bool isHpPotion, float value)
     {
-        if (isHealth) // hp
+        if (isHpPotion) // hp
         {
             CurrentHp += value;
             if (CurrentHp > TotalStat.MaxHp)
@@ -257,13 +255,9 @@ public class Player
     public void UseMp(int useMp)
     {
         if (CurrentMp > useMp)
-        {
             CurrentMp -= useMp;
-        }
         else
-        {
             Console.WriteLine("마나가 없습니다.");
-        }
     }
 
     public void Dead()
@@ -278,6 +272,7 @@ public class Player
         Console.ReadKey();
         TitleScene.Instance.Run();
     }
+    
     public void SetBestStage(int stage)
     {
         BestStage = stage;

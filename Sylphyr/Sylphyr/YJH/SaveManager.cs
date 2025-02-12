@@ -1,12 +1,13 @@
 using System.Text.Json;
+using Newtonsoft.Json;
 using Player = Sylphyr.Character.Player;
 using CharacterStat = Sylphyr.Character.CharacterStat;
-using Saving = Sylphyr.YJH.Save;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 
 namespace Sylphyr.YJH;
 
-public class Save
+public class SaveManager
 {
     private readonly string baseDirectory = AppDomain.CurrentDomain.BaseDirectory; //.exe파일위치 상대경로 지정을 위해사용
     public static string filePath;
@@ -44,7 +45,8 @@ public class Save
         if (data != null)
         {
             // JSON 데이터 변환 및 저장
-            string jsonString = JsonSerializer.Serialize(data);
+            var option = new JsonSerializerOptions { WriteIndented = true };
+            var jsonString = JsonSerializer.Serialize(data, option);
             File.WriteAllText(filePath, jsonString);
             Console.WriteLine("생성된 JSON 데이터:\n" + jsonString);
         }
@@ -54,7 +56,7 @@ public class Save
         }
 
     }
-
+    
     //세이브 파일 불러오기
     public SaveData LoadGame()
     {
@@ -69,7 +71,7 @@ public class Save
             return null;
         }
     }
-    
+
     // JSON 저장 파일 삭제 (Debug용)
     public static void DeleteFile()
     {

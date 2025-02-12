@@ -113,13 +113,17 @@ public class MainScene
         try
         {
             // Save 클래스의 인스턴스 생성
-            Save saveSystem = new Save();
+            SaveManager saveManagerSystem = new SaveManager();
 
 
             // 플레이어 데이터를 SaveData로 변환
             var player = GameManager.Instance.player; // 현재 플레이어 정보
             SaveData data = player.ToSaveData();
+            data.CreateSaveItemData();
+            data.CreateSaveWeponData();
+            data.CreateSavePotionData();
             data.SavepurchaseItem();
+            data.SaveEquipItem();
 
             // 세이브 폴더 없으면 생성
             DirectoryInfo projectDir = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory); // net8.0
@@ -133,11 +137,11 @@ public class MainScene
                 Directory.CreateDirectory(folderPath);
             }
 
-            Save.filePath = Path.Combine(folderPath, "GameData.json"); // 최종 저장 파일 경로 설정
+            SaveManager.filePath = Path.Combine(folderPath, "GameData.json"); // 최종 저장 파일 경로 설정
 
 
             // 데이터 저장
-            saveSystem.SaveGame(data);
+            saveManagerSystem.SaveGame(data);
 
             Console.WriteLine("게임이 성공적으로 저장되었습니다!");
           

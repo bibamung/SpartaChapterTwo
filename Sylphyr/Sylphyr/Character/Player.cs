@@ -67,7 +67,7 @@ public class Player
         CurrentHp = BaseStat.MaxHp;
         CurrentMp = BaseStat.MaxMp;
         Exp = 0;
-        Gold = 2000;
+        Gold = 30000;
     }
 
     private CharacterStat? GetCharacterStat(CharacterClass charClass)
@@ -291,28 +291,9 @@ public class Player
             CurrentMp = CurrentMp,
             Exp = Exp,
             Gold = Gold,
-            BaseStat = new YJH.CharacterStatData 
-            {
-                Strength =  BaseStat.Atk,
-                Dexterity = BaseStat.Dex,
-                Intelligence = BaseStat.Luk,
-                Vitality = BaseStat.Def
-            },
-            EnhancedStat = new YJH.CharacterStatData 
-            {
-                Strength = EnhancedStat.Atk,
-                Dexterity = EnhancedStat.Dex,
-                Intelligence = EnhancedStat.Luk,
-                Vitality = EnhancedStat.Def
-            }
+            BaseStat = new YJH.CharacterStatData(BaseStat.Atk, BaseStat.Dex, BaseStat.Def, BaseStat.Luk),
+            EnhancedStat = new YJH.CharacterStatData (EnhancedStat.Atk, EnhancedStat.Dex, EnhancedStat.Def, EnhancedStat.Luk),
         };
     }
 }
 
-public class CharacterStatData
-{
-    public int Strength { get; set; }
-    public int Dexterity { get; set; }
-    public int Intelligence { get; set; }
-    public int Vitality { get; set; }
-}

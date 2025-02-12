@@ -809,7 +809,7 @@ namespace Sylphyr
 
             for (int i = 0; i < EquipmentItem.Count; i++)
             {
-                if (EquipmentItem[i].isEquip == true)
+                if (EquipmentItem[i].purChase == true)
                 {
                     purChaseEquipmentItem.Add(EquipmentItem[i].ID);
                 }

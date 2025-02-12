@@ -395,13 +395,13 @@ namespace Sylphyr.Dungeon
                         TotalExp += currentStageMonsters[selectMonster - 1].DropExp;
                         TotalGold += currentStageMonsters[selectMonster - 1].DropGold;
                         currentStageMonsters.RemoveAt(selectMonster - 1);
+                        i--;
 
                         if (currentStageMonsters.Count() <= 0)
                         {
                             scene.DisplayReward(player, TotalGold, TotalExp);
                             if (player.BestStage < stage) player.SetBestStage(stage);
                             clearCount[stage - 1]++;
-                            Console.WriteLine(clearCount[stage - 1]);
                             Console.WriteLine("press any key to continue...");
                             Console.ReadKey(true);
                             GameManager.Instance.main.Run();

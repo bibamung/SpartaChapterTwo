@@ -102,7 +102,7 @@ public class TitleScene : SingleTon<TitleScene>
         }
         
         var player = GameManager.Instance.player;
-        player.InitializePlayer(GameData);
+        //player.InitializePlayer(GameData);
 
         GameManager.Instance.Init();
         GameManager.Instance.main.Run();    

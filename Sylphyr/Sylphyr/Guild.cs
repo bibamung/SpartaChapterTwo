@@ -127,6 +127,8 @@ namespace Guild
                             }
                             else if(AcceptedQuests[0].ID % 1000 == 1 || AcceptedQuests[0].ID % 1000 == 6 || AcceptedQuests[0].ID % 1000 == 7)
                             {
+                                if (GameManager.Instance.quest.CurrentBuyItems > QuestList[i].RequiredBuyItems)
+                                    GameManager.Instance.quest.CurrentBuyItems = QuestList[i].RequiredBuyItems;
                                 Console.Write($"\t 진행도: {GameManager.Instance.quest.CurrentBuyItems} / {QuestList[i].RequiredBuyItems} \t");
                                 if (GameManager.Instance.quest.CurrentBuyItems >= QuestList[i].RequiredBuyItems)
                                 {
@@ -138,6 +140,8 @@ namespace Guild
                             }
                             else if (AcceptedQuests[0].ID % 1000 == 2)
                             {
+                                if (GameManager.Instance.quest.CurrentSellItems > QuestList[i].RequiredBuyItems)
+                                    GameManager.Instance.quest.CurrentSellItems = QuestList[i].RequiredBuyItems;
                                 Console.Write($"\t 진행도: {GameManager.Instance.quest.CurrentSellItems} / {QuestList[i].RequiredSellItems} \t");
                                 if (GameManager.Instance.quest.CurrentSellItems >= QuestList[i].RequiredSellItems)
                                 {

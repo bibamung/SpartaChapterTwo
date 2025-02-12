@@ -28,7 +28,15 @@ namespace Sylphyr
             quest = new Guild.Quest(1, "sfds", "sdfsdf", 0, 0, 0, 1, 1, false, false);
             guild = new Guild.Guild();
         }
-        
+        public void SetMain()
+        {
+            Console.ResetColor();
+            main = new MainScene();
+            shop = new Item(10, "qwr", 1, 1, "2", 10, "12", false, false);
+            inventory = new Inventory();
+            quest = new Guild.Quest(1, "sfds", "sdfsdf", 0, 0, 0, 1, 1, false, false);
+            guild = new Guild.Guild();
+        }
         public void SetPlayer(string name, CharacterClass characterClass)
         {
             player = new Player(name, characterClass);

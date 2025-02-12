@@ -131,11 +131,16 @@ public class MainScene
 
             // 플레이어 데이터를 SaveData로 변환
             var player = GameManager.Instance.player; // 현재 플레이어 정보
+            var inven = GameManager.Instance.inventory;
             SaveData data = player.ToSaveData();
             data.CreateSaveItemData();
             data.CreateSaveWeponData();
             data.CreateSavePotionData();
-            data.SavepurchaseItem();
+
+            //data.SavepurchaseItem();
+
+            data.SaveInvenItem();
+
             data.SaveEquipItem();
 
             // 세이브 폴더 없으면 생성

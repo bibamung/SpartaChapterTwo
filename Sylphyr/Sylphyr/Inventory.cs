@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
+using System.Numerics;
 using System.Reflection;
+using System.Reflection.Emit;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Guild;
 using Sylphyr.Character;
 using Sylphyr.YJH;
@@ -20,10 +24,8 @@ namespace Sylphyr
         public List<Potion> invenpotions = new List<Potion>();
         public List<Weapon> weaponEquip = new List<Weapon>();
         public List<Item> itemsEquip = new List<Item>();
-        
 
-
-
+        public Inventory() { }
         static string AlignText(string text, int totalWidth)
         {
             int textWidth = text.Sum(c => (c >= 0xAC00 && c <= 0xD7A3) ? 2 : 1); // 한글 2칸, 영문 1칸
@@ -109,7 +111,7 @@ namespace Sylphyr
                     string statname = "공격력";
                     string weaponslot = "무기";
 
-                    if (weaponEquip.Count > 0 && weaponEquip[0].wisEquip)
+                    if (weaponEquip.Count > 0 && weaponEquip[0].WisEquip)
                     {
                         if (weaponItem.Desc == weaponEquip[0].Desc)
                         {
@@ -118,11 +120,11 @@ namespace Sylphyr
                         }
                         else
                         {
-                            weaponItem.wisEquip = false;
+                            weaponItem.WisEquip = false;
                         }
                     }
                     
-                    if (weaponItem.wisEquip && iswee)
+                    if (weaponItem.WisEquip && iswee)
                     {
                         // 정렬된 텍스트 출력
                         Console.ForegroundColor = ConsoleColor.Green;
@@ -307,7 +309,7 @@ namespace Sylphyr
                     string weaponslot = "무기";
 
 
-                    if (weaponEquip.Count > 0 && weaponEquip[0].wisEquip)
+                    if (weaponEquip.Count > 0 && weaponEquip[0].WisEquip)
                     {
                         if (weaponItem.Id == weaponEquip[0].Id)
                         {
@@ -316,7 +318,7 @@ namespace Sylphyr
                         }
                         else
                         {
-                            weaponItem.wisEquip = false;
+                            weaponItem.WisEquip = false;
                             iswee = false;
                         }
                     }
@@ -447,7 +449,7 @@ namespace Sylphyr
                     default:
                         if (selectedWeapon != null)
                         {
-                            if (!selectedWeapon.wisEquip)
+                            if (!selectedWeapon.WisEquip)
                             {
                                 /*
                                 if (!noneweapon)
@@ -459,7 +461,7 @@ namespace Sylphyr
                                 }
                                 else
                                 {*/
-                                selectedWeapon.wisEquip = true;
+                                selectedWeapon.WisEquip = true;
                                 if (weaponEquip.Count != 0) player.EnhancedStat.Atk -= weaponEquip[0].Value;
                                 player.EnhancedStat.Atk += selectedWeapon.Value;
 
@@ -472,7 +474,7 @@ namespace Sylphyr
                             {
                                 if (selectedWeapon.Id != weaponEquip[0].Id)
                                 {
-                                    selectedWeapon.wisEquip = true;
+                                    selectedWeapon.WisEquip = true;
                                     player.EnhancedStat.Atk -= weaponEquip[0].Value;
                                     player.EnhancedStat.Atk += selectedWeapon.Value;
 
@@ -481,7 +483,7 @@ namespace Sylphyr
                                 }
                                 else
                                 {
-                                    selectedWeapon.wisEquip = false;
+                                    selectedWeapon.WisEquip = false;
                                     player.EnhancedStat.Atk -= weaponEquip[0].Value;
                                     weaponEquip.Clear();
                                 }
@@ -600,7 +602,7 @@ namespace Sylphyr
                     if (potionItem.Stat == 0) hpmp = "HP";
                     else hpmp = "MP";
 
-                    if (!potionItem.isBuy)
+                    if (!potionItem.IsBuy)
                     {
                         // 정렬된 텍스트 출력
                         Console.WriteLine($"- {i}. " + AlignText(potionItem.Name, 15) + " | " +
@@ -648,6 +650,7 @@ namespace Sylphyr
                     case 0:
                         return;
                     default:
+                        invenpotions[input].count--;
                         invenpotions.Remove(selectedPotion);
                         if (selectedPotion.Stat == 0) player.UseItem(true, selectedPotion.Value);
                         else if (selectedPotion.Stat == 1) player.UseItem(false, selectedPotion.Value);
@@ -655,7 +658,6 @@ namespace Sylphyr
                 }
             }
         }
-
 
         private static int GetInput(int min, int max)
         {
@@ -666,19 +668,49 @@ namespace Sylphyr
             else return -1;
         }
 
+
+
+        public void EquipItem(Item item)
+        {
+            if (item.Stat == 0) GameManager.Instance.player.EnhancedStat.CriticalDamage += (item.Value / 1000f);
+            else if (item.Stat == 1) GameManager.Instance.player.EnhancedStat.Dex += (item.Value / 10f);
+            else if (item.Stat == 2) GameManager.Instance.player.EnhancedStat.Luk += item.Value;
+            else if (item.Stat == 3) GameManager.Instance.player.EnhancedStat.Def += item.Value;
+        }
+        public void EquipWeapon(Weapon item)
+        {
+            GameManager.Instance.player.EnhancedStat.Atk += item.Value;
+        }
+
         public List<WeaponData> ToWeaponData()
         {
-            return invenweapons.Select(item => new WeaponData(item.Id, item.Name, item.Stat,item.Value, item.Slot, item.Price, item.Desc, item.wisEquip, item.wpurChase)).ToList();
+            List<WeaponData> w = new List<WeaponData>();
+            foreach (var item in invenweapons)
+            {
+                w.Add(new WeaponData(item.Id, item.Name, item.Stat, item.Value, item.Slot, item.Price, item.Desc, item.WisEquip, item.WpurChase));
+            }
+            return w;//invenweapons.Select(item => new WeaponData(item.Id, item.Name, item.Stat,item.Value, item.Slot, item.Price, item.Desc, item.WisEquip, item.WpurChase)).ToList();
         }
         
         public List<ItemData> ToItemData()
         {
-            return invenitems.Select(item => new ItemData(item.ID, item.Name, item.Stat,item.Value, item.Slot, item.Price, item.Desc, item.isEquip, item.purChase)).ToList();
+            List<ItemData> i = new List<ItemData>();
+            foreach (var item in invenitems)
+            {
+                i.Add(new ItemData(item.ID, item.Name, item.Stat, item.Value, item.Slot, item.Price, item.Desc,item.isEquip, item.purChase));
+            }
+            return i;//invenitems.Select(item => new ItemData(item.ID, item.Name, item.Stat,item.Value, item.Slot, item.Price, item.Desc, item.isEquip, item.purChase)).ToList();
         }
-
+        
         public List<PotionData> ToPotionData()
         {
-            return invenpotions.Select(item => new PotionData(item.Id, item.Name, item.Stat, item.Value, item.Price, item.Desc)).ToList();
+            List<PotionData> i = new List<PotionData>();
+            foreach (var item in invenpotions)
+            {
+                i.Add(new PotionData(item.Id, item.Name, item.Stat, item.Value, item.Price, item.Desc, item.IsBuy, item.IsUse));
+            }
+            return i;
+            //return invenpotions.Select(item => new PotionData(item.Id, item.Name, item.Stat, item.Value, item.Price, item.Desc, item.IsBuy, item.IsUse)).ToList();
         }
         
         public List<int> ToEquipWeapon()
@@ -703,5 +735,78 @@ namespace Sylphyr
             }
             return equippedItem;
         }
+
+        
+        List<Item> Equipmentlist = DataManager.Instance.equipmentItems;
+        List<Potion> Potionlist = DataManager.Instance.consumeItems;
+        List<Weapon> Weaponlist = DataManager.Instance.weaponItem;
+
+        public Item GetEquipmentItems(int id)
+        {
+            Item item;
+            item = Equipmentlist.SingleOrDefault(i => i.ID == id)!;
+            Item i = new Item(item.ID, item.Name, item.Stat, item.Value, item.Slot, item.Price, item.Desc, item.purChase, item.isEquip);
+            return i;
+        }
+        public Potion GetPotion(int id)
+        {
+            Potion potion;
+            potion = Potionlist.SingleOrDefault(i => i.Id == id)!;
+            Potion p = new Potion(potion.Id, potion.Name, potion.Stat, potion.Value, potion.Price, potion.Desc, potion.IsBuy, potion.IsUse);
+            return p;
+        }
+        public Weapon GetWeapon(int id)
+        {
+            Weapon weapon;
+            weapon = Weaponlist.SingleOrDefault(i => i.Id == id)!;
+            Weapon w = new Weapon(weapon.Id, weapon.Name, weapon.Stat, weapon.Value, weapon.Slot, weapon.Price, weapon.Desc, weapon.WpurChase, weapon.WisEquip);
+            return w;
+        }
+
+        public void InitializeInventory(GameData gameData)
+        {
+            if (gameData == null)
+            {
+                Console.WriteLine("GameData가 없습니다. 초기화에 실패했습니다.");
+                return;
+            }
+
+            foreach (var item in gameData.Items)
+            {
+                invenitems.Add(new Item(item.Id, item.Name, item.Stat, item.Value, item.Slot, item.Price,item.Desc,item.PurChase,item.IsEquip));
+                
+            }
+            foreach (var item in gameData.Weapons)
+            {
+                invenweapons.Add(new Weapon(item.Id, item.Name, item.Stat, item.Value, item.Slot, item.Price, item.Desc, item.WPurChase, item.WIsEquip));
+                
+            }
+            foreach (var item in gameData.Potions)
+            {
+                invenpotions.Add(new Potion(item.Id, item.Name, item.Stat, item.Value, item.Price, item.Desc, item.IsBuy, item.IsUse));
+            }
+            foreach (var item in invenitems)
+            {
+                if (item.isEquip)
+                {
+                    GameManager.Instance.inventory.itemsEquip.Add(item);
+                    EquipItem(item);
+                }
+            }
+            foreach (var item in invenweapons)
+            {
+                if (item.WisEquip)
+                {
+                    GameManager.Instance.inventory.weaponEquip.Add(item);
+                    EquipWeapon(item);
+                }
+            }
+
+            /*BaseStat = new CharacterStat();
+            EnhancedStat = new CharacterStat();*/
+
+            Console.WriteLine("Player가 GameData를 사용하여 성공적으로 초기화되었습니다.");
+        }
+
     }
 }

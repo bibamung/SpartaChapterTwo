@@ -94,6 +94,7 @@ public class GameData
     public List<PotionData> Potions { get; set; } = new List<PotionData>(); // 빈 리스트 초기화
     public List<int> purChaseweaponItem { get; set; } = new List<int>(); // 구매한 무기 정보
     public List<int> purChaseEquipmentItem { get; set; } = new List<int>(); // 구매한 방어구 정보
+    public List<int> purChasePotion { get; set; } = new List<int>(); // 구매한 방어구 정보
     public List<int> weaponEquip { get; set; } = new List<int>(); // 장비중인 무기
     public List<int> itemsEquip { get; set; } = new List<int>(); // 장비중인 방어구
 }

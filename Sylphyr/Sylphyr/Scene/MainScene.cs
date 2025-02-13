@@ -21,7 +21,8 @@ public class MainScene
         sb.AppendLine(" 3. 상점");
         sb.AppendLine(" 4. 던전 입장");
         sb.AppendLine(" 5. 길드 입장");
-        sb.AppendLine(" 6. 저장하기");
+        sb.AppendLine(" 6. 치료소");
+        sb.AppendLine(" 7. 저장하기");
         sb.AppendLine(" 0. 게임 종료");
         sb.AppendLine();
     }
@@ -63,6 +64,9 @@ public class MainScene
                 break;
             case Behavior.GuildEnter:
                 EnterGuild();
+                break;
+            case Behavior.HealingHouse:
+                EnterHealingHouse();
                 break;
             case Behavior.Save:
                 GameSave();
@@ -115,6 +119,19 @@ public class MainScene
         var player = GameManager.Instance.player;
         GameManager.Instance.guild.GuildMain(player);
         Run();
+    }
+
+    private void EnterHealingHouse()
+    {
+        if (!GameManager.Instance.healingHouse.isOpen)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("치료소는 지금 문을 닫은 것 같다..");
+            Console.ResetColor();
+            Thread.Sleep(500);
+            Run();
+        }
+        GameManager.Instance.healingHouse.Run();
     }
 
     private void EnterDungeon()
@@ -216,7 +233,8 @@ public class MainScene
         Store = 3,
         DungeonEnter = 4,
         GuildEnter = 5,
-        Save = 6,
+        HealingHouse = 6,
+        Save = 7,
         Debug = 1313,
         Exit = 0
     }

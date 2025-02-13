@@ -283,6 +283,17 @@ public class Player
         }
     }
 
+    public void Healing(float hp, float mp)
+    {
+        CurrentHp += hp;
+        if (CurrentHp > TotalStat.MaxHp)
+            CurrentHp = TotalStat.MaxHp;
+                
+        CurrentMp += mp;
+        if (CurrentMp > TotalStat.MaxMp)
+            CurrentMp = TotalStat.MaxMp;
+    }
+
     public void UseMp(int useMp)
     {
         if (CurrentMp > useMp)

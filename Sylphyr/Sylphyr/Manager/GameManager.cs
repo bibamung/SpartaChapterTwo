@@ -16,6 +16,7 @@ namespace Sylphyr
         public Player player { get; private set; }
         public Item shop { get; private set; }
         public Inventory inventory { get; private set; }
+        public HealingHouse healingHouse { get; private set; }
         public Guild.Quest quest { get; private set; }
         public Guild.Guild guild { get; private set; }
 
@@ -27,6 +28,7 @@ namespace Sylphyr
             inventory = new Inventory();
             quest = new Guild.Quest(1, "sfds", "sdfsdf", 0, 0, 0, 1, 1, false, false);
             guild = new Guild.Guild();
+            healingHouse = new();
         }
         public void SetMain()
         {

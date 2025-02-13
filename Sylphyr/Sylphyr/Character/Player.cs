@@ -64,7 +64,9 @@ public class Player
         CurrentHp = BaseStat.MaxHp;
         CurrentMp = BaseStat.MaxMp;
         Exp = 0;
-        Gold = 3000;
+
+        Gold = 5000;
+
     }
 
     private CharacterStat? GetCharacterStat(CharacterClass charClass)

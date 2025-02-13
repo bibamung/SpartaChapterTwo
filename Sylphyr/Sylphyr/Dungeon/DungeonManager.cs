@@ -128,7 +128,7 @@ namespace Sylphyr.Dungeon
         public List<Monster> GetMonstersForStage(int stage)
         {
             List<Monster> selectedMonsters = new List<Monster>();
-            int monsterCount = rand.Next(1, 5); // 1~4개 등장
+            int monsterCount = rand.Next(1, 4); // 1~4개 등장
 
             if (stage == 1)                                             //1스테이지
             {

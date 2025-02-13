@@ -76,11 +76,14 @@ public class GameData
     public string Name { get; set; } // 플레이어 이름
     public string CharacterClass { get; set; } // 캐릭터 클래스
     public int Level { get; set; } // 플레이어 레벨
-    public int CurrentHp { get; set; } // 현재 HP (JSON과 일치)
+    public float CurrentHp { get; set; } // 현재 HP (JSON과 일치)
     public int CurrentMp { get; set; } // 현재 MP (JSON과 일치)
+    public float MaxHp { get; set; }
+    public int MaxMp { get; set; }
     public int Exp { get; set; } // 경험치
     public int Gold { get; set; } // 소지금
 
+    public int BestStage { get; set; }
 
     public float Atk {  get; set; }   
     public float Dex {  get; set; }   
@@ -97,4 +100,6 @@ public class GameData
     public List<int> purChasePotion { get; set; } = new List<int>(); // 구매한 방어구 정보
     public List<int> weaponEquip { get; set; } = new List<int>(); // 장비중인 무기
     public List<int> itemsEquip { get; set; } = new List<int>(); // 장비중인 방어구
+
+    public List<QuestData> quests { get; set; } = new List<QuestData>();
 }

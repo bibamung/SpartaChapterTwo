@@ -119,7 +119,9 @@ public class MainScene
 
     private void EnterDungeon()
     {
+        var player = GameManager.Instance.player;
         dungeonManager.StageSelect();
+        Run();
     }
 
     private void GameSave()

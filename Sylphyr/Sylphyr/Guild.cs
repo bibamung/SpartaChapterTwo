@@ -6,6 +6,9 @@ using System.ComponentModel.Design;
 using Sylphyr.YJH;
 using System.Xml.Serialization;
 using Sylphyr.Dungeon;
+using System.Reflection.Emit;
+using System.Security.Claims;
+using System.Xml.Linq;
 
 namespace Guild
 {
@@ -30,6 +33,9 @@ namespace Guild
         public bool IsSellItemsCompleted => CurrentSellItems >= RequiredSellItems;
         public bool Isclear { get; set; }
         public bool Request { get; set; }
+
+
+
 
         public Quest(int id, string name, string desc, int rewardExp, int rewardGold, int requiredFloors, int requiredBuyItems,
                      int requiredSellItems, bool isclear, bool request)
@@ -60,6 +66,9 @@ namespace Guild
             Console.WriteLine($"  Gold: {RewardGold}");
             Console.WriteLine($"  Exp: {RewardExp}\n");
         }
+
+        
+        
     }
 
     public class Guild
@@ -68,7 +77,7 @@ namespace Guild
         List<Quest> AcceptedQuests = new List<Quest>();
         List<Quest> CompletedQuests = new List<Quest>();
         DungeonManager dungeonManager = new DungeonManager();
-        List<Quest> QuestList = DataManager.Instance.quests;
+        public List<Quest> QuestList = DataManager.Instance.quests;
 
         
         public void GuildMain(Player player)
@@ -315,7 +324,7 @@ namespace Guild
                 */
             }
         }
-        
+
 
         //public void DungeonCountClearQuest()
         //{
@@ -422,7 +431,7 @@ namespace Guild
         //            Console.WriteLine("\n 퀘스트를 거절했습니다.");
         //        }
         //    }
-            
+
         //    Console.WriteLine("\n엔터를 눌러주세요.");
         //    Console.ReadLine();
         //}
@@ -475,5 +484,37 @@ namespace Guild
 
         //    }
         //}
+
+        public List<QuestData> ToQuestList()
+        {
+            List<QuestData> questDatas = new List<QuestData>();
+
+            foreach (var item in QuestList)
+            {
+                questDatas.Add(new QuestData(item.ID, item.Name, item.Desc, item.RewardExp, item.RewardGold, item.RequiredFloors,item.CurrentFloors, item.MaxFloors, item.RequiredBuyItems, item.CurrentBuyItems, item.RequiredSellItems, item.CurrentSellItems, item.Isclear, item.Request));
+            }
+            return questDatas;
+        }
+
+        public void InitializeQuset(GameData gameData)
+        {
+            Console.WriteLine("InitializePlayer 진입");
+            if (gameData == null)
+            {
+                Console.WriteLine("GameData가 없습니다. 초기화에 실패했습니다.");
+                return;
+            }
+            Console.WriteLine("if 스킵 성공");
+            // GameData 데이터를 Player에 적용
+
+            foreach (var item in gameData.quests)
+            {
+                QuestList.Add(new Quest(item.ID, item.Name, item.Desc, item.RewardExp, item.RewardGold, item.RequiredFloors, item.RequiredBuyItems, item.RequiredSellItems, item.Isclear, item.Request));
+
+            }
+
+            Console.WriteLine("Player가 GameData를 사용하여 성공적으로 초기화되었습니다.");
+        }
+
     }
 }

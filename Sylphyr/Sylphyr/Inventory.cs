@@ -736,6 +736,8 @@ namespace Sylphyr
             return equippedItem;
         }
 
+
+
         
         List<Item> Equipmentlist = DataManager.Instance.equipmentItems;
         List<Potion> Potionlist = DataManager.Instance.consumeItems;

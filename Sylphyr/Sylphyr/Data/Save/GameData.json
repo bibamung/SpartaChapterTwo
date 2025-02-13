@@ -1,93 +1,24 @@
 {
-  "Name": "sfda",
-  "CharacterClass": "Paladin",
-  "Level": 1,
-  "CurrentHp": 190,
-  "CurrentMp": 150,
-  "Exp": 0,
-  "Gold": 19800,
-  "Atk": 52,
-  "Dex": 10,
-  "Def": 27,
-  "Luk": 5,
-  "Items": [
-    {
-      "Id": 1076,
-      "Name": "\uD3C9\uBC94\uD55C \uBB35\uC8FC",
-      "Stat": 3,
-      "Value": 20,
-      "Slot": "3",
-      "Price": 1000,
-      "Desc": "\uD3C9\uBC94\uD55C \uBB35\uC8FC.",
-      "IsEquip": true,
-      "PurChase": true
-    },
-    {
-      "Id": 1027,
-      "Name": "\uACE0\uAE09 \uAC00\uC8FD \uBC14\uC9C0",
-      "Stat": 1,
-      "Value": 30,
-      "Slot": "1",
-      "Price": 2000,
-      "Desc": "\uC804\uD600 \uC548 \uACE0\uAE09\uC9C4 \uACE0\uAE09 \uAC00\uC8FD \uBC14\uC9C0.",
-      "IsEquip": true,
-      "PurChase": true
-    }
-  ],
-  "Weapons": [
-    {
-      "Id": 1008,
-      "Name": "\uCD5C\uACE0\uAE09 \uB2E8\uAC80",
-      "Stat": 4,
-      "Value": 40,
-      "Slot": "4",
-      "Price": 3000,
-      "Desc": "\uC2E4\uB825\uC5D0 \uBE44\uD574 \uBE44\uC2FC \uB2E8\uAC80.",
-      "WIsEquip": true,
-      "WPurChase": true
-    },
-    {
-      "Id": 1018,
-      "Name": "\uCD5C\uACE0\uAE09 \uACBD\uC804",
-      "Stat": 4,
-      "Value": 40,
-      "Slot": "4",
-      "Price": 3000,
-      "Desc": "\uACBD\uC804\uC744 \uBB34\uAE30\uB85C \uC0AC\uC6A9 \uD558\uB294\uAC8C \uC815\uC0C1?",
-      "WIsEquip": false,
-      "WPurChase": true
-    }
-  ],
-  "Potions": [
-    {
-      "Id": 1005,
-      "Name": "\uC77C\uBC18 MP\uD3EC\uC158",
-      "Stat": 1,
-      "Value": 20,
-      "Price": 500,
-      "Desc": "\uB9DB\uC5C6\uB294 \uD3EC\uC158.",
-      "IsBuy": false,
-      "IsUse": false
-    },
-    {
-      "Id": 1002,
-      "Name": "\uC0C1\uAE09 HP\uD3EC\uC158",
-      "Stat": 0,
-      "Value": 30,
-      "Price": 700,
-      "Desc": "\uC57D\uC774 \uB9DB\uC788\uB294\uAC8C \uC774\uC0C1\uD558\uC9C0.",
-      "IsBuy": false,
-      "IsUse": false
-    }
-  ],
+  "Name": "dsaf",
+  "CharacterClass": "Archer",
+  "Level": 10,
+  "CurrentHp": 250.15561,
+  "CurrentMp": 195,
+  "Exp": 540,
+  "Gold": 31860,
+  "BestStage": 1,
+  "Atk": 64.39999,
+  "Dex": 18.75,
+  "MaxHp": 255.5,
+  "MaxMp": 195,
+  "Def": 33.550007,
+  "Luk": 14,
+  "Items": [],
+  "Weapons": [],
+  "Potions": [],
   "purChaseweaponItem": null,
   "purChaseEquipmentItem": null,
   "purChasePotion": null,
-  "weaponEquip": [
-    1008
-  ],
-  "itemsEquip": [
-    1027,
-    1076
-  ]
+  "weaponEquip": [],
+  "itemsEquip": []
 }

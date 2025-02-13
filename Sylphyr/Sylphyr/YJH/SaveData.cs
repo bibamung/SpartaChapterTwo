@@ -14,16 +14,17 @@ public class SaveData
     public float CurrentMp { get; set; } // 현재 MP
     public int Exp { get; set; } // 경험치
     public int Gold { get; set; } // 소지금
-
+    public int BestStage { get; set; }
 
     public float Atk { get; set; }
     public float Dex { get; set; }
+    public float MaxHp { get; set; }
+    public float MaxMp { get; set; }
 
     public float Def { get; set; }
     public float Luk { get; set; }
 
-
-    public static CharacterStatData BaseStat = new CharacterStatData(10, 10, 10, 10); // 기본 스탯
+    public static CharacterStatData BaseStat = new CharacterStatData(10, 10, 10, 10,10f,10f); // 기본 스탯
     /*public CharacterStatData BaseStatattack {get;set;}
     public CharacterStatData BaseStatdex {get;set;}
     public CharacterStatData BaseStatdef{get;set;}
@@ -61,18 +62,14 @@ public class SaveData
             Def = BaseStat.Def,
             Luk = BaseStat.Luk,
 
+            MaxHp = BaseStat.MaxHp,
+            MaxMp = BaseStat.MaxMp,
+            BestStage = 0,
+
             Items = new List<ItemData>(),
             Weapons = new List<WeaponData>(),
             Potions = new List<PotionData>(),
 
-
-
-            /*purChaseweaponItem = new List<int>(),
-            purChaseEquipmentItem = new List<int>(),
-            purChasePotion = new List<int>(),
-
-            weaponEquip = new List<int>(),
-            itemsEquip = new List<int>()*/
         };
     }
 
@@ -99,7 +96,7 @@ public class SaveData
         Console.WriteLine(
             $"[Base Stats] ATK: {BaseStat.Attack}, DEX: {BaseStat.Dex}, DEF: {BaseStat.Def}, LUK: {BaseStat.Luk}");
         //Console.WriteLine(
-            //$"[Enhanced Stats] ATK: {EnhancedStat.Attack}, DEX: {EnhancedStat.Dex}, DEF: {EnhancedStat.Def}, LUK: {EnhancedStat.Luk}");
+            //$"[Base Stats] ATK: {BaseStat.Attack}, DEX: {BaseStat.Dex}, DEF: {BaseStat.Def}, LUK: {BaseStat.Luk}");
     }
 
     /*public void SavepurchaseItem()
@@ -135,13 +132,17 @@ public class CharacterStatData
     [JsonProperty]public float Dex{ get; set; }
     [JsonProperty]public float Def{ get; set; }
     [JsonProperty]public float Luk{ get; set; }
+    [JsonProperty] public float MaxHp { get; set; }
+    [JsonProperty] public float MaxMp { get; set; }
 
-    public CharacterStatData(float attack, float dex, float def, float luk )
+    public CharacterStatData(float attack, float dex, float def, float luk, float maxHp, float maxMp )
     {
         Attack = attack;
         Dex = dex;
         Def = def;
-        Luk = luk;   
+        Luk = luk;
+        MaxMp = maxMp;
+        MaxHp = maxHp;
     }
     
     public float GetAtk()
@@ -202,6 +203,46 @@ public class WeaponData
         WIsEquip = wisEquip;
         WPurChase = wpurChase;
     }
+}
+public class QuestData
+{
+    public int ID { get; set;}
+    public string Name { get; set;}
+    public string Desc { get; set;}
+    public int RewardExp {  get; set;}
+    public int RewardGold {  get; set;}
+    public int RequiredFloors { get; set;}
+    public int CurrentFloors  { get; set;}
+    public int MaxFloors { get; set;}
+    public int RequiredBuyItems {  get; set;}
+    public int CurrentBuyItems { get; set;}
+    public int RequiredSellItems { get; set;}
+    public int CurrentSellItems { get; set;}
+    public bool IsFloorsCompleted => CurrentFloors >= RequiredFloors;
+    public bool IsBuyItemsCompleted => CurrentBuyItems >= RequiredBuyItems;
+    public bool IsSellItemsCompleted => CurrentSellItems >= RequiredSellItems;
+    public bool Isclear { get; set; }
+    public bool Request { get; set; }
+    public QuestData(int id, string name, string desc, int rewardExp, 
+        int rewardGold, int requiredFloors, int currentFloors, int maxFloors, 
+        int requiredBuyItems, int currentBuyItems, int requiredSellItems,
+        int currentSellItems, bool isclear, bool request)
+    {
+        ID = id;
+        Name = name;
+        Desc = desc;
+        RewardExp = rewardExp;
+        RewardGold = rewardGold;
+        RequiredFloors = requiredFloors;
+        CurrentFloors = currentFloors;
+        MaxFloors = maxFloors;
+        RequiredBuyItems = requiredBuyItems;
+        CurrentBuyItems = currentBuyItems;
+        RequiredSellItems = requiredSellItems;
+        Isclear = isclear;
+        Request = request;
+    }
+    
 }
 
 public class PotionData

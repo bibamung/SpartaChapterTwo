@@ -30,7 +30,7 @@ public class Player
     public int Gold { get; private set; } = 0;
     
     // Dungeon Clear Info
-    public int BestStage { get; private set; }
+    public int BestStage { get; set; }
 
     private CharacterStat totalStat = new CharacterStat();
     public CharacterStat TotalStat
@@ -220,15 +220,15 @@ public class Player
 
         void AddStat(float hp, int mp, float atk, float def, float luk, float dex, int speed, float criticalChance, float criticalDamage)
         {
-            EnhancedStat.MaxHp += hp;
-            EnhancedStat.MaxMp += mp;
-            EnhancedStat.Atk += atk;
-            EnhancedStat.Def += def;
-            EnhancedStat.Luk += luk;
-            EnhancedStat.Dex += dex;
-            EnhancedStat.Speed += speed;
-            EnhancedStat.CriticalChance += criticalChance;
-            EnhancedStat.CriticalDamage += criticalDamage;
+            BaseStat.MaxHp += hp;
+            BaseStat.MaxMp += mp;
+            BaseStat.Atk += atk;
+            BaseStat.Def += def;
+            BaseStat.Luk += luk;
+            BaseStat.Dex += dex;
+            BaseStat.Speed += speed;
+            BaseStat.CriticalChance += criticalChance;
+            BaseStat.CriticalDamage += criticalDamage;
         }
     }
 
@@ -308,19 +308,31 @@ public class Player
         Name = gameData.Name;
         Class = Enum.Parse<CharacterClass>(gameData.CharacterClass);
         Level = gameData.Level;
+
+        foreach (var skill in Skills)
+        {
+            if (skill.AcquisitionLevel <= Level)
+            {
+                if (!learnedSkills.Contains(skill))
+                {
+                    learnedSkills.Add(skill);
+                }
+            }
+        }
+
         CurrentHp = gameData.CurrentHp;
         CurrentMp = gameData.CurrentMp;
         Exp = gameData.Exp;
         Gold = gameData.Gold;
-
+        
+        BestStage = gameData.BestStage;
+        
         BaseStat.Atk = gameData.Atk;
         BaseStat.Dex = gameData.Dex;
         BaseStat.Def = gameData.Def;
         BaseStat.Luk = gameData.Luk;
-
-
-        /*BaseStat = new CharacterStat();
-        EnhancedStat = new CharacterStat();*/
+        BaseStat.MaxHp = gameData.MaxHp;
+        BaseStat.MaxMp = gameData.MaxMp;
 
         Console.WriteLine("Player가 GameData를 사용하여 성공적으로 초기화되었습니다.");
     }
@@ -329,7 +341,7 @@ public class Player
 
 
     public SaveData ToSaveData() {
-        return new SaveData 
+        return new SaveData
         {
             Name = Name,
             CharacterClass = Class.ToString(),
@@ -342,8 +354,9 @@ public class Player
             Dex = BaseStat.Dex,
             Def = BaseStat.Def,
             Luk = BaseStat.Luk,
-            //BaseStat = new CharacterStatData(BaseStat.Atk, BaseStat.Dex, BaseStat.Def, BaseStat.Luk),
-            //EnhancedStat = new YJH.CharacterStatData (EnhancedStat.Atk, EnhancedStat.Dex, EnhancedStat.Def, EnhancedStat.Luk),
+            MaxHp = BaseStat.MaxHp,
+            MaxMp = BaseStat.MaxMp,
+            BestStage = (BestStage == 0 ? 0 : BestStage)
         };
     }
 }

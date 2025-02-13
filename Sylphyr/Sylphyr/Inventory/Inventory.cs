@@ -650,10 +650,18 @@ namespace Sylphyr
                     case 0:
                         return;
                     default:
+                        var isUsed = false;
+                        if (selectedPotion.Stat == 0) player.UseItem(true, selectedPotion.Value, out isUsed);
+                        else if (selectedPotion.Stat == 1) player.UseItem(false, selectedPotion.Value, out isUsed);
+                        
+                        if (!isUsed)
+                        {
+                            Thread.Sleep(500);
+                            break;
+                        }
+                        
                         invenpotions[input].count--;
                         invenpotions.Remove(selectedPotion);
-                        if (selectedPotion.Stat == 0) player.UseItem(true, selectedPotion.Value);
-                        else if (selectedPotion.Stat == 1) player.UseItem(false, selectedPotion.Value);
                         break;
                 }
             }

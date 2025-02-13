@@ -10,6 +10,9 @@
     <list default="true" id="31bad01f-6a79-4b3a-a781-2641141f45d1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Sylphyr/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Sylphyr/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Sylphyr/Character/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/Character/Player.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sylphyr/Data/Save/GameData.json" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/Data/Save/GameData.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sylphyr/Inventory/Inventory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/Inventory/Inventory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sylphyr/SaveData/SaveData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Sylphyr/SaveData/SaveData.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

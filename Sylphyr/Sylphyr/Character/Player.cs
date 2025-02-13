@@ -250,10 +250,19 @@ public class Player
     }
     
     // 소비아이템(포션) 사용
-    public void UseItem(bool isHpPotion, float value)
+    public void UseItem(bool isHpPotion, float value, out bool isUsed)
     {
+        isUsed = true;
+        
         if (isHpPotion) // hp
         {
+            if (CurrentHp == TotalStat.MaxHp)
+            {
+                isUsed = false;
+                Console.WriteLine("이미 최대 체력입니다.");
+                return;
+            }
+            
             CurrentHp += value;
             if (CurrentHp > TotalStat.MaxHp)
                 CurrentHp = TotalStat.MaxHp;
@@ -261,6 +270,13 @@ public class Player
         }
         else // mp
         {
+            if (CurrentMp == TotalStat.MaxMp)
+            {
+                isUsed = false;
+                Console.WriteLine("이미 최대 마나입니다.");
+                return;
+            }
+            
             CurrentMp += value;
             if (CurrentMp > TotalStat.MaxMp)
                 CurrentMp = TotalStat.MaxMp;

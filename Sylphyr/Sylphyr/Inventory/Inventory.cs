@@ -31,8 +31,7 @@ namespace Sylphyr
             int textWidth = text.Sum(c => (c >= 0xAC00 && c <= 0xD7A3) ? 2 : 1); // 한글 2칸, 영문 1칸
 
             // 만약 textWidth가 totalWidth보다 크다면, totalWidth를 초과한 부분은 제거하여 균등하게 맞추도록.
-            if (textWidth > totalWidth)
-                return text.Substring(0, totalWidth);
+            if (textWidth > totalWidth) return text.Substring(0, totalWidth);
 
             // 여유공간을 공백으로 채운 후 반환
             return text + new string(' ', totalWidth - textWidth);

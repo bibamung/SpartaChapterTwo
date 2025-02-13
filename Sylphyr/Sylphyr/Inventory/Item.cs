@@ -33,6 +33,7 @@ namespace Sylphyr
         static string AlignText(string text, int totalWidth)
         {
             int textWidth = text.Sum(c => (c >= 0xAC00 && c <= 0xD7A3) ? 2 : 1); // 한글 2칸, 영문 1칸
+            if (textWidth > totalWidth) return text.Substring(0, totalWidth);
             return text + new string(' ', totalWidth - textWidth);
         }
 

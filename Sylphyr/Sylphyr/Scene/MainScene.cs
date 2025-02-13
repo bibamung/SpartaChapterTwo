@@ -22,7 +22,7 @@ public class MainScene
         sb.AppendLine(" 4. 던전 입장");
         sb.AppendLine(" 5. 길드 입장");
         sb.AppendLine(" 6. 치료소");
-        sb.AppendLine(" 7. 저장하기");
+        sb.AppendLine(" 7. 저장하기 (일부구현)");
         sb.AppendLine(" 0. 게임 종료");
         sb.AppendLine();
     }
@@ -47,7 +47,7 @@ public class MainScene
 
         Console.Write("원하시는 행동을 입력해주세요.");
 
-        int input = Util.GetInput(0, 6, 1313);
+        int input = Util.GetInput(0, 7, 1313);
         switch ((Behavior)input)
         {
             case Behavior.PlayerInfo:

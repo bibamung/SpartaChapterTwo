@@ -64,7 +64,7 @@ public class Player
         CurrentHp = BaseStat.MaxHp;
         CurrentMp = BaseStat.MaxMp;
         Exp = 0;
-        Gold = 30000;
+        Gold = 3000;
     }
 
     private CharacterStat? GetCharacterStat(CharacterClass charClass)
@@ -114,7 +114,8 @@ public class Player
         statusSb.Append($" 치명타 대미지: {TotalStat.CriticalDamage * 100:N1}%");
         if (EnhancedStat.CriticalDamage > 0) statusSb.Append($" (+{EnhancedStat.CriticalDamage * 100:N1}%)");
         statusSb.AppendLine();
-        
+        statusSb.AppendLine();
+
         statusSb.AppendLine("[ 보유 스킬 ]");
         foreach (var skill in learnedSkills)
         {
